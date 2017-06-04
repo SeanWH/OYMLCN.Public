@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net452</TargetFramework>
+    <RootNamespace>OYMLCN</RootNamespace>
+    <Version>0.1.1</Version>
+    <Authors>VicBilibily欧阳敏岚</Authors>
+    <Company>广东佰群网络科技股份有限公司</Company>
+    <Description>Tessract图像识别方法及内容</Description>
+    <Copyright>开放使用项目</Copyright>
+    <PackageLicenseUrl>https://www.oyml.cn/</PackageLicenseUrl>
+    <PackageProjectUrl>https://tfs.oyml.cn/OYMLCN/Open/OYMLCN.Tessract</PackageProjectUrl>
+    <RepositoryUrl>https://tfs.oyml.cn/OYMLCN/Open/OYMLCN.Tessract</RepositoryUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+    <DocumentationFile>bin\Release\net452\OYMLCN.Tessract.xml</DocumentationFile>
+  </PropertyGroup>  
+  <ItemGroup>
+    <PackageReference Include="Tesseract" Version="3.0.2.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
+  </ItemGroup>
+</Project>

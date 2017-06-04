@@ -1,0 +1,149 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
+using System.Windows;
+using System.Windows.Threading;
+
+namespace OYMLCN
+{
+    /// <summary>
+    /// ApplicationInitialization
+    /// </summary>
+    public class ApplicationInitialization
+    {
+        /// <summary>
+        /// NativeMethods
+        /// </summary>
+        protected class NativeMethods
+        {
+            [DllImport("user32.dll")]
+            internal static extern bool SetForegroundWindow(IntPtr hWnd);
+
+            [DllImport("user32.dll")]
+            internal static extern bool ShowWindow(IntPtr hWnd, WindowShowStyle nCmdShow);
+        }
+        internal enum WindowShowStyle : uint
+        {
+            Hide = 0,
+            ShowNormal = 1,
+            ShowMinimized = 2,
+            ShowMaximized = 3,
+            Maximize = 3,
+            ShowNormalNoActivate = 4,
+            Show = 5,
+            Minimize = 6,
+            ShowMinNoActivate = 7,
+            ShowNoActivate = 8,
+            Restore = 9,
+            ShowDefault = 10,
+            ForceMinimized = 11
+        }
+
+        private static Semaphore singleInstanceWatcher;
+        private static bool createdNew;
+        /// <summary>
+        /// 只允许启动一个程序实例
+        /// </summary>
+        /// <param name="action"></param>
+        public static void OneInstanceStartup(Action action)
+        {
+            singleInstanceWatcher = new Semaphore(0, 1, Assembly.GetExecutingAssembly().GetName().Name, out createdNew);
+            if (createdNew)
+                action.Invoke();
+            else
+            {
+                Process current = Process.GetCurrentProcess();
+                foreach (Process process in Process.GetProcessesByName(current.ProcessName))
+                    if (process.Id != current.Id)
+                    {
+                        NativeMethods.SetForegroundWindow(process.MainWindowHandle);
+                        NativeMethods.ShowWindow(process.MainWindowHandle, WindowShowStyle.Restore);
+                        break;
+                    }
+                Application.Current.Shutdown();
+            }
+        }
+
+        /// <summary>
+        /// 捕获程序异常
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            try
+            {
+                var exception = e.ExceptionObject as Exception;
+                if (exception != null)
+                    ThreadPool.QueueUserWorkItem(o =>
+                    {
+                        MessageBox.Show(exception.Message, "程序异常", MessageBoxButton.OK, MessageBoxImage.Error);
+                    });
+            }
+            catch (Exception err)
+            {
+                ThreadPool.QueueUserWorkItem(o =>
+                {
+                    MessageBox.Show($"发生不可恢复异常，程序即将退出。/r/n{err.Message}");
+                    KillMainProcess();
+                });
+            }
+        }
+        private static void KillMainProcess()
+        {
+            Process[] ps = Process.GetProcesses();
+            foreach (Process p in ps)
+                if (p.ProcessName == Assembly.GetEntryAssembly().GetName().Name)
+                    p.Kill();
+        }
+
+        /// <summary>
+        /// 捕获所有未处理异常
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            e.Handled = true;
+            try
+            {
+                var list = new List<Exception>();
+                var exception = e.Exception;
+                do
+                {
+                    list.Add(exception);
+                    exception = exception?.InnerException;
+                }
+                while (exception != null);
+                StringBuilder str = new StringBuilder();
+                str.AppendLine();
+                list.Reverse();
+                foreach (var item in list)
+                    str.AppendLine(item?.Message);
+                if (list.Any(d => d.GetType() == typeof(TypeInitializationException)))
+                {
+                    str.AppendLine("发生初始化异常，程序即将退出！");
+                    throw new Exception(str.ToString());
+                }
+                if (e.Exception != null)
+                    ThreadPool.QueueUserWorkItem(o =>
+                    {
+                        MessageBox.Show(e.Exception.Message, "程序异常", MessageBoxButton.OK, MessageBoxImage.Error);
+                    });
+            }
+            catch (Exception err)
+            {
+                ThreadPool.QueueUserWorkItem(o =>
+                {
+                    MessageBox.Show($"{err.Message}\r\n发生不可恢复异常，程序即将退出。", "致命异常", MessageBoxButton.OK, MessageBoxImage.Error);
+                    KillMainProcess();
+                });
+            }
+        }
+    }
+}

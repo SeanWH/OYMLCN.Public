@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp1.0;net452</TargetFrameworks>
+    <RootNamespace>OYMLCN</RootNamespace>
+    <Authors>VicBilibily欧阳敏岚</Authors>
+    <Company>广东佰群网络科技股份有限公司</Company>
+    <Description>常用类型方法扩展
+BitmapExtension（仅.Net）、BitmapHandler（仅.Net）、CryptographyExtension、DateTimeExtension、EnumExtension、FileExtension、HardwareExtension（仅.Net）、HTMLExtension、HttpClient（静态方法封装）、PinYinExtension、StreamExtension、StringExtension、SystemInfo（仅.Net）、ZipExtension</Description>
+    <Copyright>OYML.CN</Copyright>
+    <PackageProjectUrl>https://www.oyml.cn/OYMLCN.Extension</PackageProjectUrl>
+    <Version>1.0.0-alpha20170601</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+    <Compile Remove="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp1.0\OYMLCN.Extension.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netcoreapp1.0\OYMLCN.Extension.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
+    <Reference Include="System.Management" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+</Project>

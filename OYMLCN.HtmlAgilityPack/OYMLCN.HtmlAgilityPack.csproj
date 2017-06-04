@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net452</TargetFramework>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Company>广东佰群网络科技股份有限公司</Company>
+    <Authors>VicBilibily欧阳敏岚</Authors>
+    <Version>0.1.2</Version>
+    <Description>HtmlAgilityPackExtension
+String.AsAgilityHtml()
+HtmlNode.GetInnerHtml
+HtmlNode.GetInnerText
+HtmlNode.GetAttributeValue
+HtmlNode/HtmlNodeCollection
+GetIdNode
+GetAttributeNode、GetAttributeNodes
+GetClassNameNode、GetClassNameNodes</Description>
+    <PackageLicenseUrl>https://www.oyml.cn/</PackageLicenseUrl>
+    <Copyright>开放使用项目</Copyright>
+    <PackageProjectUrl>https://tfs.oyml.cn/OYMLCN/Open/OYMLCN.HtmlAgilityPack</PackageProjectUrl>
+    <RepositoryUrl>https://tfs.oyml.cn/OYMLCN/Open/OYMLCN.HtmlAgilityPack</RepositoryUrl>
+    <FileVersion>0.0.1.0</FileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\net452\OYMLCN.HtmlAgilityPack.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.4.9.5" />
+  </ItemGroup>
+</Project>

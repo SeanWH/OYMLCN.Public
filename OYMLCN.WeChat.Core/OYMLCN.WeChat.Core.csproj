@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp1.0;net452</TargetFrameworks>
+    <RootNamespace>OYMLCN.WeChat</RootNamespace>
+    <Authors>VicBilibily欧阳敏岚</Authors>
+    <Company>广东佰群网络科技股份有限公司</Company>
+    <Description>微信公众平台SDK核心库</Description>
+    <Copyright>OYML.CN</Copyright>
+    <PackageProjectUrl>https://www.oyml.cn/OYMLCN.WeChat.Core</PackageProjectUrl>
+    <Version>1.0.0-alpha20170601</Version>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp1.0|AnyCPU'">
+    <DocumentationFile>bin\Release\netcoreapp1.0\OYMLCN.WeChat.Core.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp1.0|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp1.0\OYMLCN.WeChat.Core.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
+    <ProjectReference Include="..\OYMLCN.Web\OYMLCN.Web.csproj" />
+    <ProjectReference Include="..\OYMLCN.Xml\OYMLCN.Xml.csproj" />
+  </ItemGroup>
+</Project>
