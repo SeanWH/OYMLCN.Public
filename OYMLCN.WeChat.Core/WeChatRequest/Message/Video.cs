@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-
-namespace OYMLCN.WeChat
+﻿namespace OYMLCN.WeChat
 {
     /// <summary>
     /// 微信请求

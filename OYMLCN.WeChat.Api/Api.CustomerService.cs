@@ -1,9 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
-using OYMLCN.WeChat.Model;
+﻿using OYMLCN.WeChat.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace OYMLCN.WeChat
 {
@@ -12,37 +9,40 @@ namespace OYMLCN.WeChat
         public partial class CustomerService
         {
 
-            public static KefuList.Info[] GetList(AccessToken token) =>
-                ApiGet<KefuList>("/cgi-bin/customservice/getkflist?access_token={0}", token.access_token).kf_list;
+            public static KefuList.Info[] GetList(string access_token) =>
+                ApiGet<KefuList>("/cgi-bin/customservice/getkflist?access_token={0}", access_token).kf_list;
 
-            public static KefuList.Info[] GetOnlineList(AccessToken token) =>
-                ApiGet<KefuList>("/cgi-bin/customservice/getonlinekflist?access_token={0}", token.access_token).kf_online_list;
+            public static KefuList.Info[] GetOnlineList(string access_token) =>
+                ApiGet<KefuList>("/cgi-bin/customservice/getonlinekflist?access_token={0}", access_token).kf_online_list;
 
-            public static class Account
+            public class Account
             {
+                protected class JsonCreate
+                {
+                    public static string Add(string kf_account, string nickname) =>
+                        "{\"kf_account\":\"" + kf_account + "\",\"nickname\":\"" + nickname + "\"}";
+                    public static string Invite(string kf_account, string invite_wx) =>
+                        "{\"kf_account\":\"" + kf_account + "\",\"invite_wx\":\"" + invite_wx + "\"}";
+                    public static string Update(string kf_account, string nickname) => Add(kf_account, nickname);
+                }
 
-                public static JsonResult Add(AccessToken token, string nickName, string kfName, Config cfg = null) =>
-                    ApiPost<JsonResult>("{\"kf_account\":\"" + CompleteKefuName(kfName, cfg) + "\",\"nickname\":\"" + nickName + "\"}",
-                        "/customservice/kfaccount/add?access_token={0}", token.access_token);
+                public static JsonResult Add(string access_token, string kf_account, string nickname) =>
+                    ApiPost<JsonResult>(JsonCreate.Add(kf_account, nickname), "/customservice/kfaccount/add?access_token={0}", access_token);
+                public static JsonResult Invite(string access_token, string kf_account, string invite_wx) =>
+                   ApiPost<JsonResult>(JsonCreate.Invite(kf_account, invite_wx), "/customservice/kfaccount/inviteworker?access_token={0}", access_token);
+                public static JsonResult Update(string access_token, string kf_account, string nickname) =>
+                    ApiPost<JsonResult>(JsonCreate.Update(kf_account, nickname), "/customservice/kfaccount/update?access_token={0}", access_token);
 
-                public static JsonResult Invite(AccessToken token, string inviteWX, string kfName, Config cfg = null) =>
-                   ApiPost<JsonResult>("{\"kf_account\":\"" + CompleteKefuName(kfName, cfg) + "\",\"invite_wx\":\"" + inviteWX + "\"}",
-                       "/customservice/kfaccount/inviteworker?access_token={0}", token.access_token);
-
-                public static JsonResult Update(AccessToken token, string nickName, string kfName, Config cfg = null) =>
-                    ApiPost<JsonResult>("{\"kf_account\":\"" + CompleteKefuName(kfName, cfg) + "\",\"nickname\":\"" + nickName + "\"}",
-                        "/customservice/kfaccount/update?access_token={0}", token.access_token);
-
-                public static JsonResult UploadHeadImg(AccessToken token, string filePath, string kfName, Config cfg = null)
+                public static JsonResult UploadHeadImg(string access_token, string kf_account, string filePath)
                 {
                     if (!filePath.GetFileInfo().Extension.Equals(".jpg"))
                         throw new FormatException("头像图片文件必须是jpg格式");
                     return ApiPostFile<JsonResult>(new Dictionary<string, string>() {
                         { "media", filePath }
-                    }, "/customservice/kfaccount/uploadheadimg?access_token={0}&kf_account={1}", token.access_token, CompleteKefuName(kfName, cfg).EncodeAsUrlData());
+                    }, "/customservice/kfaccount/uploadheadimg?access_token={0}&kf_account={1}", access_token, kf_account.EncodeAsUrlData());
                 }
-                public static JsonResult Delete(AccessToken token, string kfName, Config cfg = null) =>
-                    ApiGet<JsonResult>("/customservice/kfaccount/del?access_token={0}&kf_account={1}", token.access_token, CompleteKefuName(kfName, cfg).EncodeAsUrlData());
+                public static JsonResult Delete(string access_token, string kf_account) =>
+                    ApiGet<JsonResult>("/customservice/kfaccount/del?access_token={0}&kf_account={1}", access_token, kf_account.EncodeAsUrlData());
 
             }
         }

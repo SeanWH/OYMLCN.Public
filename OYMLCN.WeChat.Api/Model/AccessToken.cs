@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OYMLCN.WeChat.Model
 {
@@ -25,7 +23,7 @@ namespace OYMLCN.WeChat.Model
         /// <summary>
         /// AccessToken获取时间
         /// </summary>
-        public DateTime GetTime { get; private set; }
+        public DateTime GetTime { get; }
         /// <summary>
         /// AccessToken过期刷新时间
         /// </summary>

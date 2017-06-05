@@ -25,39 +25,39 @@ namespace OYMLCN.WeChat
         private static string MpUrl(string apiStr, params string[] param) => string.Format("https://{0}{1}", MpHost, string.Format(apiStr, param));
 
 
-        private static T ApiGet<T>(string apiStr, params string[] param) where T : Model.JsonResult
+        private static T ApiGet<T>(string url, params string[] param) where T : Model.JsonResult
         {
-            var result = HttpClient.GetString(ApiUrl(apiStr, param)).DeserializeJsonString<T>();
+            var result = HttpClient.GetString(ApiUrl(url, param)).DeserializeJsonString<T>();
             if (result != null && result.Success)
                 return result;
             throw result?.Error ?? new InvalidCastException("未知返回异常");
         }
-        private static T ApiPost<T>(string data, string apiStr, params string[] param) where T : Model.JsonResult
+        private static T ApiPost<T>(string data, string url, params string[] param) where T : Model.JsonResult
         {
-            var result = HttpClient.PostJsonString(ApiUrl(apiStr, param), data).DeserializeJsonString<T>();
+            var result = HttpClient.PostJsonString(ApiUrl(url, param), data).DeserializeJsonString<T>();
             if (result != null && result.Success)
                 return result;
             throw result?.Error ?? new InvalidCastException("未知返回异常");
         }
-        private static JToken ApiJTokenGet(string apiStr, params string[] param)
+        private static JToken ApiJTokenGet(string url, params string[] param)
         {
-            string result = HttpClient.GetString(ApiUrl(apiStr, param));
+            string result = HttpClient.GetString(ApiUrl(url, param));
             var jr = result.DeserializeJsonString<Model.JsonResult>();
             if (jr != null && jr.Success)
                 return result.ParseToJToken();
             throw jr?.Error ?? new InvalidCastException("未知返回异常");
         }
-        private static JToken ApiJTokenPost(string data, string apiStr, params string[] param)
+        private static JToken ApiJTokenPost(string data, string url, params string[] param)
         {
-            string result = HttpClient.PostJsonString(ApiUrl(apiStr, param), data);
+            string result = HttpClient.PostJsonString(ApiUrl(url, param), data);
             var jr = result.DeserializeJsonString<Model.JsonResult>();
             if (jr != null && jr.Success)
                 return result.ParseToJToken();
             throw jr?.Error ?? new InvalidCastException("未知返回异常");
         }
-        private static T ApiPostFile<T>(Dictionary<string,string> data, string apiStr, params string[] param) where T : Model.JsonResult
+        private static T ApiPostFile<T>(Dictionary<string,string> data, string url, params string[] param) where T : Model.JsonResult
         {
-            var result = HttpClient.CurlPost(ApiUrl(apiStr, param), data).ReadToEnd().DeserializeJsonString<T>();
+            var result = HttpClient.CurlPost(ApiUrl(url, param), data).ReadToEnd().DeserializeJsonString<T>();
             if (result != null && result.Success)
                 return result;
             throw result?.Error ?? new InvalidCastException("未知返回异常");

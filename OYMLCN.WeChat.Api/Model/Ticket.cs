@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OYMLCN.WeChat.Model
 {
@@ -26,7 +24,7 @@ namespace OYMLCN.WeChat.Model
         /// <summary>
         /// JsApiTicket获取时间
         /// </summary>
-        public DateTime GetTime { get; private set; }
+        public DateTime GetTime { get; }
         /// <summary>
         /// JsApiTicket过期刷新时间
         /// </summary>

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 #if NET452
 using System.Management;
 #endif
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace OYMLCN
 {

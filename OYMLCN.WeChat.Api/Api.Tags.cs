@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using OYMLCN.WeChat.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using OYMLCN.WeChat.Model;
 
 namespace OYMLCN.WeChat
 {
@@ -11,19 +6,33 @@ namespace OYMLCN.WeChat
     {
         public partial class Tags
         {
-            public static TagResult.Tag Create(AccessToken token, string name) =>
-                ApiPost<TagResult>("{\"tag\":{\"name\":\"" + name + "\"}}", "/cgi-bin/tags/create?access_token={0}", token.access_token).tag;
-            public static TagResult.Tag[] Get(AccessToken token) =>
-                ApiGet<TagResult>("/cgi-bin/tags/get?access_token={0}", token.access_token).tags;
-            public static JsonResult Update(AccessToken token, int id, string name) =>
-                ApiPost<JsonResult>("{\"tag\":{\"id\":" + id.ToString() + ",\"name\":\"" + name + "\"}}", "/cgi-bin/tags/update?access_token={0}", token.access_token);
-            public static JsonResult Delete(AccessToken token, int id) =>
-                ApiPost<JsonResult>("{\"tag\":{\"id\":" + id.ToString() + "}}", "/cgi-bin/tags/delete?access_token={0}", token.access_token);
+            protected class JsonCreate
+            {
+                public static string Create(string name) =>
+                    "{\"tag\":{\"name\":\"" + name + "\"}}";
+                public static string Update(int id, string name) =>
+                    "{\"tag\":{\"id\":" + id.ToString() + ",\"name\":\"" + name + "\"}}";
+                public static string Delete(int id) =>
+                    "{\"tag\":{\"id\":" + id.ToString() + "}}";
+                public static string GetUsers(int id, string next_openid = "") =>
+                    "{\"tagid\":" + id + ",\"next_openid\":\"" + next_openid + "\"}";
+                public static string GetIdList(string openid) =>
+                    "{\"openid\":\"" + openid + "\"}";
+            }
 
-            public static TagUsers GetUsers(AccessToken token, int id, string nextOpenId = "") =>
-                ApiPost<TagUsers>("{\"tagid\":" + id + ",\"next_openid\":\"" + nextOpenId + "\"}", "/cgi-bin/user/tag/get?access_token={0}", token.access_token);
-            public static int[] GetIdList(AccessToken token, string openid) =>
-                ApiPost<UserInfo>("{\"openid\":\"" + openid + "\"}", "/cgi-bin/tags/getidlist?access_token={0}", token.access_token).tagid_list;
+            public static TagResult.Tag Create(string access_token, string name) =>
+                ApiPost<TagResult>(JsonCreate.Create(name), "/cgi-bin/tags/create?access_token={0}", access_token).tag;
+            public static TagResult.Tag[] Get(string access_token) =>
+                ApiGet<TagResult>("/cgi-bin/tags/get?access_token={0}", access_token).tags;
+            public static JsonResult Update(string access_token, int id, string name) =>
+                ApiPost<JsonResult>(JsonCreate.Update(id, name), "/cgi-bin/tags/update?access_token={0}", access_token);
+            public static JsonResult Delete(string access_token, int id) =>
+                ApiPost<JsonResult>(JsonCreate.Delete(id), "/cgi-bin/tags/delete?access_token={0}", access_token);
+
+            public static TagUsers GetUsers(string access_token, int id, string next_openid = "") =>
+                ApiPost<TagUsers>(JsonCreate.GetUsers(id, next_openid), "/cgi-bin/user/tag/get?access_token={0}", access_token);
+            public static int[] GetIdList(string access_token, string openid) =>
+                ApiPost<UserInfo>(JsonCreate.GetIdList(openid), "/cgi-bin/tags/getidlist?access_token={0}", access_token).tagid_list;
 
         }
     }

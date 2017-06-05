@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using OYMLCN.WeChat.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using OYMLCN.WeChat.Model;
 
 namespace OYMLCN.WeChat
 {
@@ -13,19 +8,24 @@ namespace OYMLCN.WeChat
         {
             public partial class Session
             {
-                public static JsonResult Create(AccessToken token, string openid, string kfName, Config cfg = null) =>
-                    ApiPost<JsonResult>("{\"kf_account\":\"" + CompleteKefuName(kfName, cfg) + "\",\"openid\":\"" + openid + "\"}",
-                        "/customservice/kfsession/create?access_token={0}", token.access_token);
-                public static JsonResult Close(AccessToken token, string openid, string kfName, Config cfg = null) =>
-                    ApiPost<JsonResult>("{\"kf_account\":\"" + CompleteKefuName(kfName, cfg) + "\",\"openid\":\"" + openid + "\"}",
-                        "/customservice/kfsession/close?access_token={0}", token.access_token);
+                protected class JsonCreate
+                {
+                    public static string Create(string kf_account, string openid) =>
+                        "{\"kf_account\":\"" + kf_account + "\",\"openid\":\"" + openid + "\"}";
+                    public static string Close(string kf_account, string openid) => Create(kf_account, openid);
+                }
 
-                public static KefuSessionList.Session Get(AccessToken token, string openid) =>
-                    ApiGet<KefuSessionList.Session>("/customservice/kfsession/getsession?access_token={0}&openid={1}", token.access_token, openid);
-                public static KefuSessionList.Session[] GetList(AccessToken token, string kfName, Config cfg = null) =>
-                    ApiGet<KefuSessionList>("/customservice/kfsession/getsessionlist?access_token={0}&kf_account={1}", token.access_token, CompleteKefuName(kfName, cfg).EncodeAsUrlData()).sessionlist;
-                public static KefuSessionList.Session[] GetWaitCase(AccessToken token) =>
-                    ApiGet<KefuSessionList>("/customservice/kfsession/getwaitcase?access_token={0}", token.access_token).waitcaselist;
+                public static JsonResult Create(string access_token, string kf_account, string openid) =>
+                    ApiPost<JsonResult>(JsonCreate.Create(kf_account, openid), "/customservice/kfsession/create?access_token={0}", access_token);
+                public static JsonResult Close(string access_token, string kf_account, string openid) =>
+                    ApiPost<JsonResult>(JsonCreate.Create(kf_account, openid), "/customservice/kfsession/close?access_token={0}", access_token);
+
+                public static KefuSessionList.Session Get(string access_token, string openid) =>
+                    ApiGet<KefuSessionList.Session>("/customservice/kfsession/getsession?access_token={0}&openid={1}", access_token, openid);
+                public static KefuSessionList.Session[] GetList(string access_token, string kf_account) =>
+                    ApiGet<KefuSessionList>("/customservice/kfsession/getsessionlist?access_token={0}&kf_account={1}", access_token, kf_account.EncodeAsUrlData()).sessionlist;
+                public static KefuSessionList.Session[] GetWaitCase(string access_token) =>
+                    ApiGet<KefuSessionList>("/customservice/kfsession/getwaitcase?access_token={0}", access_token).waitcaselist;
 
             }
         }

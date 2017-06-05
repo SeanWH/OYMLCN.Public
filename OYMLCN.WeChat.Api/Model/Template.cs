@@ -1,9 +1,4 @@
-﻿using OYMLCN.WeChat.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OYMLCN.WeChat.Model
+﻿namespace OYMLCN.WeChat.Model
 {
     /// <summary>
     /// 模板消息模板信息

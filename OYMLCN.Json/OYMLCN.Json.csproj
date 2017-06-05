@@ -29,7 +29,4 @@ JToken.GetIntArray(key)、JToken.GetStringArray(key)、JToken.GetObjectArray(key
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
-  </ItemGroup>
 </Project>

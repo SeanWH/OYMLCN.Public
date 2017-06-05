@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml.Linq;
 
 namespace OYMLCN.WeChat
 {
@@ -24,6 +21,24 @@ namespace OYMLCN.WeChat
             /// </summary>
             /// <param name="request"></param>
             public WeChatMessageBase(WeChatRequest request) => Request = request;
+
+
+            /// <summary>
+            /// 开发者微信号
+            /// </summary>
+            public string ToUserName => Request.Document.SelectValue("ToUserName");
+            /// <summary>
+            /// 发送方帐号（一个OpenID） 
+            /// </summary>
+            public string FromUserName => Request.Document.SelectValue("FromUserName");
+            /// <summary>
+            /// 消息创建时间 （整型） 
+            /// </summary>
+            public int CreateTime => Request.Document.SelectValue("CreateTime").ConvertToInt();
+            /// <summary>
+            /// 消息id，64位整型
+            /// </summary>
+            public Int64 MsgId => Request.Document.SelectValue("MsgId").ConvertToLong();
         }
     }
 }

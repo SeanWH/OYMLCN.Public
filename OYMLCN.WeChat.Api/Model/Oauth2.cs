@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OYMLCN.WeChat.Model
+﻿namespace OYMLCN.WeChat.Model
 {
     /// <summary>
     /// 网页授权的access_token
