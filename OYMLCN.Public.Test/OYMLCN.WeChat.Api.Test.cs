@@ -301,23 +301,26 @@ namespace OYMLCN.WeChat.Test
             //var del = Api.Template.Delete(token, get[0].template_id);
         }
 
-        //[TestMethod]
+        [TestMethod]
         public void WeChatApiMassTest()
         {
-            var token = Api.GetAccessToken(Config);
-            var openid = "okOeUwaD9TRRqFh_hyE4xlMwBg8Y";
-            var data = Api.Media.Upload(Api.GetAccessToken(Config), MediaType.Image, @"C:\Users\Vic\Desktop\topbar_logo.png");
-            var news = Api.Mass.UploadNews(token, new Model.Article()
-            {
-                title = "接口测试",
-                thumb_media_id = data.media_id,
-                author = "测试",
-                digest = "测试信息",
-                show_cover_pic = true,
-                content = "测试呀",
-                content_source_url = "http://www.qq.com/"
-            });
+            //var token = Api.GetAccessToken(Config);
+            //var openid = "okOeUwaD9TRRqFh_hyE4xlMwBg8Y";
+            //var data = Api.Media.Upload(Api.GetAccessToken(Config), MediaType.Image, @"C:\Users\Vic\Desktop\topbar_logo.png");
+            //var news = Api.Mass.UploadNews(token, new Model.Article()
+            //{
+            //    title = "接口测试",
+            //    thumb_media_id = data.media_id,
+            //    author = "测试",
+            //    digest = "测试信息",
+            //    show_cover_pic = true,
+            //    content = "测试呀",
+            //    content_source_url = "http://www.qq.com/"
+            //});
             //var preview = Api.Mass.PreviewMpNews(token, news.media_id, openid);
+            //var preview = Api.Mass.PreviewMedia(token,MediaType.Image, data.media_id, null, "ouyangminlan");
+            //var preview2 = Api.Mass.PreviewText(token, "dd", null, "VicWeChatTest");
+
         }
 
         //[TestMethod]

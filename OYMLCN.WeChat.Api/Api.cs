@@ -21,8 +21,8 @@ namespace OYMLCN.WeChat
 
 
 
-        public static string ApiUrl(string apiStr, params string[] param) => string.Format("https://{0}{1}", ApiHost, string.Format(apiStr, param));
-        public static string MpUrl(string apiStr, params string[] param) => string.Format("https://{0}{1}", MpHost, string.Format(apiStr, param));
+        private static string ApiUrl(string apiStr, params string[] param) => string.Format("https://{0}{1}", ApiHost, string.Format(apiStr, param));
+        private static string MpUrl(string apiStr, params string[] param) => string.Format("https://{0}{1}", MpHost, string.Format(apiStr, param));
 
 
         private static T ApiGet<T>(string apiStr, params string[] param) where T : Model.JsonResult
