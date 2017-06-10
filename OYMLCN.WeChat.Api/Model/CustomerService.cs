@@ -143,6 +143,15 @@
             /// 完整客服帐号，格式为：帐号前缀@公众号微信号
             /// </summary>
             public string worker { get; set; }
+
+            /// <summary>
+            /// 标记当前信息是否是客服发送信息
+            /// </summary>
+            public bool IsStaff => opercode == 2002;
+            /// <summary>
+            /// 标记当前信息是否是客户发送信息
+            /// </summary>
+            public bool IsCustomer => opercode == 2003;
         }
 
         /// <summary>

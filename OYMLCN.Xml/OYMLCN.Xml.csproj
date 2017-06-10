@@ -8,7 +8,7 @@
   <PropertyGroup>
     <TargetFrameworks>netcoreapp1.0;net452</TargetFrameworks>
     <RootNamespace>OYMLCN</RootNamespace>
-    <Version>1.0.0-alpha20170601</Version>
+    <Version>1.0.0-alpha20170606</Version>
     <Authors>VicBilibily欧阳敏岚</Authors>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Description>XML的序列化和反序列化扩展操作
@@ -21,6 +21,9 @@ IEnumerable&lt;XElement&gt;.SelectValue(name)
 IEnumerable&lt;XElement&gt;.SelectValues(name)</Description>
     <Copyright>OYML.CN</Copyright>
     <PackageProjectUrl>https://www.oyml.cn/OYMLCN.Xml</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/VicBilibily/OYMLCN.Public/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.Xml</RepositoryUrl>
+    <RepositoryType>Github</RepositoryType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netcoreapp1.0\OYMLCN.Xml.xml</DocumentationFile>

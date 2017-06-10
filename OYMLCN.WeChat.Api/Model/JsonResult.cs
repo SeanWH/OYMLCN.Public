@@ -38,7 +38,7 @@ namespace OYMLCN.WeChat.Model
         /// <param name="errcode"></param>
         /// <returns></returns>
         protected string GetErrorCodeDescription(int errcode) => ErrorDescription.Where(d => d.Key == errcode).Select(d => d.Value).FirstOrDefault();
-        static Dictionary<int, string> ErrorDescription = new Dictionary<int, string>() {
+        protected Dictionary<int, string> ErrorDescription = new Dictionary<int, string>() {
                 { -1,    "系统繁忙，此时请开发者稍候再试" },
                 { 0,     "请求成功" },
                 { 40001, "获取access_token时AppSecret错误，或者access_token无效。请开发者认真比对AppSecret的正确性，或查看是否正在为恰当的公众号调用接口" },

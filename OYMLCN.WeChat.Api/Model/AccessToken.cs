@@ -10,7 +10,12 @@ namespace OYMLCN.WeChat.Model
         /// <summary>
         /// 公众号全局唯一票据
         /// </summary>
-        public AccessToken() => GetTime = DateTime.Now;
+        public AccessToken()
+        {
+            GetTime = DateTime.Now;
+            ErrorDescription[40001] = "AppSecret错误或者AppSecret不属于这个公众号，请开发者确认AppSecret的正确性";
+            ErrorDescription[40002] = "请确保grant_type字段值为client_credential";
+        }
         /// <summary>
         /// AccessToken
         /// </summary>

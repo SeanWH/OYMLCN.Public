@@ -52,7 +52,7 @@ namespace OYMLCN.WeChat
                     return str.ToString();
                 }
                 public static string Add(string title, string introduction) =>
-                    "{{\"title\":\"" + title + "\",\"introduction\":\"" + introduction + "\"}}";
+                    "{\"title\":\"" + title + "\",\"introduction\":\"" + introduction + "\"}";
                 public static string GetVideoInfo(string media_id) =>
                     "{\"media_id\":\"" + media_id + "\"}";
                 public static string GetNews(string media_id) => GetVideoInfo(media_id);

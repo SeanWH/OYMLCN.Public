@@ -12,13 +12,16 @@ namespace OYMLCN.WeChat
         {
             protected class JsonCreate
             {
-                public static string SendMessage(string touser, string template_id, string url, string color = "#FF0000", List<TemplateParameter> data = null)
+                public static string SendMessage(string touser, string template_id, string url, List<TemplateParameter> data = null, string appid = null, string pagepath = null)
                 {
                     StringBuilder str = new StringBuilder();
                     foreach (var item in data)
                         str.Append("\"" + item.Key + "\":{\"value\":\"" + item.Value + "\",\"color\":\"" + item.Color + "\"},");
-                    return "{\"touser\":\"" + touser + "\",\"template_id\":\"" + template_id + "\",\"url\":\"" + url + "\",\"topcolor\":\"" + color +
-                        "\",\"data\":{" + str.ToString().Remove(str.Length - 1) + "}}";
+                    string result = "{\"touser\":\"" + touser + "\",\"template_id\":\"" + template_id + "\",\"url\":\"" + url + "\",";
+                    if (!appid.IsNullOrEmpty() && !pagepath.IsNullOrEmpty())
+                        result += "\"miniprogram\":{\"appid\":\"" + appid + "\",\"pagepath\":\"" + pagepath + "\"},";
+                    result += "\"data\":{" + str.ToString().Remove(str.Length - 1) + "}}";
+                    return result;
                 }
                 public static string SetIndustry(IndustryCode industry_id1, IndustryCode industry_id2) =>
                     "{\"industry_id1\":\"" + ((int)industry_id1).ToString() + "\",\"industry_id2\":\"" + ((int)industry_id2).ToString() + "\"}";
@@ -28,14 +31,14 @@ namespace OYMLCN.WeChat
                     "{\"template_id\":\"" + template_id + "\"}";
             }
 
-            public static JsonResult SendMessage(string access_token, string touser, string template_id, string url, string color = "#FF0000", List<TemplateParameter> data = null) =>
-                ApiPost<JsonResult>(JsonCreate.SendMessage(touser, template_id, url, color, data), "/cgi-bin/message/template/send?access_token={0}", access_token);
-            public static JsonResult SendMessage(string access_token, string touser, string template_id, string url, string color = "#FF0000", Dictionary<string, string> data = null)
+            public static JsonResult SendMessage(string access_token, string touser, string template_id, string url, List<TemplateParameter> data = null) =>
+                ApiPost<JsonResult>(JsonCreate.SendMessage(touser, template_id, url, data), "/cgi-bin/message/template/send?access_token={0}", access_token);
+            public static JsonResult SendMessage(string access_token, string touser, string template_id, string url, Dictionary<string, string> data = null)
             {
                 var list = new List<TemplateParameter>();
                 foreach (var item in data)
                     list.Add(new TemplateParameter(item.Key, item.Value));
-                return SendMessage(access_token, touser, template_id, url, color, list);
+                return SendMessage(access_token, touser, template_id, url, list);
             }
 
             public static JsonResult SetIndustry(string access_token, IndustryCode industry_id1, IndustryCode industry_id2) =>
@@ -53,7 +56,7 @@ namespace OYMLCN.WeChat
                 ApiGet<TemplateList>("/cgi-bin/template/get_all_private_template?access_token={0}", access_token).template_list;
 
             public static JsonResult Delete(string access_token, string template_id) =>
-                ApiPost<JsonResult>(JsonCreate.Delete(template_id),"/cgi-bin/template/del_private_template?access_token={0}", access_token);
+                ApiPost<JsonResult>(JsonCreate.Delete(template_id), "/cgi-bin/template/del_private_template?access_token={0}", access_token);
         }
     }
 }
