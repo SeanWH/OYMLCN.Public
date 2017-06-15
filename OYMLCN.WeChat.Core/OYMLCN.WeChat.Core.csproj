@@ -13,7 +13,7 @@
     <Description>微信公众平台SDK核心库</Description>
     <Copyright>OYML.CN</Copyright>
     <PackageProjectUrl>https://www.oyml.cn/OYMLCN.WeChat.Core</PackageProjectUrl>
-    <Version>1.0.0-alpha20170606</Version>
+    <Version>1.0.0-beta20170615</Version>
     <PackageLicenseUrl>https://github.com/VicBilibily/OYMLCN.Public/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.WeChat.Core</RepositoryUrl>
     <RepositoryType>Github</RepositoryType>

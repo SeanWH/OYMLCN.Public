@@ -71,31 +71,31 @@ namespace OYMLCN.WeChat
                     SendAll("text", "content", content, tag_id);
                 public static string SendText(string content, List<string> openid) =>
                     SendOpenId("text", "content", content, openid);
-                public static string PreviewTest(string content, string openid = null, string wxname = null) =>
+                public static string PreviewText(string content, string openid = null, string wxname = null) =>
                     Preview("text", "content", content, openid, wxname);
 
-                public static string SendVoice(string mediaId, int tag_id = 0) =>
-                    SendAll("voice", "mediaId", mediaId, tag_id);
-                public static string SendVoice(string mediaId, List<string> openid) =>
-                    SendOpenId("voice", "mediaId", mediaId, openid);
-                public static string PreviewVoice(string mediaId, string openid = null, string wxname = null) =>
-                    Preview("voice", "mediaId", mediaId, openid, wxname);
+                public static string SendVoice(string media_id, int tag_id = 0) =>
+                    SendAll("voice", "media_id", media_id, tag_id);
+                public static string SendVoice(string media_id, List<string> openid) =>
+                    SendOpenId("voice", "media_id", media_id, openid);
+                public static string PreviewVoice(string media_id, string openid = null, string wxname = null) =>
+                    Preview("voice", "media_id", media_id, openid, wxname);
 
-                public static string SendImage(string mediaId, int tag_id = 0) =>
-                    SendAll("image", "mediaId", mediaId, tag_id);
-                public static string SendImage(string mediaId, List<string> openid) =>
-                    SendOpenId("image", "mediaId", mediaId, openid);
-                public static string PreviewImage(string mediaId, string openid = null, string wxname = null) =>
-                    Preview("image", "mediaId", mediaId, openid, wxname);
+                public static string SendImage(string media_id, int tag_id = 0) =>
+                    SendAll("image", "media_id", media_id, tag_id);
+                public static string SendImage(string media_id, List<string> openid) =>
+                    SendOpenId("image", "media_id", media_id, openid);
+                public static string PreviewImage(string media_id, string openid = null, string wxname = null) =>
+                    Preview("image", "media_id", media_id, openid, wxname);
 
-                public static string SendVideoPreGetMediaId(string mediaId, string title, string description) =>
-                    "{\"media_id\":\"" + mediaId + "\",\"title\":\"" + title + "\",\"description\":\"" + description + "\"}";
-                public static string SendMpVideo(string mediaId, int tag_id = 0) =>
-                    SendAll("mpvideo", "mediaId", mediaId, tag_id);
-                public static string SendMpVideo(string mediaId, string title, string description, List<string> openid) =>
-                    "{" + ToUser(openid) + "\"mpvideo\":{\"mediaId\":\"" + mediaId + "\",\"title\":\"" + title + "\",\"description\":\"" + description + "\"},\"msgtype\":\"mpvideo\"" + "}";
-                public static string PreviewMpVideo(string mediaId, string openid = null, string wxname = null) =>
-                    Preview("mpvideo", "mediaId", mediaId, openid, wxname);
+                public static string SendVideoPreGetMediaId(string media_id, string title, string description) =>
+                    "{\"media_id\":\"" + media_id + "\",\"title\":\"" + title + "\",\"description\":\"" + description + "\"}";
+                public static string SendMpVideo(string media_id, int tag_id = 0) =>
+                    SendAll("mpvideo", "media_id", media_id, tag_id);
+                public static string SendMpVideo(string media_id, string title, string description, List<string> openid) =>
+                    "{" + ToUser(openid) + "\"mpvideo\":{\"media_id\":\"" + media_id + "\",\"title\":\"" + title + "\",\"description\":\"" + description + "\"},\"msgtype\":\"mpvideo\"" + "}";
+                public static string PreviewMpVideo(string media_id, string openid = null, string wxname = null) =>
+                    Preview("mpvideo", "media_id", media_id, openid, wxname);
 
                 public static string SendCard(string card_id, int tag_id = 0) =>
                     SendAll("wxcard", "card_id", card_id, tag_id);
@@ -104,8 +104,18 @@ namespace OYMLCN.WeChat
                 public static string PreviewCard(string card_id, string code, string timestamp, string signature, string openid, string wxname = null) =>
                     "{" + (openid.IsNullOrEmpty() ? ToWxName(wxname) : ToUser(openid)) +
                     "\"wxcard\":{\"card_id\":\"" + card_id + "\",\"card_ext\":\"" +
-                    "\"{\\\"code\\\":\\\"" + code + "\\\",\\\"openid\\\":\\\"" + openid + "\\\",\\\"timestamp\\\":\\\"" + timestamp + "\\\",\\\"signature\\\":\\\"" + signature + "\\\"}\"" +
+                    "{\\\"code\\\":\\\"" + code + "\\\",\\\"openid\\\":\\\"" + openid + "\\\",\\\"timestamp\\\":\\\"" + timestamp + "\\\",\\\"signature\\\":\\\"" + signature + "\\\"}\"" +
                     "},\"msgtype\":\"wxcard\"" + "}";
+
+                public static string SentDelete(long msg_id, byte? article_idx = null)
+                {
+                    string json = "{\"msg_id\":" + msg_id.ToString();
+                    if (article_idx != null)
+                        json += ",\"article_idx\":2";
+                    json += "}";
+                    return json;
+                }
+                public static string MassMessageSentStateQuery(long msg_id) => "{\"msg_id\":\"" + msg_id.ToString() + "\"}";
             }
 
             //public static string CreateJson(string type, string data, int tag_id = 0, bool sendIgnoreReprint = false, List<string> openid = null, string previewOpenId = null, string previewWeixinName = null)
@@ -179,7 +189,7 @@ namespace OYMLCN.WeChat
             public static MassResult SendText(string access_token, string text, List<string> openid) =>
                 SendOpenId(access_token, JsonCreate.SendText(text, openid));
             public static MassResult PreviewText(string access_token, string text, string openid = null, string wxname = null) =>
-                SendPreview(access_token, JsonCreate.PreviewTest(text, openid, wxname));
+                SendPreview(access_token, JsonCreate.PreviewText(text, openid, wxname));
 
             public static MassResult SendVoice(string access_token, string media_id, int tag_id = 0) =>
                 SendAll(access_token, JsonCreate.SendVoice(media_id, tag_id));
@@ -212,10 +222,10 @@ namespace OYMLCN.WeChat
                 SendPreview(access_token, JsonCreate.PreviewCard(card_id, code, timestamp, signature, openid, wxname));
 
 
-            public static JsonResult SentDelete(string access_token, long msgId) =>
-                ApiPost<MassResult>("{\"msg_id\":" + msgId.ToString() + "}", "/cgi-bin/message/mass/delete?access_token={0}", access_token);
-            public static MassState MassMessageSentStateQuery(string access_token, long msgId) =>
-                ApiPost<MassState>("{\"msg_id\":\"" + msgId.ToString() + "\"}", "/cgi-bin/message/mass/get?access_token={0}", access_token);
+            public static JsonResult SentDelete(string access_token, long msg_id, byte? article_idx = null) =>
+                ApiPost<MassResult>(JsonCreate.SentDelete(msg_id, article_idx), "/cgi-bin/message/mass/delete?access_token={0}", access_token);
+            public static MassState MassMessageSentStateQuery(string access_token, long msg_id) =>
+                ApiPost<MassState>(JsonCreate.MassMessageSentStateQuery(msg_id), "/cgi-bin/message/mass/get?access_token={0}", access_token);
         }
     }
 }

@@ -15,7 +15,7 @@ String.ParseToJToken()
 JToken.GetString(key)、JToken.GetInt32(key)、JToken.GetBoolean(key)、JToken.GetDateTime(key)
 JToken.ToIntArray()、JToken.ToStringArray()、JToken.ToObjectArray()
 JToken.GetIntArray(key)、JToken.GetStringArray(key)、JToken.GetObjectArray(key)</Description>
-    <Version>1.0.0-alpha20170606</Version>
+    <Version>1.0.0-beta20170615</Version>
     <PackageProjectUrl>https://www.oyml.cn/OYMLCN.Json</PackageProjectUrl>
     <RootNamespace>OYMLCN</RootNamespace>
     <Copyright>OYML.CN</Copyright>

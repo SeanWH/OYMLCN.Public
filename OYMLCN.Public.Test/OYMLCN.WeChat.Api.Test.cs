@@ -448,7 +448,54 @@ namespace OYMLCN.WeChat.Test
             [TestMethod]
             public void WeChatApiMassTest()
             {
-                Assert.Fail("未编写单元测试");
+                Assert.AreEqual(JsonCreate.UploadNews(new List<Model.Article>() {
+                    new Model.Article(){
+                        thumb_media_id="qI6_Ze_6PtV7svjolgs-rN6stStuHIjs9_DidOHaj0Q-mwvBelOXCFZiq2OsIU-p",
+                        author="xxx",
+                        title="HappyDay",
+                        content_source_url="www.qq.com",
+                        content="content",
+                        digest="digest",
+                        show_cover_pic=true
+                    },
+                    new Model.Article(){
+                        thumb_media_id="qI6_Ze_6PtV7svjolgs-rN6stStuHIjs9_DidOHaj0Q-mwvBelOXCFZiq2OsIU-p",
+                        author="xxx",
+                        title="HappyDay",
+                        content_source_url="www.qq.com",
+                        content="content",
+                        digest="digest",
+                        show_cover_pic=false
+                    }
+                }), "{\"articles\":[{\"thumb_media_id\":\"qI6_Ze_6PtV7svjolgs-rN6stStuHIjs9_DidOHaj0Q-mwvBelOXCFZiq2OsIU-p\",\"author\":\"xxx\",\"title\":\"HappyDay\",\"content_source_url\":\"www.qq.com\",\"content\":\"content\",\"digest\":\"digest\",\"show_cover_pic\":1},{\"thumb_media_id\":\"qI6_Ze_6PtV7svjolgs-rN6stStuHIjs9_DidOHaj0Q-mwvBelOXCFZiq2OsIU-p\",\"author\":\"xxx\",\"title\":\"HappyDay\",\"content_source_url\":\"www.qq.com\",\"content\":\"content\",\"digest\":\"digest\",\"show_cover_pic\":0}]}");
+
+                Assert.AreEqual(JsonCreate.SendMpNews("123dsdajkasd231jhksad", 2, false), "{\"filter\":{\"is_to_all\":false,\"tag_id\":2},\"mpnews\":{\"media_id\":\"123dsdajkasd231jhksad\"},\"msgtype\":\"mpnews\",\"send_ignore_reprint\":0}");
+                Assert.AreEqual(JsonCreate.SendText("CONTENT", 2), "{\"filter\":{\"is_to_all\":false,\"tag_id\":2},\"text\":{\"content\":\"CONTENT\"},\"msgtype\":\"text\"}");
+                Assert.AreEqual(JsonCreate.SendVoice("123dsdajkasd231jhksad", 2), "{\"filter\":{\"is_to_all\":false,\"tag_id\":2},\"voice\":{\"media_id\":\"123dsdajkasd231jhksad\"},\"msgtype\":\"voice\"}");
+                Assert.AreEqual(JsonCreate.SendImage("123dsdajkasd231jhksad", 2), "{\"filter\":{\"is_to_all\":false,\"tag_id\":2},\"image\":{\"media_id\":\"123dsdajkasd231jhksad\"},\"msgtype\":\"image\"}");
+                Assert.AreEqual(JsonCreate.SendVideoPreGetMediaId("rF4UdIMfYK3efUfyoddYRMU50zMiRmmt_l0kszupYh_SzrcW5Gaheq05p_lHuOTQ", "TITLE", "Description"), "{\"media_id\":\"rF4UdIMfYK3efUfyoddYRMU50zMiRmmt_l0kszupYh_SzrcW5Gaheq05p_lHuOTQ\",\"title\":\"TITLE\",\"description\":\"Description\"}");
+                Assert.AreEqual(JsonCreate.SendMpVideo("IhdaAQXuvJtGzwwc0abfXnzeezfO0NgPK6AQYShD8RQYMTtfzbLdBIQkQziv2XJc", 2), "{\"filter\":{\"is_to_all\":false,\"tag_id\":2},\"mpvideo\":{\"media_id\":\"IhdaAQXuvJtGzwwc0abfXnzeezfO0NgPK6AQYShD8RQYMTtfzbLdBIQkQziv2XJc\"},\"msgtype\":\"mpvideo\"}");
+                Assert.AreEqual(JsonCreate.SendCard("123dsdajkasd231jhksad", 2), "{\"filter\":{\"is_to_all\":false,\"tag_id\":2},\"wxcard\":{\"card_id\":\"123dsdajkasd231jhksad\"},\"msgtype\":\"wxcard\"}");
+
+                var openid = new List<string>() { "OPENID1", "OPENID2" };
+                Assert.AreEqual(JsonCreate.SendMpNews("123dsdajkasd231jhksad", openid, false), "{\"touser\":[\"OPENID1\",\"OPENID2\"],\"mpnews\":{\"media_id\":\"123dsdajkasd231jhksad\"},\"msgtype\":\"mpnews\",\"send_ignore_reprint\":0}");
+                Assert.AreEqual(JsonCreate.SendText("hello from boxer.", openid), "{\"touser\":[\"OPENID1\",\"OPENID2\"],\"text\":{\"content\":\"hello from boxer.\"},\"msgtype\":\"text\"}");
+                Assert.AreEqual(JsonCreate.SendVoice("mLxl6paC7z2Tl-NJT64yzJve8T9c8u9K2x-Ai6Ujd4lIH9IBuF6-2r66mamn_gIT", openid), "{\"touser\":[\"OPENID1\",\"OPENID2\"],\"voice\":{\"media_id\":\"mLxl6paC7z2Tl-NJT64yzJve8T9c8u9K2x-Ai6Ujd4lIH9IBuF6-2r66mamn_gIT\"},\"msgtype\":\"voice\"}");
+                Assert.AreEqual(JsonCreate.SendImage("BTgN0opcW3Y5zV_ZebbsD3NFKRWf6cb7OPswPi9Q83fOJHK2P67dzxn11Cp7THat", openid), "{\"touser\":[\"OPENID1\",\"OPENID2\"],\"image\":{\"media_id\":\"BTgN0opcW3Y5zV_ZebbsD3NFKRWf6cb7OPswPi9Q83fOJHK2P67dzxn11Cp7THat\"},\"msgtype\":\"image\"}");
+                Assert.AreEqual(JsonCreate.SendMpVideo("123dsdajkasd231jhksad", "TITLE", "DESCRIPTION", openid), "{\"touser\":[\"OPENID1\",\"OPENID2\"],\"mpvideo\":{\"media_id\":\"123dsdajkasd231jhksad\",\"title\":\"TITLE\",\"description\":\"DESCRIPTION\"},\"msgtype\":\"mpvideo\"}");
+                Assert.AreEqual(JsonCreate.SendCard("123dsdajkasd231jhksad", openid), "{\"touser\":[\"OPENID1\",\"OPENID2\"],\"wxcard\":{\"card_id\":\"123dsdajkasd231jhksad\"},\"msgtype\":\"wxcard\"}");
+
+                Assert.AreEqual(JsonCreate.SentDelete(30124), "{\"msg_id\":30124}");
+                Assert.AreEqual(JsonCreate.SentDelete(30124, 2), "{\"msg_id\":30124,\"article_idx\":2}");
+                Assert.AreEqual(JsonCreate.PreviewMpNews("123dsdajkasd231jhksad", "OPENID"), "{\"touser\":\"OPENID\",\"mpnews\":{\"media_id\":\"123dsdajkasd231jhksad\"},\"msgtype\":\"mpnews\"}");
+                Assert.AreEqual(JsonCreate.PreviewText("CONTENT", "OPENID"), "{\"touser\":\"OPENID\",\"text\":{\"content\":\"CONTENT\"},\"msgtype\":\"text\"}");
+                Assert.AreEqual(JsonCreate.PreviewVoice("123dsdajkasd231jhksad", "OPENID"), "{\"touser\":\"OPENID\",\"voice\":{\"media_id\":\"123dsdajkasd231jhksad\"},\"msgtype\":\"voice\"}");
+                Assert.AreEqual(JsonCreate.PreviewImage("123dsdajkasd231jhksad", "OPENID"), "{\"touser\":\"OPENID\",\"image\":{\"media_id\":\"123dsdajkasd231jhksad\"},\"msgtype\":\"image\"}");
+                Assert.AreEqual(JsonCreate.PreviewMpVideo("IhdaAQXuvJtGzwwc0abfXnzeezfO0NgPK6AQYShD8RQYMTtfzbLdBIQkQziv2XJc", "OPENID"), "{\"touser\":\"OPENID\",\"mpvideo\":{\"media_id\":\"IhdaAQXuvJtGzwwc0abfXnzeezfO0NgPK6AQYShD8RQYMTtfzbLdBIQkQziv2XJc\"},\"msgtype\":\"mpvideo\"}");
+                Assert.AreEqual(JsonCreate.PreviewCard("123dsdajkasd231jhksad", "", "1402057159", "017bb17407c8e0058a66d72dcc61632b70f511ad", "OPENID"), "{\"touser\":\"OPENID\",\"wxcard\":{\"card_id\":\"123dsdajkasd231jhksad\",\"card_ext\":\"{\\\"code\\\":\\\"\\\",\\\"openid\\\":\\\"OPENID\\\",\\\"timestamp\\\":\\\"1402057159\\\",\\\"signature\\\":\\\"017bb17407c8e0058a66d72dcc61632b70f511ad\\\"}\"},\"msgtype\":\"wxcard\"}");
+                Assert.AreEqual(JsonCreate.PreviewMpNews("123dsdajkasd231jhksad", null, "示例的微信号"), "{\"towxname\":\"示例的微信号\",\"mpnews\":{\"media_id\":\"123dsdajkasd231jhksad\"},\"msgtype\":\"mpnews\"}");
+
+                Assert.AreEqual(JsonCreate.MassMessageSentStateQuery(201053012), "{\"msg_id\":\"201053012\"}");
 
                 //var token = Api.GetAccessToken(Config);
                 //var openid = "okOeUwaD9TRRqFh_hyE4xlMwBg8Y";
