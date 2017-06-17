@@ -46,21 +46,28 @@ namespace OYMLCN
 
         private static Semaphore singleInstanceWatcher;
         private static bool createdNew;
+
         /// <summary>
         /// 只允许启动一个程序实例
         /// </summary>
-        /// <param name="action"></param>
-        public static void OneInstanceStartup(Action action)
+        /// <param name="runAction">默认调用方法</param>
+        /// <param name="nextAction">若已存在实例的调用方法</param>
+        public static void OneInstanceStartup(Action runAction, Action nextAction = null)
         {
             singleInstanceWatcher = new Semaphore(0, 1, Assembly.GetExecutingAssembly().GetName().Name, out createdNew);
             if (createdNew)
-                action.Invoke();
+                runAction.Invoke();
             else
             {
                 Process current = Process.GetCurrentProcess();
                 foreach (Process process in Process.GetProcessesByName(current.ProcessName))
                     if (process.Id != current.Id)
                     {
+                        if (nextAction != null)
+                            nextAction.Invoke();
+
+                        
+
                         NativeMethods.SetForegroundWindow(process.MainWindowHandle);
                         NativeMethods.ShowWindow(process.MainWindowHandle, WindowShowStyle.Restore);
                         break;

@@ -20,7 +20,7 @@ namespace OYMLCN
 #if !NETCOREAPP1_0
             stream.Position = 0;
 #endif
-            return new StreamReader(stream, encoder ?? Encoding.UTF8).ReadToEnd();
+            return new StreamReader(stream, encoder ?? Encoding.UTF8).ReadToEnd().Replace("\0", "");
         }
 
 
