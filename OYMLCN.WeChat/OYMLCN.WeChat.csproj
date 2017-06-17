@@ -8,7 +8,7 @@
   <PropertyGroup>
     <TargetFrameworks>netcoreapp1.0;net452</TargetFrameworks>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <Version>0.2.10</Version>
+    <Version>1.0.0-alpha20170617</Version>
     <Authors>VicBilibily欧阳敏岚</Authors>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Description>微信公众平台SDK（类JQuery链式调用）</Description>
@@ -30,6 +30,8 @@
     <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
     <ProjectReference Include="..\OYMLCN.Json\OYMLCN.Json.csproj" />
     <ProjectReference Include="..\OYMLCN.Web\OYMLCN.Web.csproj" />
+    <ProjectReference Include="..\OYMLCN.WeChat.Api\OYMLCN.WeChat.Api.Core.csproj" />
+    <ProjectReference Include="..\OYMLCN.WeChat.Core\OYMLCN.WeChat.Core.csproj" />
     <ProjectReference Include="..\OYMLCN.Xml\OYMLCN.Xml.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net452'">

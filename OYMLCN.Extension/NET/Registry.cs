@@ -8,13 +8,13 @@ namespace OYMLCN
     /// <summary>
     /// 注册表操作
     /// </summary>
-    public class Registry
+    public static class Registry
     {
 
         /// <summary>
         /// Url协议操作
         /// </summary>
-        public class URLProcotol
+        public static class URLProcotol
         {
             /// <summary>
             /// 注册启动项到注册表

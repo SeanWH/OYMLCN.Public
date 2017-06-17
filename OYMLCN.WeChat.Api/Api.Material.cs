@@ -72,9 +72,9 @@ namespace OYMLCN.WeChat
             public static JsonResult UpdateNews(string access_token, string media_id, int index, Article item) =>
                 ApiPost<JsonResult>(JsonCreate.UpdateNews(media_id, index, item), "/cgi-bin/material/update_news?access_token={0}", access_token);
             public static string UploadImage(string access_token, string filePath) =>
-    ApiPostFile<MediaUpload>(new Dictionary<string, string>() {
-                    { "media", filePath}
-    }, "/cgi-bin/media/uploadimg?access_token={0}", access_token).url;
+                ApiPostFile<MediaUpload>(new Dictionary<string, string>() {
+                                { "media", filePath}
+                }, "/cgi-bin/media/uploadimg?access_token={0}", access_token).url;
             public static MediaUpload Add(string access_token, MediaType type, string filePath, string title = null, string introduction = null)
             {
                 if (type == MediaType.News)

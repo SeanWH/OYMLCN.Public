@@ -205,8 +205,8 @@ namespace OYMLCN.WeChat
             public static MassResult PreviewImage(string access_token, string media_id, string openid = null, string wxname = null) =>
                 SendPreview(access_token, JsonCreate.PreviewImage(media_id, openid, wxname));
 
-            public static MediaUpload SendVideoPreGetMediaId(string access_token, string mediaId, string title, string description) =>
-                ApiPost<MediaUpload>(JsonCreate.SendVideoPreGetMediaId(mediaId, title, description), "/cgi-bin/media/uploadvideo?access_token={0}", access_token);
+            public static MediaUpload SendVideoPreGetMediaId(string access_token, string media_id, string title, string description) =>
+                ApiPost<MediaUpload>(JsonCreate.SendVideoPreGetMediaId(media_id, title, description), "/cgi-bin/media/uploadvideo?access_token={0}", access_token);
             public static MassResult SendVideo(string access_token, string media_id, int tag_id = 0) =>
                 SendAll(access_token, JsonCreate.SendMpVideo(media_id, tag_id));
             public static MassResult SendVideo(string access_token, string media_id, string title, string description, List<string> openid) =>
@@ -218,7 +218,7 @@ namespace OYMLCN.WeChat
                 SendAll(access_token, JsonCreate.SendCard(card_id, tag_id));
             public static MassResult SendCard(string access_token, string card_id, List<string> openid) =>
                 SendOpenId(access_token, JsonCreate.SendCard(card_id, openid));
-            public static MassResult PreviewCard(string access_token, string card_id, string code, string timestamp, string signature, string openid, string wxname = null) =>
+            public static MassResult PreviewCard(string access_token, string card_id, string code, string timestamp, string signature, string openid=null, string wxname = null) =>
                 SendPreview(access_token, JsonCreate.PreviewCard(card_id, code, timestamp, signature, openid, wxname));
 
 

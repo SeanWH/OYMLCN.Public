@@ -7,7 +7,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <TargetFrameworks>netcoreapp1.0;net452</TargetFrameworks>
-    <Version>1.0.0-beta20170615</Version>
+    <Version>0.2.1</Version>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Authors>VicBilibily欧阳敏岚</Authors>
     <PackageProjectUrl>https://www.oyml.cn/OYMLCN.Web</PackageProjectUrl>

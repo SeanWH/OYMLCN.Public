@@ -65,9 +65,6 @@ namespace OYMLCN
                     {
                         if (nextAction != null)
                             nextAction.Invoke();
-
-                        
-
                         NativeMethods.SetForegroundWindow(process.MainWindowHandle);
                         NativeMethods.ShowWindow(process.MainWindowHandle, WindowShowStyle.Restore);
                         break;

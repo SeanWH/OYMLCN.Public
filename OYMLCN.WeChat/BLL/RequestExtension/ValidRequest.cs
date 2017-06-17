@@ -23,7 +23,7 @@ namespace OYMLCN.WeChat
         public static bool IsValidRequest(this HttpRequestMessage request, Config cfg)
         {
             var model = request.GetPostModel();
-            return CreateSignature(model.Timestamp, model.Nonce, cfg.Token) == model.Signature;
+            return Signature.Create(model.Timestamp, model.Nonce, cfg.Token) == model.Signature;
         }
 #endif
 
@@ -40,7 +40,7 @@ namespace OYMLCN.WeChat
 #endif
         {
             var model = request.GetPostModel();
-            return CreateSignature(model.Timestamp, model.Nonce, cfg.Token) == model.Signature;
+            return Signature.Create(model.Timestamp, model.Nonce, cfg.Token) == model.Signature;
         }
 
 #if !NETCOREAPP1_0

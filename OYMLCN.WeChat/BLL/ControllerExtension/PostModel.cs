@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using OYMLCN.WeChat.Model;
 #if !NETCOREAPP1_0
 using System.Web.Mvc;
 using System.Web.Http;

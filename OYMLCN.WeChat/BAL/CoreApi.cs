@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using OYMLCN.WeChat.Model;
 using System.Threading;
 using System.Linq;
-using System.IO;
-using System.Net;
-using System.Text;
 
 namespace OYMLCN.WeChat
 {
@@ -14,41 +11,14 @@ namespace OYMLCN.WeChat
     /// </summary>
     public static partial class CoreApi
     {
-        /// <summary>
-        /// 拼接Api调用的完整地址
-        /// </summary>
-        /// <param name="apiStr"></param>
-        /// <param name="param"></param>
-        /// <returns></returns>
-        public static string ApiUrl(string apiStr, params string[] param) => string.Format("https://{0}{1}", Config.ApiHost, string.Format(apiStr, param));
-        /// <summary>
-        /// 拼接公众平台Api公开调用的完整地址
-        /// </summary>
-        /// <param name="apiStr"></param>
-        /// <param name="param"></param>
-        /// <returns></returns>
-        public static string MpUrl(string apiStr, params string[] param) => string.Format("https://{0}{1}", Config.MpHost, string.Format(apiStr, param));
-
-        private static Dictionary<string, AccessToken> tokenDic = new Dictionary<string, AccessToken>();
+        static Dictionary<string, AccessToken> tokenDic = new Dictionary<string, AccessToken>();
 
         /// <summary>
         /// 获取Api调用的公众号全局唯一票据
         /// </summary>
         /// <param name="cfg"></param>
         /// <returns></returns>
-        public static AccessToken GetAccessToken(Config cfg)
-        {
-            var result = HttpClient.GetString(ApiUrl("/cgi-bin/token?grant_type=client_credential&appid={0}&secret={1}", cfg.AppId.EncodeAsUrlData(), cfg.AppSecret.EncodeAsUrlData()));
-            var data = result.DeserializeJsonString<AccessToken>();
-            if (data != null && data.Success)
-            {
-                data.Config = cfg;
-                tokenDic[cfg.AppId] = data;
-                return data;
-            }
-            else
-                throw data.Error;
-        }
+        public static AccessToken GetAccessToken(Config cfg) => Api.GetAccessToken(cfg.AppId, cfg.AppSecret);
         /// <summary>
         /// 获取Api调用的公众号全局唯一票据
         /// （单例服务自管理，分布式请传入旧凭据或直接使用旧凭据）
@@ -67,6 +37,7 @@ namespace OYMLCN.WeChat
             if (Monitor.TryEnter(tokenDic, TimeSpan.FromMilliseconds(100)))
             {
                 var data = GetAccessToken(cfg);
+                tokenDic[cfg.AppId] = data;
                 // 清掉过时凭据
                 var removeList = tokenDic.Where(d => d.Value.ExpiresTime < DateTime.Now).Select(d => d.Key).ToList();
                 foreach (var item in removeList)
@@ -83,14 +54,7 @@ namespace OYMLCN.WeChat
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        public static IPList GetIpAdress(this AccessToken token)
-        {
-            var result = HttpClient.GetString(ApiUrl("/cgi-bin/getcallbackip?access_token={0}", token.access_token));
-            var data = result.DeserializeJsonString<IPList>();
-            if (data.Success)
-                return data;
-            throw data.Error;
-        }
+        public static string[] GetCallbackIP(this AccessToken token) => Api.GetCallbackIP(token.access_token);
 
         /// <summary>
         /// 长链接转短链接
@@ -98,10 +62,7 @@ namespace OYMLCN.WeChat
         /// <param name="token">公众号全局唯一票据</param>
         /// <param name="url">长链接</param>
         /// <returns></returns>
-        public static ShortUrl LongUrlToShort(this AccessToken token, string url) =>
-            HttpClient.PostJsonString(ApiUrl("/cgi-bin/shorturl?access_token={0}", token.access_token), "{\"action\":\"long2short\",\"long_url\":\"" + url + "\"}").DeserializeJsonString<ShortUrl>();
-
-
+        public static string LongUrlToShort(this AccessToken token, string url) => Api.ShortUrl(token.access_token, url);
 
     }
 }

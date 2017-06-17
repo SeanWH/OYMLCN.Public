@@ -12,7 +12,7 @@ ExtensionBase扩展类HttpRequestBase、HttpRequest、HttpRequestMessage
 ExtensionBase.GetUrlPath()、ExtensionBase.GetUserAgent()
 ExtensionBase.GetQuery()、ExtensionBase.GetQuery(key)
 ExtensionBase.GetBody()、ExtensionBase.GetUserIpAddress()</Description>
-    <Version>1.0.0-beta20170615</Version>
+    <Version>0.2.1</Version>
     <Authors>VicBilibily欧阳敏岚</Authors>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Copyright>OYML.CN</Copyright>

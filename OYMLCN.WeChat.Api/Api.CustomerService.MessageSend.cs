@@ -20,10 +20,10 @@ namespace OYMLCN.WeChat
 
                     public static string Text(string openid, string text, string kf_account = null) =>
                         SendAs("{\"touser\":\"" + openid + "\",\"msgtype\":\"text\",\"text\":{\"content\":\"" + text + "\"}}", kf_account);
-                    public static string Media(string openid, string type, string mediaId, string kf_account = null) =>
-                        SendAs("{\"touser\":\"" + openid + "\",\"msgtype\":\"" + type + "\",\"" + type + "\":{\"media_id\":\"" + mediaId + "\"}}", kf_account);
-                    public static string Video(string openid, string mediaId, string thumbMediaId, string title = null, string description = null, string kf_account = null) =>
-                        SendAs("{\"touser\":\"" + openid + "\",\"msgtype\":\"video\",\"video\":{\"media_id\":\"" + mediaId + "\"," +
+                    public static string Media(string openid, string type, string media_id, string kf_account = null) =>
+                        SendAs("{\"touser\":\"" + openid + "\",\"msgtype\":\"" + type + "\",\"" + type + "\":{\"media_id\":\"" + media_id + "\"}}", kf_account);
+                    public static string Video(string openid, string media_id, string thumbMediaId, string title = null, string description = null, string kf_account = null) =>
+                        SendAs("{\"touser\":\"" + openid + "\",\"msgtype\":\"video\",\"video\":{\"media_id\":\"" + media_id + "\"," +
                                "\"thumb_media_id\":\"" + thumbMediaId + "\",\"title\":\"" + title + "\",\"description\":\"" + description + "\"}}"
                             , kf_account);
                     public static string Music(string openid, string thumbMediaId, string musicUrl, string hqMusicUrl, string title = null, string description = null, string kf_account = null) =>
@@ -39,8 +39,8 @@ namespace OYMLCN.WeChat
                                 "\",\"url\":\"" + item.Url + "\",\"picurl\":\"" + item.PicUrl + "\"},");
                         return SendAs("{\"touser\":\"" + openid + "\",\"msgtype\":\"news\",\"news\":{\"articles\":[" + str.ToString().Remove(str.Length - 1) + "]}}", kf_account);
                     }
-                    public static string Card(string openid, string cardId, string kf_account = null) =>
-                        SendAs("{\"touser\":\"" + openid + "\",\"msgtype\":\"wxcard\",\"wxcard\":{\"card_id\":\"" + cardId + "\"}}", kf_account);
+                    public static string Card(string openid, string card_id, string kf_account = null) =>
+                        SendAs("{\"touser\":\"" + openid + "\",\"msgtype\":\"wxcard\",\"wxcard\":{\"card_id\":\"" + card_id + "\"}}", kf_account);
 
                 }
 
@@ -50,20 +50,20 @@ namespace OYMLCN.WeChat
 
                 public static JsonResult Text(string access_token, string openid, string text, string kf_account = null) =>
                     Send(access_token, JsonCreate.Text(openid, text, kf_account));
-                public static JsonResult Image(string access_token, string openid, string mediaId, string kf_account = null) =>
-                    Send(access_token, JsonCreate.Media(openid, "image", mediaId, kf_account));
-                public static JsonResult Voice(string access_token, string openid, string mediaId, string kf_account = null) =>
-                   Send(access_token, JsonCreate.Media(openid, "voice", mediaId, kf_account));
-                public static JsonResult Video(string access_token, string openid, string mediaId, string thumbMediaId, string title = null, string description = null, string kf_account = null) =>
-                    Send(access_token, JsonCreate.Video(openid, mediaId, thumbMediaId, title, description, kf_account));
+                public static JsonResult Image(string access_token, string openid, string media_id, string kf_account = null) =>
+                    Send(access_token, JsonCreate.Media(openid, "image", media_id, kf_account));
+                public static JsonResult Voice(string access_token, string openid, string media_id, string kf_account = null) =>
+                   Send(access_token, JsonCreate.Media(openid, "voice", media_id, kf_account));
+                public static JsonResult Video(string access_token, string openid, string media_id, string thumbMediaId, string title = null, string description = null, string kf_account = null) =>
+                    Send(access_token, JsonCreate.Video(openid, media_id, thumbMediaId, title, description, kf_account));
                 public static JsonResult Music(string access_token, string openid, string thumbMediaId, string musicUrl, string hqMusicUrl, string title = null, string description = null, string kf_account = null) =>
                     Send(access_token, JsonCreate.Music(openid, thumbMediaId, musicUrl, hqMusicUrl, title, description, kf_account));
                 public static JsonResult News(string access_token, string openid, List<Article> news, string kf_account = null) =>
                     Send(access_token, JsonCreate.News(openid, news, kf_account));
-                public static JsonResult MpNews(string access_token, string openid, string mediaId, string kf_account = null) =>
-                    Send(access_token, JsonCreate.Media(openid, "mpnews", mediaId, kf_account));
-                public static JsonResult Card(string access_token, string openid, string cardId, string kf_account = null) =>
-                    Send(access_token, JsonCreate.Card(openid, cardId, kf_account));
+                public static JsonResult MpNews(string access_token, string openid, string media_id, string kf_account = null) =>
+                    Send(access_token, JsonCreate.Media(openid, "mpnews", media_id, kf_account));
+                public static JsonResult Card(string access_token, string openid, string card_id, string kf_account = null) =>
+                    Send(access_token, JsonCreate.Card(openid, card_id, kf_account));
 
 
                 public class Article

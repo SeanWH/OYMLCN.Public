@@ -4,7 +4,7 @@ using System.Net.Http;
 #else
 using Microsoft.AspNetCore.Http;
 #endif
-using OYMLCN.WeChat.Enum;
+using OYMLCN.WeChat.Enums;
 
 namespace OYMLCN.WeChat
 {

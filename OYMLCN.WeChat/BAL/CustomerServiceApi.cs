@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace OYMLCN.WeChat
 {
@@ -13,130 +12,52 @@ namespace OYMLCN.WeChat
     {
         #region 客服消息接口
         /// <summary>
-        /// 客服接口调用地址
-        /// </summary>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        private static string ApiUrl(this AccessToken token) => CoreApi.ApiUrl("/cgi-bin/message/custom/send?access_token={0}", token.access_token);
-        private static JsonResult Send(this AccessToken token, string json)
-        {
-            var result = HttpClient.PostJsonString(ApiUrl(token), json).DeserializeJsonString<JsonResult>();
-            if (result.Success)
-                return result;
-            throw result.Error;
-        }
-
-        /// <summary>
-        /// 以指定客服身份发送客服消息
-        /// </summary>
-        /// <param name="token"></param>
-        /// <param name="json"></param>
-        /// <param name="kfName"></param>
-        /// <returns></returns>
-        public static string SendAs(AccessToken token, string json, string kfName)
-        {
-            if (kfName.IsNullOrEmpty())
-                return json;
-            else
-                return json.Substring(0, json.Length - 1) + ",\"customservice\":{\"kf_account\":\"" + kfName.CompleteKefuName(token) + "\"}}";
-        }
-
-        /// <summary>
-        /// 创建客服消息Json字符串
-        /// </summary>
-        /// <param name="openid">普通用户openid</param>
-        /// <param name="text">文本消息内容</param>
-        /// <returns></returns>
-        public static string TextJson(string openid, string text) =>
-            "{\"touser\":\"" + openid + "\",\"msgtype\":\"text\",\"text\":{\"content\":\"" + text + "\"}}";
-        /// <summary>
         /// 发送文本消息
         /// </summary>
         /// <param name="token">调用接口凭证</param>
         /// <param name="openid">普通用户openid</param>
         /// <param name="text">文本消息内容</param>
-        /// <param name="kfName">指定消息客服名称(前缀)或完整客服帐号</param>
+        /// <param name="kf_account">指定消息完整客服帐号</param>
         /// <returns></returns>
-        public static JsonResult CustomerServiceSendText(this AccessToken token, string openid, string text, string kfName = null) =>
-            token.Send(SendAs(token, TextJson(openid, text), kfName));
+        public static JsonResult CustomerServiceSendText(this AccessToken token, string openid, string text, string kf_account = null) =>
+            Api.CustomerService.MessageSend.Text(token.access_token, openid, text, kf_account);
 
-        /// <summary>
-        /// 创建客服消息Json字符串
-        /// </summary>
-        /// <param name="openid">普通用户openid</param>
-        /// <param name="mediaId">发送的图片的媒体ID</param>
-        /// <returns></returns>
-        public static string ImageJson(string openid, string mediaId) =>
-            "{\"touser\":\"" + openid + "\",\"msgtype\":\"image\",\"image\":{\"media_id\":\"" + mediaId + "\"}}";
         /// <summary>
         /// 发送图片消息
         /// </summary>
         /// <param name="token">调用接口凭证</param>
         /// <param name="openid">普通用户openid</param>
-        /// <param name="mediaId">发送的图片的媒体ID</param>
-        /// <param name="kfName">指定消息客服名称(前缀)或完整客服帐号</param>
+        /// <param name="media_id">发送的图片的媒体ID</param>
+        /// <param name="kf_account">指定消息完整客服帐号</param>
         /// <returns></returns>
-        public static JsonResult CustomerServiceSendImage(this AccessToken token, string openid, string mediaId, string kfName = null) =>
-            token.Send(SendAs(token, ImageJson(openid, mediaId), kfName));
+        public static JsonResult CustomerServiceSendImage(this AccessToken token, string openid, string media_id, string kf_account = null) =>
+             Api.CustomerService.MessageSend.Image(token.access_token, openid, media_id, kf_account);
 
-        /// <summary>
-        /// 创建客服消息Json字符串
-        /// </summary>
-        /// <param name="openid">普通用户openid</param>
-        /// <param name="mediaId">发送的语音的媒体ID</param>
-        /// <returns></returns>
-        public static string VoiceJson(string openid, string mediaId) =>
-            "{\"touser\":\"" + openid + "\",\"msgtype\":\"voice\",\"voice\":{\"media_id\":\"" + mediaId + "\"}}";
         /// <summary>
         /// 发送语音消息
         /// </summary>
         /// <param name="token">调用接口凭证</param>
         /// <param name="openid">普通用户openid</param>
-        /// <param name="mediaId">发送的语音的媒体ID </param>
-        /// <param name="kfName">指定消息客服名称(前缀)或完整客服帐号</param>
+        /// <param name="media_id">发送的语音的媒体ID </param>
+        /// <param name="kf_account">指定消息完整客服帐号</param>
         /// <returns></returns>
-        public static JsonResult CustomerServiceSendVoice(this AccessToken token, string openid, string mediaId, string kfName = null) =>
-            token.Send(SendAs(token, VoiceJson(openid, mediaId), kfName));
+        public static JsonResult CustomerServiceSendVoice(this AccessToken token, string openid, string media_id, string kf_account = null) =>
+             Api.CustomerService.MessageSend.Voice(token.access_token, openid, media_id, kf_account);
 
-        /// <summary>
-        /// 创建客服消息Json字符串
-        /// </summary>
-        /// <param name="openid">普通用户openid</param>
-        /// <param name="mediaId">发送的视频的媒体ID</param>
-        /// <param name="thumbMediaId">缩略图的媒体ID</param>
-        /// <param name="title">视频消息的标题（可选）</param>
-        /// <param name="description">视频消息的描述（可选）</param>
-        /// <returns></returns>
-        public static string VideoJson(string openid, string mediaId, string thumbMediaId, string title = null, string description = null) =>
-            "{\"touser\":\"" + openid + "\",\"msgtype\":\"video\",\"video\":{\"media_id\":\"" + mediaId + "\"," +
-                "\"thumb_media_id\":\"" + thumbMediaId + "\",\"title\":\"" + title + "\",\"description\":\"" + description + "\"}}";
         /// <summary>
         /// 发送视频消息（视频素材需要通过审核方可发送，否则会发送失败）
         /// </summary>
         /// <param name="token">调用接口凭证</param>
         /// <param name="openid">普通用户openid</param>
-        /// <param name="mediaId">发送的视频的媒体ID</param>
+        /// <param name="media_id">发送的视频的媒体ID</param>
         /// <param name="thumbMediaId">缩略图的媒体ID</param>
         /// <param name="title">视频消息的标题（可选）</param>
         /// <param name="description">视频消息的描述（可选）</param>
-        /// <param name="kfName">指定消息客服名称(前缀)或完整客服帐号</param>
+        /// <param name="kf_account">指定消息完整客服帐号</param>
         /// <returns></returns>
-        public static JsonResult CustomerServiceSendVideo(this AccessToken token, string openid, string mediaId, string thumbMediaId, string title = null, string description = null, string kfName = null) =>
-            token.Send(SendAs(token, VideoJson(openid, mediaId, thumbMediaId, title, description), kfName));
+        public static JsonResult CustomerServiceSendVideo(this AccessToken token, string openid, string media_id, string thumbMediaId, string title = null, string description = null, string kf_account = null) =>
+             Api.CustomerService.MessageSend.Video(token.access_token, openid, media_id, thumbMediaId, title, description, kf_account);
 
-        /// <summary>
-        /// 创建客服消息Json字符串
-        /// </summary>
-        /// <param name="openid">普通用户openid</param>
-        /// <param name="thumbMediaId">缩略图的媒体ID</param>
-        /// <param name="musicUrl">音乐链接</param>
-        /// <param name="hqMusicUrl">高品质音乐链接，wifi环境优先使用该链接播放音乐</param>
-        /// <param name="title">音乐标题（可选）</param>
-        /// <param name="description">音乐描述（可选）</param>
-        /// <returns></returns>
-        public static string MusicJson(string openid, string thumbMediaId, string musicUrl, string hqMusicUrl, string title = null, string description = null) =>
-             "{\"touser\":\"" + openid + "\",\"msgtype\":\"music\",\"music\":{\"title\":\"" + title + "\",\"description\":\"" + description +
-                "\",\"musicurl\":\"" + musicUrl + "\",\"hqmusicurl\":\"" + hqMusicUrl + "\",\"thumb_media_id\":\"" + thumbMediaId + "\"}}";
         /// <summary>
         /// 发送音乐消息
         /// </summary>
@@ -147,82 +68,53 @@ namespace OYMLCN.WeChat
         /// <param name="hqMusicUrl">高品质音乐链接，wifi环境优先使用该链接播放音乐</param>
         /// <param name="title">音乐标题（可选）</param>
         /// <param name="description">音乐描述（可选）</param>
-        /// <param name="kfName">指定消息客服名称(前缀)或完整客服帐号</param>
+        /// <param name="kf_account">指定消息完整客服帐号</param>
         /// <returns></returns>
-        public static JsonResult CustomerServiceSendMusic(this AccessToken token, string openid, string thumbMediaId, string musicUrl, string hqMusicUrl, string title = null, string description = null, string kfName = null) =>
-            token.Send(SendAs(token, MusicJson(openid, thumbMediaId, musicUrl, hqMusicUrl, title, description), kfName));
+        public static JsonResult CustomerServiceSendMusic(this AccessToken token, string openid, string thumbMediaId, string musicUrl, string hqMusicUrl, string title = null, string description = null, string kf_account = null) =>
+             Api.CustomerService.MessageSend.Music(token.access_token, openid, thumbMediaId, musicUrl, hqMusicUrl, title, description, kf_account);
 
         /// <summary>
         /// 发送图文消息
         /// </summary>
         /// <param name="token">调用接口凭证</param>
         /// <param name="openid">普通用户openid</param>
-        /// <param name="kfName">指定消息客服名称(前缀)或完整客服帐号（若不指定则传入null或空字符串）</param>
+        /// <param name="kf_account">指定消息完整客服帐号（若不指定则传入null或空字符串）</param>
         /// <param name="news">图文项目，图文消息条数限制在10条以内，超过则只发送10条</param>
         /// <returns></returns>
-        public static JsonResult CustomerServiceSendNews(this AccessToken token, string openid, string kfName = null, params WeChatResponseNewItem[] news) =>
-            CustomerServiceSendNews(token, openid, news.ToList(), kfName);
-        /// <summary>
-        /// 创建客服消息Json字符串
-        /// </summary>
-        /// <param name="openid">普通用户openid</param>
-        /// <param name="news">图文项目，图文消息条数限制在10条以内，超过则只发送10条</param>        /// <returns></returns>
-        public static string NewsJson(string openid, List<WeChatResponseNewItem> news)
-        {
-            StringBuilder str = new StringBuilder();
-            var list = news.Take(10);
-            foreach (var item in list)
-                str.Append("{\"title\":\"" + item.Title + "\",\"description\":\"" + item.Description +
-                    "\",\"url\":\"" + item.Url + "\",\"picurl\":\"" + item.PicUrl + "\"},");
-            return "{\"touser\":\"" + openid + "\",\"msgtype\":\"news\",\"news\":{\"articles\":[" + str.ToString().Remove(str.Length - 1) + "]}}";
-        }
+        public static JsonResult CustomerServiceSendNews(this AccessToken token, string openid, string kf_account = null, params Api.CustomerService.MessageSend.Article[] news) =>
+            CustomerServiceSendNews(token, openid, news.ToList(), kf_account);
         /// <summary>
         /// 发送图文消息
         /// </summary>
         /// <param name="token">调用接口凭证</param>
         /// <param name="openid">普通用户openid</param>
         /// <param name="news">图文项目，图文消息条数限制在10条以内，超过则只发送10条</param>
-        /// <param name="kfName">指定消息客服名称(前缀)或完整客服帐号</param>
+        /// <param name="kf_account">指定消息完整客服帐号</param>
         /// <returns></returns>
-        public static JsonResult CustomerServiceSendNews(this AccessToken token, string openid, List<WeChatResponseNewItem> news, string kfName = null) =>
-            token.Send(SendAs(token, NewsJson(openid, news), kfName));
-
-        /// <summary>
-        /// 创建客服消息Json字符串
-        /// </summary>
-        /// <param name="openid">普通用户openid</param>
-        /// <param name="mediaId">图文消息（点击跳转到图文消息页）的媒体ID</param>        /// <returns></returns>
-        public static string MpNewsJson(string openid, string mediaId) =>
-            "{\"touser\":\"" + openid + "\",\"msgtype\":\"mpnews\",\"mpnews\":{\"media_id\":\"" + mediaId + "\"}}";
+        public static JsonResult CustomerServiceSendNews(this AccessToken token, string openid, List<Api.CustomerService.MessageSend.Article> news, string kf_account = null) =>
+             Api.CustomerService.MessageSend.News(token.access_token, openid, news, kf_account);
         /// <summary>
         /// 发送图文消息
         /// </summary>
         /// <param name="token">调用接口凭证</param>
         /// <param name="openid">普通用户openid</param>
-        /// <param name="mediaId">图文消息（点击跳转到图文消息页）的媒体ID</param>        /// <returns></returns>
-        /// <param name="kfName">指定消息客服名称(前缀)或完整客服帐号</param>
+        /// <param name="media_id">图文消息（点击跳转到图文消息页）的媒体ID</param>
+        /// <param name="kf_account">指定消息完整客服帐号</param>
         /// <returns></returns>
-        public static JsonResult CustomerServiceSendMpNews(this AccessToken token, string openid, string mediaId, string kfName = null) =>
-            token.Send(SendAs(token, MpNewsJson(openid, mediaId), kfName));
+        public static JsonResult CustomerServiceSendMpNews(this AccessToken token, string openid, string media_id, string kf_account = null) =>
+             Api.CustomerService.MessageSend.MpNews(token.access_token, openid, media_id, kf_account);
 
-        /// <summary>
-        /// 创建客服消息Json字符串
-        /// </summary>
-        /// <param name="openid">普通用户openid</param>
-        /// <param name="cardId">卡券Id</param>
-        /// <returns></returns>
-        public static string CardJson(string openid, string cardId) =>
-            "{\"touser\":\"" + openid + "\",\"msgtype\":\"wxcard\",\"wxcard\":{\"card_id\":\"" + cardId + "\"}}";
+
         /// <summary>
         /// 发送卡券
         /// </summary>
         /// <param name="token">调用接口凭证</param>
         /// <param name="openid">普通用户openid</param>
-        /// <param name="cardId">卡券Id</param>
-        /// <param name="kfName">指定消息客服名称(前缀)或完整客服帐号</param>
+        /// <param name="card_id">卡券Id</param>
+        /// <param name="kf_account">指定消息完整客服帐号</param>
         /// <returns></returns>
-        public static JsonResult CustomerServiceSendCard(this AccessToken token, string openid, string cardId, string kfName = null) =>
-            token.Send(SendAs(token, CardJson(openid, cardId), kfName));
+        public static JsonResult CustomerServiceSendCard(this AccessToken token, string openid, string card_id, string kf_account = null) =>
+             Api.CustomerService.MessageSend.Card(token.access_token, openid, card_id, kf_account);
         #endregion
 
 
@@ -237,8 +129,8 @@ namespace OYMLCN.WeChat
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        public static KefuList CustomerServiceAccountQuery(this AccessToken token) =>
-            HttpClient.GetString(CoreApi.ApiUrl("/cgi-bin/customservice/getkflist?access_token={0}", token.access_token)).DeserializeJsonString<KefuList>();
+        public static KefuList.Info[] CustomerServiceAccountQuery(this AccessToken token) =>
+            Api.CustomerService.GetList(token.access_token);
         /// <summary>
         /// 获取在线客服信息
         /// 有效列表：kf_online_list
@@ -247,69 +139,55 @@ namespace OYMLCN.WeChat
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        public static KefuList CustomerServiceAccountOnlineQuery(this AccessToken token) =>
-            HttpClient.GetString(CoreApi.ApiUrl("/cgi-bin/customservice/getonlinekflist?access_token={0}", token.access_token)).DeserializeJsonString<KefuList>();
+        public static KefuList.Info[] CustomerServiceAccountOnlineQuery(this AccessToken token) =>
+            Api.CustomerService.GetOnlineList(token.access_token);
 
-
-        private static string CompleteKefuName(this string name, AccessToken token) =>
-            name.Contains("@") ? name : string.Format("{0}@{1}", name, token.Config.Name);
 
         /// <summary>
         /// 添加客服帐号
         /// </summary>
         /// <param name="token"></param>
-        /// <param name="kfName">客服名称(前缀)或完整客服帐号(格式为：帐号前缀@公众号微信号，帐号前缀最多10个字符，必须是英文、数字字符或者下划线，后缀为公众号微信号，长度不超过30个字符)</param>
+        /// <param name="kf_account">完整客服帐号(格式为：帐号前缀@公众号微信号，帐号前缀最多10个字符，必须是英文、数字字符或者下划线，后缀为公众号微信号，长度不超过30个字符)</param>
         /// <param name="nickName">客服昵称，最长16个字</param>
         /// <returns></returns>
-        public static JsonResult CustomerServiceAccountAdd(this AccessToken token, string kfName, string nickName) =>
-            HttpClient.PostJsonString(CoreApi.ApiUrl("/customservice/kfaccount/add?access_token={0}", token.access_token),
-                "{\"kf_account\":\"" + kfName.CompleteKefuName(token) + "\",\"nickname\":\"" + nickName + "\"}"
-                ).DeserializeJsonString<JsonResult>();
+        public static JsonResult CustomerServiceAccountAdd(this AccessToken token, string kf_account, string nickName) =>
+            Api.CustomerService.Account.Add(token.access_token, kf_account, nickName);
         /// <summary>
         /// 邀请绑定客服帐号
         /// </summary>
         /// <param name="token"></param>
-        /// <param name="kfName">客服名称(前缀)或完整客服帐号(格式为：帐号前缀@公众号微信号，帐号前缀最多10个字符，必须是英文、数字字符或者下划线，后缀为公众号微信号，长度不超过30个字符)</param>
+        /// <param name="kf_account">完整客服帐号(格式为：帐号前缀@公众号微信号，帐号前缀最多10个字符，必须是英文、数字字符或者下划线，后缀为公众号微信号，长度不超过30个字符)</param>
         /// <param name="inviteWX">接收绑定邀请的客服微信号</param>
         /// <returns></returns>
-        public static JsonResult CustomerServiceAccountInvite(this AccessToken token, string kfName, string inviteWX) =>
-            HttpClient.PostJsonString(CoreApi.ApiUrl("/customservice/kfaccount/inviteworker?access_token={0}", token.access_token),
-                "{\"kf_account\":\"" + kfName.CompleteKefuName(token) + "\",\"invite_wx\":\"" + inviteWX + "\"}"
-                ).DeserializeJsonString<JsonResult>();
+        public static JsonResult CustomerServiceAccountInvite(this AccessToken token, string kf_account, string inviteWX) =>
+            Api.CustomerService.Account.Invite(token.access_token, kf_account, inviteWX);
         /// <summary>
         /// 设置客服信息
         /// </summary>
         /// <param name="token"></param>
-        /// <param name="kfName">客服名称(前缀)或完整客服帐号(格式为：帐号前缀@公众号微信号，帐号前缀最多10个字符，必须是英文、数字字符或者下划线，后缀为公众号微信号，长度不超过30个字符)</param>
+        /// <param name="kf_account">完整客服帐号(格式为：帐号前缀@公众号微信号，帐号前缀最多10个字符，必须是英文、数字字符或者下划线，后缀为公众号微信号，长度不超过30个字符)</param>
         /// <param name="nickName">客服昵称，最长16个字</param>
         /// <returns></returns>
-        public static JsonResult CustomerServiceAccountUpdate(this AccessToken token, string kfName, string nickName) =>
-            HttpClient.PostJsonString(CoreApi.ApiUrl("/customservice/kfaccount/update?access_token={0}", token.access_token),
-                "{\"kf_account\":\"" + kfName.CompleteKefuName(token) + "\",\"nickname\":\"" + nickName + "\"}"
-                ).DeserializeJsonString<JsonResult>();
+        public static JsonResult CustomerServiceAccountUpdate(this AccessToken token, string kf_account, string nickName) =>
+            Api.CustomerService.Account.Update(token.access_token, kf_account, nickName);
         /// <summary>
         /// 上传客服头像
         /// </summary>
         /// <param name="token"></param>
-        /// <param name="kfName">客服名称(前缀)或完整客服帐号(格式为：帐号前缀@公众号微信号，帐号前缀最多10个字符，必须是英文、数字字符或者下划线，后缀为公众号微信号，长度不超过30个字符)</param>
+        /// <param name="kf_account">完整客服帐号(格式为：帐号前缀@公众号微信号，帐号前缀最多10个字符，必须是英文、数字字符或者下划线，后缀为公众号微信号，长度不超过30个字符)</param>
         /// <param name="filePath">头像图片文件必须是jpg格式，推荐使用640*640大小的图片以达到最佳效果</param>
         /// <returns></returns>
-        public static JsonResult CustomerServiceAccountUploadHeadImg(this AccessToken token, string kfName, string filePath)
-        {
-            if (!filePath.EndsWith(".jpg"))
-                throw new FormatException("头像图片文件必须是jpg格式");
-            var file = new Dictionary<string, string>();
-            file["media"] = filePath;
-            return HttpClient.CurlPost(CoreApi.ApiUrl("/customservice/kfaccount/uploadheadimg?access_token={0}&kf_account={1}", token.access_token, kfName.CompleteKefuName(token)), queryDir: file).ReadToEnd().DeserializeJsonString<JsonResult>();
-        }
+        public static JsonResult CustomerServiceAccountUploadHeadImg(this AccessToken token, string kf_account, string filePath) =>
+            Api.CustomerService.Account.UploadHeadImg(token.access_token, kf_account, filePath);
+
         /// <summary>
         /// 删除客服帐号
         /// </summary>
         /// <param name="token"></param>
-        /// <param name="kfName">客服名称(前缀)或完整客服帐号(格式为：帐号前缀@公众号微信号，帐号前缀最多10个字符，必须是英文、数字字符或者下划线，后缀为公众号微信号，长度不超过30个字符)</param>
+        /// <param name="kf_account">完整客服帐号(格式为：帐号前缀@公众号微信号，帐号前缀最多10个字符，必须是英文、数字字符或者下划线，后缀为公众号微信号，长度不超过30个字符)</param>
         /// <returns></returns>
-        public static JsonResult CustomerServiceAccountDelete(this AccessToken token, string kfName) =>
-            HttpClient.GetString(CoreApi.ApiUrl("/customservice/kfaccount/del?access_token={0}&kf_account={1}", token.access_token, kfName.CompleteKefuName(token).EncodeAsUrlData())).DeserializeJsonString<JsonResult>();
+        public static JsonResult CustomerServiceAccountDelete(this AccessToken token, string kf_account) =>
+            Api.CustomerService.Account.Delete(token.access_token, kf_account);
 
         #endregion
 
@@ -319,20 +197,20 @@ namespace OYMLCN.WeChat
         /// 创建会话
         /// </summary>
         /// <param name="token"></param>
-        /// <param name="kfName">客服名称(前缀)或完整客服帐号(格式为：帐号前缀@公众号微信号，帐号前缀最多10个字符，必须是英文、数字字符或者下划线，后缀为公众号微信号，长度不超过30个字符)</param>
+        /// <param name="kf_account">完整客服帐号(格式为：帐号前缀@公众号微信号，帐号前缀最多10个字符，必须是英文、数字字符或者下划线，后缀为公众号微信号，长度不超过30个字符)</param>
         /// <param name="openid">粉丝的openid</param>
         /// <returns></returns>
-        public static JsonResult CustomerServiceSessionCreate(this AccessToken token, string kfName, string openid) =>
-            HttpClient.PostJsonString(CoreApi.ApiUrl("/customservice/kfsession/create?access_token={0}", token.access_token), "{\"kf_account\":\"" + kfName.CompleteKefuName(token) + "\",\"openid\":\"" + openid + "\"}").DeserializeJsonString<JsonResult>();
+        public static JsonResult CustomerServiceSessionCreate(this AccessToken token, string kf_account, string openid) =>
+            Api.CustomerService.Session.Create(token.access_token, kf_account, openid);
         /// <summary>
         /// 关闭会话
         /// </summary>
         /// <param name="token"></param>
-        /// <param name="kfName">客服名称(前缀)或完整客服帐号(格式为：帐号前缀@公众号微信号，帐号前缀最多10个字符，必须是英文、数字字符或者下划线，后缀为公众号微信号，长度不超过30个字符)</param>
+        /// <param name="kf_account">完整客服帐号(格式为：帐号前缀@公众号微信号，帐号前缀最多10个字符，必须是英文、数字字符或者下划线，后缀为公众号微信号，长度不超过30个字符)</param>
         /// <param name="openid">粉丝的openid</param>
         /// <returns></returns>
-        public static JsonResult CustomerServiceSessionClose(this AccessToken token, string kfName, string openid) =>
-            HttpClient.PostJsonString(CoreApi.ApiUrl("/customservice/kfsession/close?access_token={0}", token.access_token), "{\"kf_account\":\"" + kfName.CompleteKefuName(token) + "\",\"openid\":\"" + openid + "\"}").DeserializeJsonString<JsonResult>();
+        public static JsonResult CustomerServiceSessionClose(this AccessToken token, string kf_account, string openid) =>
+            Api.CustomerService.Session.Close(token.access_token, kf_account, openid);
         /// <summary>
         /// 获取客户会话状态
         /// 有效字段：kf_account、createtime
@@ -340,18 +218,18 @@ namespace OYMLCN.WeChat
         /// <param name="token"></param>
         /// <param name="openid">粉丝的openid</param>
         /// <returns></returns>
-        public static KefuSession CustomerServiceSessionQuery(this AccessToken token, string openid) =>
-            HttpClient.GetString(CoreApi.ApiUrl("/customservice/kfsession/getsession?access_token={0}&openid={1}", token.access_token, openid)).DeserializeJsonString<KefuSession>();
+        public static KefuSessionList.Session CustomerServiceSessionQuery(this AccessToken token, string openid) =>
+            Api.CustomerService.Session.Get(token.access_token, openid);
         /// <summary>
         /// 获取客服会话列表
         /// 有效列表：sessionlist
         /// 有效字段：createtime、openid
         /// </summary>
         /// <param name="token"></param>
-        /// <param name="kfName">客服名称(前缀)或完整客服帐号(格式为：帐号前缀@公众号微信号，帐号前缀最多10个字符，必须是英文、数字字符或者下划线，后缀为公众号微信号，长度不超过30个字符)</param>
+        /// <param name="kf_account">完整客服帐号(格式为：帐号前缀@公众号微信号，帐号前缀最多10个字符，必须是英文、数字字符或者下划线，后缀为公众号微信号，长度不超过30个字符)</param>
         /// <returns></returns>
-        public static KefuSessionList CustomerServiceSessionListQuery(this AccessToken token, string kfName) =>
-            HttpClient.GetString(CoreApi.ApiUrl("/customservice/kfsession/getsessionlist?access_token={0}&kf_account={1}", token.access_token, kfName.CompleteKefuName(token).EncodeAsUrlData())).DeserializeJsonString<KefuSessionList>();
+        public static KefuSessionList.Session[] CustomerServiceSessionListQuery(this AccessToken token, string kf_account) =>
+            Api.CustomerService.Session.GetList(token.access_token, kf_account);
         /// <summary>
         /// 获取未接入会话列表
         /// 有效列表：waitcaselist
@@ -360,8 +238,8 @@ namespace OYMLCN.WeChat
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        public static KefuSessionList CustomerServiceWaitingListQuery(this AccessToken token) =>
-            HttpClient.GetString(CoreApi.ApiUrl("/customservice/kfsession/getwaitcase?access_token={0}", token.access_token)).DeserializeJsonString<KefuSessionList>();
+        public static KefuSessionList.Session[] CustomerServiceWaitingListQuery(this AccessToken token) =>
+            Api.CustomerService.Session.GetWaitCase(token.access_token);
         /// <summary>
         /// 获取聊天记录
         /// 请求的number(10000)和返回的number(10000)一样，
@@ -373,10 +251,7 @@ namespace OYMLCN.WeChat
         /// <param name="msgid">消息id顺序从小到大，从1开始</param>
         /// <param name="number">每次获取条数，最多10000条</param>
         /// <returns></returns>
-        public static KefuRecordList CustomerServiceRecordQuery(this AccessToken token, DateTime start, DateTime end, Int64 msgid = 1, int number = 10000) =>
-             HttpClient.PostJsonString(CoreApi.ApiUrl("/customservice/msgrecord/getmsglist?access_token={0}", token.access_token),
-                "{\"starttime\":" + start.ToTimestamp().ToString() + ",\"endtime\":" + end.ToTimestamp().ToString() +
-                ",\"msgid\":" + msgid.ToString() + ",\"number\":" + number.ToString() + "}"
-                ).DeserializeJsonString<KefuRecordList>();
+        public static KefuRecordList CustomerServiceRecordQuery(this AccessToken token, DateTime start, DateTime end, long msgid = 1, int number = 10000) =>
+             Api.CustomerService.Record.GetMsgList(token.access_token, start, end, msgid, number);
     }
 }
