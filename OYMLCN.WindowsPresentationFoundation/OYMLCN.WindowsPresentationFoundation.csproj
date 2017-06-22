@@ -19,7 +19,7 @@
     <FileVersion>0.0.0.0</FileVersion>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Authors>VicBilibily欧阳敏岚</Authors>
-    <Version>0.1.3</Version>
+    <Version>0.1.4</Version>
     <Description>项目中使用到的方法封装
 ApplicationInitialization、SelectorExtension、TextBoxExtension、VisualHepler</Description>
     <ApplicationIcon />

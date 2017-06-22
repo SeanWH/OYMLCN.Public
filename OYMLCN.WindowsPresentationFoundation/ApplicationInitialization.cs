@@ -54,7 +54,7 @@ namespace OYMLCN
         /// <param name="nextAction">若已存在实例的调用方法</param>
         public static void OneInstanceStartup(Action runAction, Action nextAction = null)
         {
-            singleInstanceWatcher = new Semaphore(0, 1, Assembly.GetExecutingAssembly().GetName().Name, out createdNew);
+            singleInstanceWatcher = new Semaphore(0, 1, Process.GetCurrentProcess().MainModule.ModuleName, out createdNew);
             if (createdNew)
                 runAction.Invoke();
             else
@@ -98,11 +98,15 @@ namespace OYMLCN
                 });
             }
         }
-        private static void KillMainProcess()
+
+        /// <summary>
+        /// 杀掉程序主线程
+        /// </summary>
+        public static void KillMainProcess()
         {
             Process[] ps = Process.GetProcesses();
             foreach (Process p in ps)
-                if (p.ProcessName == Assembly.GetEntryAssembly().GetName().Name)
+                if ($"{p.ProcessName}.exe".Equals(Process.GetCurrentProcess().MainModule.ModuleName, StringComparison.OrdinalIgnoreCase))
                     p.Kill();
         }
 
