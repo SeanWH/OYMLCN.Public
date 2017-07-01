@@ -15,14 +15,8 @@ namespace OYMLCN
         /// <param name="stream"></param>
         /// <param name="encoder">编码格式 默认为UTF-8</param>
         /// <returns></returns>
-        public static string ReadToEnd(this Stream stream, Encoding encoder = null)
-        {
-#if !NETCOREAPP1_0
-            stream.Position = 0;
-#endif
-            return new StreamReader(stream, encoder ?? Encoding.UTF8).ReadToEnd().Replace("\0", "");
-        }
-
+        public static string ReadToEnd(this Stream stream, Encoding encoder = null)=>
+            new StreamReader(stream, encoder ?? Encoding.UTF8).ReadToEnd().Replace("\0", "");
 
         /// <summary>
         /// 填充表单信息

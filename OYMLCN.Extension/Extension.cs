@@ -61,5 +61,15 @@ namespace OYMLCN
         /// <returns></returns>
         public static TValue SelectValue<TKey, TValue>(this Dictionary<TKey, TValue> dic, TKey key) =>
             dic.Where(d => d.Key.Equals(key)).Select(d => d.Value).FirstOrDefault();
+
+        /// <summary>
+        /// 判断字典键值类型是否未赋值
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="keyValuePair"></param>
+        /// <returns></returns>
+        public static bool IsNull<TKey, TValue>(this KeyValuePair<TKey, TValue> keyValuePair) =>
+            default(KeyValuePair<TKey, TValue>).Equals(keyValuePair);
     }
 }
