@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OYMLCN.Extension", "OYMLCN.Extension\OYMLCN.Extension.csproj", "{930E23A5-3FE2-434C-BDFD-1F9C0E0A2E92}"
 EndProject
@@ -44,6 +44,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OYMLCN.WPF.WebBrowser", "OYMLCN.WPF.WebBrowser\OYMLCN.WPF.WebBrowser.csproj", "{154FB1E6-51D8-45E1-9845-02E9F5815DC2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OYMLCN.Xml", "OYMLCN.Xml\OYMLCN.Xml.csproj", "{1E618464-6801-4634-9114-DAFED8F7413B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OYMLCN.WebDriver", "OYMLCN.WebDriver\OYMLCN.WebDriver.csproj", "{DD9EA17D-5D10-46CB-9102-F9213ED8768E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -127,6 +129,10 @@ Global
 		{1E618464-6801-4634-9114-DAFED8F7413B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E618464-6801-4634-9114-DAFED8F7413B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E618464-6801-4634-9114-DAFED8F7413B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD9EA17D-5D10-46CB-9102-F9213ED8768E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD9EA17D-5D10-46CB-9102-F9213ED8768E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD9EA17D-5D10-46CB-9102-F9213ED8768E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD9EA17D-5D10-46CB-9102-F9213ED8768E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -142,5 +148,6 @@ Global
 		{FEE8C2DE-533A-487D-BB6E-BA3CF682D471} = {19A5B87F-B2AE-4633-8823-7091E75A8101}
 		{F6FF493F-C2BD-4DB9-9C01-D112E7C4001B} = {19A5B87F-B2AE-4633-8823-7091E75A8101}
 		{154FB1E6-51D8-45E1-9845-02E9F5815DC2} = {19A5B87F-B2AE-4633-8823-7091E75A8101}
+		{DD9EA17D-5D10-46CB-9102-F9213ED8768E} = {19A5B87F-B2AE-4633-8823-7091E75A8101}
 	EndGlobalSection
 EndGlobal

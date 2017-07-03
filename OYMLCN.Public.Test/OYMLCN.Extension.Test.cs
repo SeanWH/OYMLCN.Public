@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 #endif
 using System.IO;
+using System.Linq;
 using System.Net;
 
 namespace OYMLCN.Extension.Test
@@ -192,6 +193,12 @@ namespace OYMLCN.Extension.Test
             Assert.IsTrue("130503810215001".IsChineseIDCard());//GB11643-1989
             Assert.IsTrue("110100198906020014".IsChineseIDCard());//GB11643-1999
             Assert.IsFalse("110100198906020015".IsChineseIDCard());//GB11643-1989
+
+            Dictionary<string, string> TestDic = new Dictionary<string, string>();
+            TestDic.Add("1", "test");
+            Assert.IsFalse(TestDic.FirstOrDefault().IsNull());
+            Assert.IsTrue(TestDic.FirstOrDefault(d => d.Key == "0").IsNull());
+
         }
 
         // 涉及多项文件操作，偶尔会测试失败
@@ -330,6 +337,12 @@ namespace OYMLCN.Extension.Test
             string dbc = "你好呀 programer", sbc = "你好呀　ｐｒｏｇｒａｍｅｒ";
             Assert.AreEqual(sbc.ToDBC(), dbc);
             Assert.AreEqual(dbc.ToSBC(), sbc);
+
+
+            Assert.AreEqual("{0}/{1}".FormatString("1", "2"), "1/2");
+            CollectionAssert.AreEqual("你好".ToStringArray(), new string[] { "你", "好" });
+            Assert.IsFalse("hi".IsChineseReg());
+            Assert.IsTrue("你好".IsChineseReg());
         }
 
         [TestMethod]
@@ -347,7 +360,7 @@ namespace OYMLCN.Extension.Test
             Assert.IsTrue(unsignN.IsUnsignNumeric());
             Assert.IsFalse(numeric.IsUnsignNumeric());
 
-            Assert.AreEqual("hima(-1000.250)nani".ToNumeric(),"-1000.250");
+            Assert.AreEqual("hima(-1000.250)nani".ToNumeric(), "-1000.250");
             Assert.AreEqual(notNumeric.ToNumeric(), "-100.00");
             Assert.IsNull(nullStr.ToNumeric());
             Assert.AreEqual(notNumeric.ToIntegerNumeric(), "-100");

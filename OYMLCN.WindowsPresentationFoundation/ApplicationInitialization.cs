@@ -45,7 +45,6 @@ namespace OYMLCN
         }
 
         private static Semaphore singleInstanceWatcher;
-        private static bool createdNew;
 
         /// <summary>
         /// 只允许启动一个程序实例
@@ -54,13 +53,14 @@ namespace OYMLCN
         /// <param name="nextAction">若已存在实例的调用方法</param>
         public static void OneInstanceStartup(Action runAction, Action nextAction = null)
         {
-            singleInstanceWatcher = new Semaphore(0, 1, Process.GetCurrentProcess().MainModule.ModuleName, out createdNew);
+            bool createdNew;
+            singleInstanceWatcher = new Semaphore(0, 1, System.Diagnostics.Process.GetCurrentProcess().MainModule.ModuleName, out createdNew);
             if (createdNew)
                 runAction.Invoke();
             else
             {
-                Process current = Process.GetCurrentProcess();
-                foreach (Process process in Process.GetProcessesByName(current.ProcessName))
+                var current = System.Diagnostics.Process.GetCurrentProcess();
+                foreach (var process in System.Diagnostics.Process.GetProcessesByName(current.ProcessName))
                     if (process.Id != current.Id)
                     {
                         if (nextAction != null)
@@ -102,13 +102,7 @@ namespace OYMLCN
         /// <summary>
         /// 杀掉程序主线程
         /// </summary>
-        public static void KillMainProcess()
-        {
-            Process[] ps = Process.GetProcesses();
-            foreach (Process p in ps)
-                if ($"{p.ProcessName}.exe".Equals(Process.GetCurrentProcess().MainModule.ModuleName, StringComparison.OrdinalIgnoreCase))
-                    p.Kill();
-        }
+        public static void KillMainProcess() => OYMLCN.Process.Kill(System.Diagnostics.Process.GetCurrentProcess().MainModule.ModuleName);
 
         /// <summary>
         /// 捕获所有未处理异常

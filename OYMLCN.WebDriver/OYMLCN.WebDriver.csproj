@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net452</TargetFramework>
+    <Description>Selenium WebDriver 的调用封装
+请另外安装对应驱动程序的NuGet包
+IE：Selenium.InternetExplorer.WebDriver （兼容性一般）
+Chrome：Selenium.Chrome.WebDriver（推荐）
+Firefox：Selenium.Firefox.WebDriver（一般）
+PhantomJS：Selenium.PhantomJS.WebDriver（未测试）</Description>
+    <Version>0.1.0</Version>
+    <RootNamespace>OYMLCN</RootNamespace>
+    <PackageLicenseUrl>https://github.com/VicBilibily/OYMLCN.Public/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>OYML.CN</Copyright>
+    <Company>广东佰群网络科技股份有限公司</Company>
+    <Authors>VicBilibily欧阳敏岚</Authors>
+    <PackageProjectUrl>https://www.oyml.cn/OYMLCN.WebDriver</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.WebDriver</RepositoryUrl>
+    <RepositoryType>Github</RepositoryType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\net452\OYMLCN.WebDriver.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\net452\OYMLCN.WebDriver.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Selenium.Support" Version="3.4.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="3.4.0" />
+  </ItemGroup>
+
+</Project>

@@ -102,6 +102,26 @@ namespace OYMLCN
         public static string SubString(this string str, int start, int length = int.MaxValue) =>
             new string(str.Skip(start).Take(length).ToArray());
 
+        /// <summary>
+        /// 根据占位符紧接多个字符串 即string.Format
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public static string FormatString(this string str, params string[] param) => string.Format(str, param);
+        /// <summary>
+        /// 分割字符串未每一个单字
+        /// </summary>
+        /// <param name="str">待分割字符串</param>
+        /// <returns></returns>
+        public static string[] ToStringArray(this string str) => str.Select(x => x.ToString()).ToArray();
+        /// <summary>
+        /// 判断字符是不是汉字
+        /// </summary>
+        /// <param name="text">待判断字符或字符串</param>
+        /// <returns>true是 false不是</returns>
+        public static bool IsChineseReg(this string text) => Regex.IsMatch(text, @"[\u4e00-\u9fbb]+$");
+
 
         /// <summary>
         /// 将Boolean转换为Yes是或No否

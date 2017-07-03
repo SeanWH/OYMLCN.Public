@@ -15,11 +15,15 @@ namespace OYMLCN
         /// 将字符串转换为Html便捷操作模式
         /// </summary>
         /// <param name="html"></param>
+        /// <param name="removeComment">移除注释</param>
         /// <returns></returns>
-        public static HtmlNode AsAgilityHtml(this string html)
+        public static HtmlNode AsAgilityHtml(this string html, bool removeComment = true)
         {
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(html);
+            if (removeComment)
+                foreach (HtmlNode comment in doc.DocumentNode.SelectNodes("//comment()"))
+                    comment.ParentNode.RemoveChild(comment);
             return doc.DocumentNode;
         }
 

@@ -43,11 +43,10 @@ namespace OYMLCN
         {
             var result = new PinyinModel();
             List<string> total = new List<string>(), first = new List<string>();
-            string[] strArray = GetStrArray(str);
-            foreach (var strChar in strArray)
+            foreach (var strChar in str.ToStringArray())
             {
                 string pinyin = strChar, py = strChar;
-                if (IsChineseReg(strChar))
+                if (strChar.IsChineseReg())
                 {
                     List<string> a = GetPinyinByOne(strChar, polyphone);
                     if (a.Count() > 0)
@@ -65,24 +64,6 @@ namespace OYMLCN
         }
 
 
-
-        /// <summary>
-        /// 分割字符串
-        /// </summary>
-        /// <param name="str">待分割字符串</param>
-        /// <returns></returns>
-        private static string[] GetStrArray(string str)
-        {
-            //eachchar每个元素就是一个字。
-            string[] eachchar = str.Select(x => x.ToString()).ToArray();
-            return eachchar;
-        }
-        /// <summary>
-        /// 判断字符是不是汉字
-        /// </summary>
-        /// <param name="text">待判断字符或字符串</param>
-        /// <returns>true是 false不是</returns>
-        public static bool IsChineseReg(this string text) => Regex.IsMatch(text, @"[\u4e00-\u9fbb]+$");
         /// <summary>
         /// 处理多音字，将类似['chang zhang', 'cheng'] 转换成 ['changcheng', 'zhangcheng']
         /// </summary>
