@@ -138,13 +138,8 @@ namespace OYMLCN
                 /// <param name="mode"></param>
                 public static void RegisterServiceChannel(Type type, string portName, WellKnownObjectMode mode = WellKnownObjectMode.Singleton)
                 {
-                    ThreadPool.QueueUserWorkItem(action =>
-                    {
-                        ChannelServices.RegisterChannel(new System.Runtime.Remoting.Channels.Ipc.IpcChannel(portName), false);
-                        RemotingConfiguration.RegisterWellKnownServiceType(type, type.FullName, mode);
-                        while (true)
-                            Thread.Sleep(1000 * 60 * 60 * 365);
-                    });
+                    ChannelServices.RegisterChannel(new System.Runtime.Remoting.Channels.Ipc.IpcChannel(portName), false);
+                    RemotingConfiguration.RegisterWellKnownServiceType(type, type.FullName, mode);
                 }
 
                 /// <summary>
@@ -154,11 +149,8 @@ namespace OYMLCN
                 /// <param name="portName">服务名</param>
                 public static void RegisterClientChannel(Type type, string portName)
                 {
-                    ThreadPool.QueueUserWorkItem(action =>
-                    {
-                        ChannelServices.RegisterChannel(new System.Runtime.Remoting.Channels.Ipc.IpcChannel(), false);
-                        RemotingConfiguration.RegisterWellKnownClientType(new WellKnownClientTypeEntry(type, $"ipc://{portName}/{type.FullName}"));
-                    });
+                    ChannelServices.RegisterChannel(new System.Runtime.Remoting.Channels.Ipc.IpcChannel(), false);
+                    RemotingConfiguration.RegisterWellKnownClientType(new WellKnownClientTypeEntry(type, $"ipc://{portName}/{type.FullName}"));
                 }
             }
 
@@ -217,6 +209,6 @@ namespace OYMLCN
             }
         }
     }
-  
+
 }
 #endif

@@ -12,11 +12,12 @@
     <RootNamespace>OYMLCN</RootNamespace>
     <Authors>VicBilibily欧阳敏岚</Authors>
     <Company>广东佰群网络科技股份有限公司</Company>
-    <Description>常用类型方法扩展
-BitmapExtension（仅.Net）、BitmapHandler（仅.Net）、CryptographyExtension、DateTimeExtension、EnumExtension、FileExtension、HardwareExtension（仅.Net）、HTMLExtension、HttpClient（静态方法封装）、PinYinExtension、StreamExtension、StringExtension、SystemInfo（仅.Net）、ZipExtension</Description>
+    <Description>常用类型方法扩展封装
+.Net独有：BitmapExtension、BitmapHandler、HardwareExtension、HttpClient（静态方法）、SystemInfo
+跨平台封装：CryptographyExtension、DateTimeExtension、EnumExtension、FileExtension、HTMLExtension、、PinYinExtension、StreamExtension、StringExtension、ZipExtension</Description>
     <Copyright>OYML.CN</Copyright>
     <PackageProjectUrl>https://www.oyml.cn/OYMLCN.Extension</PackageProjectUrl>
-    <Version>0.3.4</Version>
+    <Version>0.3.5</Version>
     <PackageLicenseUrl>https://github.com/VicBilibily/OYMLCN.Public/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.Extension</RepositoryUrl>
     <RepositoryType>Github</RepositoryType>
