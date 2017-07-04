@@ -57,6 +57,27 @@ namespace OYMLCN
             return html;
         }
         /// <summary>
+        /// 删除多余的空格其换行符
+        /// </summary>
+        /// <param name="html"></param>
+        /// <returns></returns>
+        public static string RemoveHtmlBrAndSpace(this string html)
+        {
+            if (html == null)
+                return string.Empty;
+
+            var lines = html.SplitByLine();
+            for (var i = 0; i < lines.Length; i++)
+                lines[i] = lines[i].Trim();
+            html = string.Join("\r\n", lines);
+
+            html = html.Replace("\r", "{{__rbrn__}}").Replace("\n", "{{__rbrn__}}").Replace("{{__rbrn__}}", "\r\n").Replace("\t", "\r\n").Replace("<br>", "\r\n").Replace("<br/>", "\r\n").Replace("<br />", "\r\n");
+            do
+                html = html.Replace("\r\n\r\n", "\r\n");
+            while (html.Contains("\r\n\r\n\r\n"));
+            return html;
+        }
+        /// <summary>
         /// 替换所有换行符
         /// </summary>
         /// <param name="html"></param>

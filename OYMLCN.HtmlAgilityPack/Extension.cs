@@ -16,14 +16,30 @@ namespace OYMLCN
         /// </summary>
         /// <param name="html"></param>
         /// <param name="removeComment">移除注释</param>
+        /// <param name="removeScriptAndLinkStyle">移除脚本相关</param>
         /// <returns></returns>
-        public static HtmlNode AsAgilityHtml(this string html, bool removeComment = true)
+        public static HtmlNode AsAgilityHtml(this string html, bool removeComment = true, bool removeScriptAndLinkStyle = true)
         {
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(html);
             if (removeComment)
-                foreach (HtmlNode comment in doc.DocumentNode.SelectNodes("//comment()"))
-                    comment.ParentNode.RemoveChild(comment);
+            {
+                var comments = doc.DocumentNode.SelectNodes("//comment()");
+                if (comments != null)
+                    foreach (var comment in comments)
+                        comment.ParentNode.RemoveChild(comment);
+            }
+            if (removeScriptAndLinkStyle)
+            {
+                foreach (var script in doc.DocumentNode.Descendants("script").ToArray())
+                    script.Remove();
+
+                foreach (var style in doc.DocumentNode.Descendants("style").ToArray())
+                    style.Remove();
+
+                foreach (var style in doc.DocumentNode.Descendants("link").ToArray())
+                    style.Remove();
+            }
             return doc.DocumentNode;
         }
 
@@ -72,6 +88,15 @@ namespace OYMLCN
         /// <returns></returns>
         public static HtmlNode GetAttributeNode(this HtmlNode hnc, string attrName, string attrValue) =>
             hnc.GetAttributeNodes(attrName, attrValue)?.FirstOrDefault();
+
+
+        /// <summary>
+        /// 获取指定标签名称的所有元素
+        /// </summary>
+        /// <param name="hn"></param>
+        /// <param name="tagName">标签名</param>
+        /// <returns></returns>
+        public static IEnumerable<HtmlNode> GetDescendants(this HtmlNode hn, string tagName) => hn.Descendants(tagName);
 
         /// <summary>
         /// 获取具有指定属性名的元素集合
