@@ -10,6 +10,12 @@ namespace OYMLCN
     /// </summary>
     public static class HtmlAgilityPackExtension
     {
+        /// <summary>
+        /// 获取精简后的HTML
+        /// </summary>
+        /// <param name="html"></param>
+        /// <returns></returns>
+        public static string GetCleanHtml(this string html) => html.AsAgilityHtml().InnerHtml.AllInOneLine();
 
         /// <summary>
         /// 将字符串转换为Html便捷操作模式

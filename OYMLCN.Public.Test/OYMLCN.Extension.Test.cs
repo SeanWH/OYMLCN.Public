@@ -256,7 +256,10 @@ namespace OYMLCN.Extension.Test
                 { "qq", "10000" },
                 { "code", "%43<>><%" }
             };
-            Assert.AreEqual(demoDic.ToQueryString(), "qq=10000&code=%2543%3C%3E%3E%3C%25");
+            var demoQuery = "qq=10000&code=%2543%3C%3E%3E%3C%25";
+            Assert.AreEqual(demoDic.ToQueryString(), demoQuery);
+            CollectionAssert.AreEqual(demoQuery.QueryStringToDictionary(), demoDic);
+            CollectionAssert.AreEqual(demoDic.ToQueryString().QueryStringToDictionary(), demoDic);
 
         }
 

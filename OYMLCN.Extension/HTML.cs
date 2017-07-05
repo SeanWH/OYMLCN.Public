@@ -56,27 +56,20 @@ namespace OYMLCN
             while (html.Contains("\r\n\r\n\r\n"));
             return html;
         }
-        /// <summary>
-        /// 删除多余的空格其换行符
-        /// </summary>
-        /// <param name="html"></param>
-        /// <returns></returns>
-        public static string RemoveHtmlBrAndSpace(this string html)
-        {
-            if (html == null)
-                return string.Empty;
 
-            var lines = html.SplitByLine();
+        /// <summary>
+        /// 将所有换行及其前后多余的空格替换掉合并为一行
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string AllInOneLine(this string str)
+        {
+            var lines = str.SplitByLine();
             for (var i = 0; i < lines.Length; i++)
                 lines[i] = lines[i].Trim();
-            html = string.Join("\r\n", lines);
-
-            html = html.Replace("\r", "{{__rbrn__}}").Replace("\n", "{{__rbrn__}}").Replace("{{__rbrn__}}", "\r\n").Replace("\t", "\r\n").Replace("<br>", "\r\n").Replace("<br/>", "\r\n").Replace("<br />", "\r\n");
-            do
-                html = html.Replace("\r\n\r\n", "\r\n");
-            while (html.Contains("\r\n\r\n\r\n"));
-            return html;
+            return string.Join("", lines);
         }
+
         /// <summary>
         /// 替换所有换行符
         /// </summary>
@@ -160,6 +153,23 @@ namespace OYMLCN
             return sb.ToString();
         }
 
+        /// <summary>
+        /// QueryString拆解为字典
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public static Dictionary<string,string> QueryStringToDictionary(this string query)
+        {
+            var dic = new Dictionary<string, string>();
+            query = query.HtmlDecode().SplitThenGetLast("?");
+            foreach(var item in query.SplitBySign("&"))
+            {
+                var key = item.SplitThenGetFirst("=");
+                var value = item.SubString(key.Length + 1).UrlDecode();
+                dic.Add(key, value);
+            }
+            return dic;
+        }
 
     }
 }
