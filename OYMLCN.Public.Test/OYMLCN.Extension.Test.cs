@@ -240,7 +240,7 @@ namespace OYMLCN.Extension.Test
             Assert.AreEqual(html.RemoveScript(), "<html><head><link href='/css/footer.css' rel='stylesheet'/></head><body>你好<h3>世界</h3></body></html>");
             Assert.AreEqual(html.RemoveScript().RemoveHtml(), "你好世界");
             Assert.AreEqual("\r\n<br/>\r\n<br />\t\t\r\n<br>\r\n\t\t\r\n".ReplaceBr(), "\r\n\r\n");
-            Assert.AreEqual("123\r\n<br/>\r\n<br />\r\n<br>321\r\n\r\n".ReplaceBr(), "123\r\n\r\n321\r\n");
+            Assert.AreEqual("123\r\n<br/>\r\n<br />\r\n<br>321\r\n\r\n".ReplaceBr(1), "123\r\n321\r\n");
             Assert.AreEqual("\r\n\t<br/>\n\r\t".RemoveBr(), "");
             Assert.AreEqual("1&nbsp; 2 　  3  　 ".RemoveSpace(), "1 2 3");
             Assert.AreEqual("<a>hi\t122\r\n\r\n</a>".HtmlGetFirstLine(), "hi");

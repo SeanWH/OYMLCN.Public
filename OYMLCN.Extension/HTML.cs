@@ -42,18 +42,30 @@ namespace OYMLCN
             return Regex.Replace(html, @"(\<script(.+?)\</script\>)|(\<style(.+?)\</style\>)", "", RegexOptions.IgnoreCase | RegexOptions.Singleline);
         }
         /// <summary>
-        /// 替换换行Br为换行符
+        /// 替换换行Br为换行符（且最少保留一个换行符，默认保留两个）
         /// </summary>
         /// <param name="html"></param>
+        /// <param name="max">最大换行符保留数(该值必须大于等于1)</param>
         /// <returns></returns>
-        public static string ReplaceBr(this string html)
+        public static string ReplaceBr(this string html, int max = 2)
         {
             if (html == null)
                 return string.Empty;
-            html = html.Replace("\r", "{{__rbrn__}}").Replace("\n", "{{__rbrn__}}").Replace("{{__rbrn__}}", "\r\n").Replace("\t", "\r\n").Replace("<br>", "\r\n").Replace("<br/>", "\r\n").Replace("<br />", "\r\n");
+            const string source = "\r\n";
+            string key = source;
+            for (var i = 1; i < max; i++)
+                key += source;
+            html = html
+                .Replace("\r", "{{__rbrn__}}")
+                .Replace("\n", "{{__rbrn__}}")
+                .Replace("{{__rbrn__}}", source)
+                .Replace("\t", source)
+                .Replace("<br>", source)
+                .Replace("<br/>", source)
+                .Replace("<br />", source);
             do
-                html = html.Replace("\r\n\r\n", "\r\n");
-            while (html.Contains("\r\n\r\n\r\n"));
+                html = html.Replace(key + source, key);
+            while (html.Contains(key + source));
             return html;
         }
 
@@ -71,7 +83,7 @@ namespace OYMLCN
         }
 
         /// <summary>
-        /// 替换所有换行符
+        /// 去除所有换行符
         /// </summary>
         /// <param name="html"></param>
         /// <returns></returns>
@@ -158,11 +170,11 @@ namespace OYMLCN
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public static Dictionary<string,string> QueryStringToDictionary(this string query)
+        public static Dictionary<string, string> QueryStringToDictionary(this string query)
         {
             var dic = new Dictionary<string, string>();
             query = query.HtmlDecode().SplitThenGetLast("?");
-            foreach(var item in query.SplitBySign("&"))
+            foreach (var item in query.SplitBySign("&"))
             {
                 var key = item.SplitThenGetFirst("=");
                 var value = item.SubString(key.Length + 1).UrlDecode();

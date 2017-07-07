@@ -11,7 +11,7 @@ namespace OYMLCN
     public static class HtmlAgilityPackExtension
     {
         /// <summary>
-        /// 获取精简后的HTML
+        /// 获取精简后的HTML(空的div会被移除)
         /// </summary>
         /// <param name="hn"></param>
         /// <param name="removeDataAttribute">移除data-属性</param>
@@ -27,26 +27,30 @@ namespace OYMLCN
                     foreach (var style in nodeStyles)
                         style.Attributes["style"]?.Remove();
             }
-            var nodeData = hn.SelectNodes("//*").Where(d => d.Attributes.Count > 0).Select(d => d.Attributes);
-            foreach (var attributes in nodeData.ToArray())
+            if (removeDataAttribute || removeEventAttribute)
             {
-                if (removeDataAttribute)
-                    foreach (var data in attributes.Where(d => d.Name.StartsWith("data-", StringComparison.OrdinalIgnoreCase)).ToArray())
-                        data.Remove();
-                if (removeEventAttribute)
-                    foreach (var data in attributes.Where(d => d.Name.StartsWith("on", StringComparison.OrdinalIgnoreCase)).ToArray())
-                        data.Remove();
+                var nodeData = hn.SelectNodes("//*").Where(d => d.Attributes.Count > 0).Select(d => d.Attributes).ToArray();
+                foreach (var attributes in nodeData)
+                {
+                    if (removeDataAttribute)
+                        foreach (var data in attributes.Where(d => d.Name.StartsWith("data-", StringComparison.OrdinalIgnoreCase)).ToArray())
+                            data.Remove();
+                    if (removeEventAttribute)
+                        foreach (var data in attributes.Where(d => d.Name.StartsWith("on", StringComparison.OrdinalIgnoreCase)).ToArray())
+                            data.Remove();
+                }
             }
+            HtmlNode[] empties = hn.SelectNodes("//div")?.Where(d => d.ChildNodes.Count == 0).ToArray();
+            if (empties != null)
+                while (empties?.Length > 0)
+                {
+                    foreach (var empty in empties)
+                        empty.Remove();
+                    empties = hn.SelectNodes("//div")?.Where(d => d.InnerHtml.Trim().IsNullOrEmpty()).ToArray();
+                }
 
-            HtmlNode[] empties = hn.SelectNodes("//*").Where(d => !d.HasChildNodes).ToArray();
-            while (empties.Length > 0)
-            {
-                foreach (var empty in empties)
-                    empty.Remove();
-                empties = hn.SelectNodes("//*").Where(d => (d.Attributes.Count == 0 || (d.Attributes.Count == 1 && d.Attributes.First().Name.StartsWith("class", StringComparison.OrdinalIgnoreCase))) && d.InnerHtml.Trim().Length == 0).ToArray();
-            }
 
-            return hn.OwnerDocument.DocumentNode.InnerHtml.AllInOneLine();
+            return hn.OwnerDocument.DocumentNode.InnerHtml.AllInOneLine().RemoveSpace();
         }
 
         /// <summary>
