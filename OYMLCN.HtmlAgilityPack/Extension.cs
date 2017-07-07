@@ -13,18 +13,50 @@ namespace OYMLCN
         /// <summary>
         /// 获取精简后的HTML
         /// </summary>
-        /// <param name="html"></param>
+        /// <param name="hn"></param>
+        /// <param name="removeDataAttribute">移除data-属性</param>
+        /// <param name="removeInlineStyle">移除内联样式</param>
+        /// <param name="removeEventAttribute">移除on事件属性</param>
         /// <returns></returns>
-        public static string GetCleanHtml(this string html) => html.AsAgilityHtml().InnerHtml.AllInOneLine();
+        public static string GetCleanHtml(this HtmlNode hn, bool removeDataAttribute = false, bool removeInlineStyle = true, bool removeEventAttribute = true)
+        {
+            if (removeInlineStyle)
+            {
+                var nodeStyles = hn.SelectNodes("//@style");
+                if (nodeStyles != null)
+                    foreach (var style in nodeStyles)
+                        style.Attributes["style"]?.Remove();
+            }
+            var nodeData = hn.SelectNodes("//*").Where(d => d.Attributes.Count > 0).Select(d => d.Attributes);
+            foreach (var attributes in nodeData.ToArray())
+            {
+                if (removeDataAttribute)
+                    foreach (var data in attributes.Where(d => d.Name.StartsWith("data-", StringComparison.OrdinalIgnoreCase)).ToArray())
+                        data.Remove();
+                if (removeEventAttribute)
+                    foreach (var data in attributes.Where(d => d.Name.StartsWith("on", StringComparison.OrdinalIgnoreCase)).ToArray())
+                        data.Remove();
+            }
+
+            HtmlNode[] empties = hn.SelectNodes("//*").Where(d => !d.HasChildNodes).ToArray();
+            while (empties.Length > 0)
+            {
+                foreach (var empty in empties)
+                    empty.Remove();
+                empties = hn.SelectNodes("//*").Where(d => (d.Attributes.Count == 0 || (d.Attributes.Count == 1 && d.Attributes.First().Name.StartsWith("class", StringComparison.OrdinalIgnoreCase))) && d.InnerHtml.Trim().Length == 0).ToArray();
+            }
+
+            return hn.OwnerDocument.DocumentNode.InnerHtml.AllInOneLine();
+        }
 
         /// <summary>
         /// 将字符串转换为Html便捷操作模式
         /// </summary>
         /// <param name="html"></param>
         /// <param name="removeComment">移除注释</param>
-        /// <param name="removeScriptAndLinkStyle">移除脚本样式相关</param>
+        /// <param name="removeScriptLinkStyle">移除脚本样式相关区块</param>
         /// <returns></returns>
-        public static HtmlNode AsAgilityHtml(this string html, bool removeComment = true, bool removeScriptAndLinkStyle = true)
+        public static HtmlNode AsAgilityHtml(this string html, bool removeComment = true, bool removeScriptLinkStyle = true)
         {
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(html);
@@ -35,13 +67,11 @@ namespace OYMLCN
                     foreach (var comment in comments)
                         comment.ParentNode.RemoveChild(comment);
             }
-            if (removeScriptAndLinkStyle)
+            if (removeScriptLinkStyle)
             {
                 foreach (var script in doc.DocumentNode.Descendants("script").ToArray())
                     script.Remove();
                 foreach (var style in doc.DocumentNode.Descendants("style").ToArray())
-                    style.Remove();
-                foreach (var style in doc.DocumentNode.ChildAttributes("style").ToArray())
                     style.Remove();
                 foreach (var link in doc.DocumentNode.Descendants("link").ToArray())
                     link.Remove();
@@ -55,10 +85,12 @@ namespace OYMLCN
         /// <param name="hn"></param>
         /// <param name="xpath"></param>
         /// <returns></returns>
-        public static HtmlNode RemoveNode(this HtmlNode hn, string xpath)
+        public static HtmlNode RemoveNodes(this HtmlNode hn, string xpath)
         {
-            foreach (var ele in hn.SelectNodes(xpath).ToArray())
-                ele.Remove();
+            var nodes = hn.SelectNodes(xpath);
+            if (nodes != null)
+                foreach (var ele in nodes)
+                    ele.Remove();
             return hn;
         }
 
