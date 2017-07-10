@@ -40,15 +40,8 @@ namespace OYMLCN
                             data.Remove();
                 }
             }
-            HtmlNode[] empties = hn.SelectNodes("//div")?.Where(d => d.ChildNodes.Count == 0).ToArray();
-            if (empties != null)
-                while (empties?.Length > 0)
-                {
-                    foreach (var empty in empties)
-                        empty.Remove();
-                    empties = hn.SelectNodes("//div")?.Where(d => d.InnerHtml.Trim().IsNullOrEmpty()).ToArray();
-                }
 
+            hn.RemoveEmptyNodes("//div");
 
             return hn.OwnerDocument.DocumentNode.InnerHtml.AllInOneLine().RemoveSpace();
         }
@@ -89,12 +82,32 @@ namespace OYMLCN
         /// <param name="hn"></param>
         /// <param name="xpath"></param>
         /// <returns></returns>
-        public static HtmlNode RemoveNodes(this HtmlNode hn, string xpath)
+        public static HtmlNode RemoveNodes(this HtmlNode hn, params string[] xpath)
         {
-            var nodes = hn.SelectNodes(xpath);
-            if (nodes != null)
-                foreach (var ele in nodes)
-                    ele.Remove();
+            foreach (var item in xpath)
+            {
+                var nodes = hn.SelectNodes(item);
+                if (nodes != null)
+                    foreach (var ele in nodes)
+                        ele.Remove();
+            }
+            return hn;
+        }
+
+        public static HtmlNode RemoveEmptyNodes(this HtmlNode hn, params string[] xpath)
+        {
+            foreach (var item in xpath)
+            {
+                var empties = hn.SelectNodes(item)?.Where(d => d.ChildNodes.Count == 0).ToArray();
+                do
+                {
+                    if (empties != null)
+                        foreach (var empty in empties)
+                            empty.Remove();
+                    empties = hn.SelectNodes(item)?.Where(d => d.InnerHtml.Trim().IsNullOrEmpty()).ToArray();
+                }
+                while (empties?.Length > 0);
+            }
             return hn;
         }
 

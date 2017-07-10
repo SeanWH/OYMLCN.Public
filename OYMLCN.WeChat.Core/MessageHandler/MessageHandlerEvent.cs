@@ -42,7 +42,7 @@
         /// </summary>
         /// <param name="request">微信请求</param>
         /// <returns></returns>
-        public virtual WeChatResponse OnEvent关注(WeChatRequest request) => DefaultResponseMessage(request);
+        public virtual WeChatResponse OnEvent关注(WeChatRequest request) => WeChatResponse.ResponseText(request, $"欢迎关注：{request.Config.AccountName}");
         /// <summary>
         /// 返回关注事件处理结果
         /// 扫描带参数二维码首次关注时会推送此事件
@@ -51,7 +51,7 @@
         /// <param name="request">微信请求</param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public virtual WeChatResponse OnEvent关注(WeChatRequest request, WeChatRequest.WeChatEvent扫描带参数二维码 msg) => DefaultResponseMessage(request);
+        public virtual WeChatResponse OnEvent关注(WeChatRequest request, WeChatRequest.WeChatEvent扫描带参数二维码 msg) => OnEvent关注(request);
         /// <summary>
         /// 返回取消关注事件处理结果
         /// </summary>

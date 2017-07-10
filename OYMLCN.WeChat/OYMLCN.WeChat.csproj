@@ -8,7 +8,7 @@
   <PropertyGroup>
     <TargetFrameworks>netcoreapp1.0;net452</TargetFrameworks>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <Version>1.0.0-alpha20170617</Version>
+    <Version>0.3.0</Version>
     <Authors>VicBilibily欧阳敏岚</Authors>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Description>微信公众平台SDK（类JQuery链式调用）</Description>

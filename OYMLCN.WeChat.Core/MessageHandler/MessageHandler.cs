@@ -5,7 +5,10 @@
     /// </summary>
     public abstract partial class MessageHandler
     {
-        private WeChatRequest Request;
+        /// <summary>
+        /// 当前请求
+        /// </summary>
+        public WeChatRequest Request { get; private set; }
         /// <summary>
         /// 微信请求集中处理入口
         /// </summary>
