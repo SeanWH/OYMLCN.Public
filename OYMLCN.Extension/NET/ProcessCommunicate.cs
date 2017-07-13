@@ -98,7 +98,7 @@ namespace OYMLCN
                 /// <param name="data"></param>
                 public void Write(string data)
                 {
-                    var bytes = data.ToBytes();
+                    var bytes = data.StringToBytes();
                     var mutex = Mutex.OpenExisting($"{ShareName}Mutex");
                     mutex.WaitOne();
                     MMF = MemoryMappedFile.CreateOrOpen(ShareName, MaxLength, MemoryMappedFileAccess.ReadWrite);

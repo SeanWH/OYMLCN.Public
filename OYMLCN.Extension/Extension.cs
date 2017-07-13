@@ -52,24 +52,89 @@ namespace OYMLCN
         }
 
         /// <summary>
-        /// 从字典中获取指定键的值
-        /// </summary>
-        /// <typeparam name="TKey"></typeparam>
-        /// <typeparam name="TValue"></typeparam>
-        /// <param name="dic"></param>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public static TValue SelectValue<TKey, TValue>(this Dictionary<TKey, TValue> dic, TKey key) =>
-            dic.Where(d => d.Key.Equals(key)).Select(d => d.Value).FirstOrDefault();
-
-        /// <summary>
         /// 判断字典键值类型是否未赋值
         /// </summary>
         /// <typeparam name="TKey"></typeparam>
         /// <typeparam name="TValue"></typeparam>
         /// <param name="keyValuePair"></param>
         /// <returns></returns>
-        public static bool IsNull<TKey, TValue>(this KeyValuePair<TKey, TValue> keyValuePair) =>
+        public static bool IsDefault<TKey, TValue>(this KeyValuePair<TKey, TValue> keyValuePair) =>
             default(KeyValuePair<TKey, TValue>).Equals(keyValuePair);
+
+        /// <summary>
+        /// 判断是否为Null
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static bool IsNull(this object obj) => obj == null;
+        /// <summary>
+        /// 判断是否为非Null
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static bool IsNotNull(this object obj) => obj != null;
+        /// <summary>
+        /// 判断集合是否为空或Null
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <returns></returns>
+        public static bool IsEmpty<T>(this IEnumerable<T> enumerable) =>
+            (enumerable == null) || !enumerable.Any();
+        /// <summary>
+        /// 判断集合是否不为空或Null
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <returns></returns>
+        public static bool IsNotEmpty<T>(this IEnumerable<T> enumerable) =>
+            (enumerable != null) && enumerable.Any();
+        /// <summary>
+        /// 获取字典值
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="dict"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key) =>
+            GetValueOrDefault(dict, key, default(TValue));
+
+        /// <summary>
+        /// 获取字典值
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="dict"></param>
+        /// <param name="key"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, TValue defaultValue) =>
+             dict.ContainsKey(key) ? dict[key] : defaultValue;
+        /// <summary>
+        /// 从另一个字典增添或更新值
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="dict"></param>
+        /// <param name="other"></param>
+        public static void Update<TKey, TValue>(this IDictionary<TKey, TValue> dict, IDictionary<TKey, TValue> other)
+        {
+            foreach (var key in other.Keys)
+                dict[key] = other[key];
+        }
+
+        /// <summary>
+        /// CharToInt32
+        /// </summary>
+        /// <param name="ch"></param>
+        /// <returns></returns>
+        public static int ToInt32(this char ch) => ch;
+        /// <summary>
+        /// Int32ToChar
+        /// </summary>
+        /// <param name="i"></param>
+        /// <returns></returns>
+        public static char ToChar(this int i) => (char)i;
     }
 }

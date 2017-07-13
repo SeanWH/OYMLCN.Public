@@ -16,27 +16,27 @@ namespace OYMLCN
         /// <param name="value"></param>
         /// <returns></returns>
         public static bool IsNumeric(this string value) =>
-            Regex.IsMatch(value, @"^[+-]?\d*[.]?\d*$");
+            Regex.IsMatch(value, @"^[+-]?\d*[.]?\d*$", RegexOptions.Compiled);
         /// <summary>
         /// 判断文本是否为整数
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
         public static bool IsInteger(this string value) =>
-            Regex.IsMatch(value, @"^[+-]?\d*$");
+            Regex.IsMatch(value, @"^[+-]?\d*$", RegexOptions.Compiled);
         /// <summary>
         /// 判断文本是否为正数
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
         public static bool IsUnsignNumeric(this string value) =>
-            Regex.IsMatch(value, @"^\d*[.]?\d*$");
+            Regex.IsMatch(value, @"^\d*[.]?\d*$", RegexOptions.Compiled);
         /// <summary>
         /// 获取文本中的数字
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static string ToNumeric(this string str) => str.IsNullOrEmpty() ? null : Regex.Match(str, @"[+-]?\d+(\.\d+)?").Value;
+        public static string ToNumeric(this string str) => str.IsNullOrEmpty() ? null : Regex.Match(str, @"[+-]?\d+(\.\d+)?", RegexOptions.Compiled).Value;
         /// <summary>
         /// 获取文本中的数字
         /// </summary>

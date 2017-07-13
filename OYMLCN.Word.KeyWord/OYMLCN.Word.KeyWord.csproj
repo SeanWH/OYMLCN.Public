@@ -1,20 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFrameworks>netcoreapp1.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp1.0;net452</TargetFrameworks>
+    <RootNamespace>OYMLCN.Word.KeyWord</RootNamespace>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="System.Text.Encoding.Extensions" Version="4.3.0" />
-  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
     <ProjectReference Include="..\OYMLCN.Json\OYMLCN.Json.csproj" />
     <ProjectReference Include="..\OYMLCN.Word.Segmentation.Dictionary\OYMLCN.Word.Segmentation.Dictionary.csproj" />
     <ProjectReference Include="..\OYMLCN.Word.Segmentation\OYMLCN.Word.Segmentation.csproj" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp1.0'">
-    <PackageReference Include="System.Text.Encoding.CodePages">
-      <Version>4.3.0</Version>
-    </PackageReference>
+
+  <ItemGroup>
+    <Folder Include="Extension\" />
   </ItemGroup>
+
 </Project>

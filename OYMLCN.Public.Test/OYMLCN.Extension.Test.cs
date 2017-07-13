@@ -188,16 +188,16 @@ namespace OYMLCN.Extension.Test
             string host = "http://www.qq.com/";
             string url = host + "index.html";
             Uri uri = new Uri(url);
-            Assert.AreEqual(url.GetHostUrl(), host);
-            Assert.AreEqual(uri.GetHostUrl(), host);
+            Assert.AreEqual(url.UrlGetHost(), host);
+            Assert.AreEqual(uri.GetHost(), host);
             Assert.IsTrue("130503810215001".IsChineseIDCard());//GB11643-1989
             Assert.IsTrue("110100198906020014".IsChineseIDCard());//GB11643-1999
             Assert.IsFalse("110100198906020015".IsChineseIDCard());//GB11643-1989
 
             Dictionary<string, string> TestDic = new Dictionary<string, string>();
             TestDic.Add("1", "test");
-            Assert.IsFalse(TestDic.FirstOrDefault().IsNull());
-            Assert.IsTrue(TestDic.FirstOrDefault(d => d.Key == "0").IsNull());
+            Assert.IsFalse(TestDic.FirstOrDefault().IsDefault());
+            Assert.IsTrue(TestDic.FirstOrDefault(d => d.Key == "0").IsDefault());
 
         }
 
@@ -236,15 +236,13 @@ namespace OYMLCN.Extension.Test
         public void HTMLTest()
         {
             string html = "<html><head><link href='/css/footer.css' rel='stylesheet'/><style type='text/css'>.demo{}</style><script src=''>demo()</script></head><body>你好<h3>世界</h3></body></html>";
-            Assert.AreEqual(html.RemoveHtml(), ".demo{}demo()你好世界");
-            Assert.AreEqual(html.RemoveScript(), "<html><head><link href='/css/footer.css' rel='stylesheet'/></head><body>你好<h3>世界</h3></body></html>");
-            Assert.AreEqual(html.RemoveScript().RemoveHtml(), "你好世界");
-            Assert.AreEqual("\r\n<br/>\r\n<br />\t\t\r\n<br>\r\n\t\t\r\n".ReplaceBr(), "\r\n\r\n");
-            Assert.AreEqual("123\r\n<br/>\r\n<br />\r\n<br>321\r\n\r\n".ReplaceBr(1), "123\r\n321\r\n");
-            Assert.AreEqual("\r\n\t<br/>\n\r\t".RemoveBr(), "");
-            Assert.AreEqual("1&nbsp; 2 　  3  　 ".RemoveSpace(), "1 2 3");
-            Assert.AreEqual("<a>hi\t122\r\n\r\n</a>".HtmlGetFirstLine(), "hi");
-            Assert.AreEqual("<a>122\t1d\r\n\r\n</a>".HtmlGetFirstLine(), "122");
+            Assert.AreEqual(html.HtmlRemove(), ".demo{}demo()你好世界");
+            Assert.AreEqual(html.HtmlRemoveScript(), "<html><head><link href='/css/footer.css' rel='stylesheet'/></head><body>你好<h3>世界</h3></body></html>");
+            Assert.AreEqual(html.HtmlRemoveScript().HtmlRemove(), "你好世界");
+            Assert.AreEqual("\r\n<br/>\r\n<br />\t\t\r\n<br>\r\n\t\t\r\n".HtmlReplaceBr().Trim(), string.Empty);
+            Assert.AreEqual("123\r\n<br/>\r\n<br />\r\n<br>321\r\n\r\n".HtmlReplaceBr().RemoveWrap(1), "123\r\n321");
+            Assert.AreEqual("\r\n\t<br/>\n\r\t".RemoveWrap(), "\t<br/>\t");
+            Assert.AreEqual("1&nbsp; 2 　  3  　 ".HtmlRemoveSpace(), "1 2 3");
             var url = "http://www.qq.com/index.html?qq=10000&code=$%43<>><%";
             var urlEncoded = "http%3A%2F%2Fwww.qq.com%2Findex.html%3Fqq%3D10000%26code%3D%24%2543%3C%3E%3E%3C%25";
             Assert.AreEqual(url.UrlEncode(), urlEncoded);
@@ -261,6 +259,7 @@ namespace OYMLCN.Extension.Test
             CollectionAssert.AreEqual(demoQuery.QueryStringToDictionary(), demoDic);
             CollectionAssert.AreEqual(demoDic.ToQueryString().QueryStringToDictionary(), demoDic);
 
+            Assert.AreEqual("hi\r\n你\r好\n".AllInOneLine(), "hi你好");
         }
 
 
@@ -280,7 +279,7 @@ namespace OYMLCN.Extension.Test
         [TestMethod]
         public void StreamTest()
         {
-            var stream = "0".ToStream();
+            var stream = "0".StringToStream();
             Assert.AreEqual(stream.ReadToEnd(), "0");
 
             var demoDic = new Dictionary<string, string>
@@ -290,9 +289,9 @@ namespace OYMLCN.Extension.Test
             };
             Assert.AreEqual(new MemoryStream().FillFormDataStream(demoDic).ReadToEnd(), "qq=10000&code=%2543%3C%3E%3E%3C%25");
 
-            var bytes = "0".ToBytes();
+            var bytes = "0".StringToBytes();
             Assert.AreEqual(bytes.ConvertToString(), "0");
-            bytes = "0".ToStream().ToBytes();
+            bytes = "0".StringToStream().ToBytes();
             Assert.AreEqual(bytes.ConvertToString(), "0");
             Assert.AreEqual(bytes.ToStream().ReadToEnd(), "0");
 
@@ -314,7 +313,7 @@ namespace OYMLCN.Extension.Test
             Assert.IsTrue("".IsNullOrEmpty());
             string demo = null;
             Assert.IsTrue(demo.IsNullOrEmpty());
-            Assert.IsTrue(" \t \r\n \t".IsNullOrEmpty());
+            Assert.IsTrue(" \t \r\n \t".IsNullOrWhiteSpace());
             Assert.IsFalse("0".IsNullOrEmpty());
             Assert.IsTrue("hi@qq.com".IsEmail());
             Assert.IsFalse("hi@qq".IsEmail());
@@ -334,18 +333,18 @@ namespace OYMLCN.Extension.Test
             Assert.IsNull(demo.SplitBySign(","));
             demo = "hi,ni/hao*ya";
             CollectionAssert.AreEqual(demo.SplitByMultiSign(",", "/", "*"), new string[] { "hi", "ni", "hao", "ya" });
-            CollectionAssert.AreEqual(demo.AutoSplit(), new string[] { "hi", "ni", "hao*ya" });
-            CollectionAssert.AreEqual("\nhi\tni\r\nhao\rya".SplitByLine(), new string[] { "hi", "ni", "hao", "ya" });
+            CollectionAssert.AreEqual(demo.SplitAuto(), new string[] { "hi", "ni", "hao*ya" });
+            CollectionAssert.AreEqual("\nhi\rni\r\nhao\rya".SplitByLine(), new string[] { "hi", "ni", "hao", "ya" });
 
             string dbc = "你好呀 programer", sbc = "你好呀　ｐｒｏｇｒａｍｅｒ";
             Assert.AreEqual(sbc.ToDBC(), dbc);
             Assert.AreEqual(dbc.ToSBC(), sbc);
 
 
-            Assert.AreEqual("{0}/{1}".FormatString("1", "2"), "1/2");
-            CollectionAssert.AreEqual("你好".ToStringArray(), new string[] { "你", "好" });
-            Assert.IsFalse("hi".IsChineseReg());
-            Assert.IsTrue("你好".IsChineseReg());
+            Assert.AreEqual("{0}/{1}".StringFormat("1", "2"), "1/2");
+            CollectionAssert.AreEqual("你好".StringToArray(), new string[] { "你", "好" });
+            Assert.IsFalse("hi".IsChineseRegString());
+            Assert.IsTrue("你好".IsChineseRegString());
         }
 
         [TestMethod]
@@ -416,8 +415,8 @@ namespace OYMLCN.Extension.Test
                 new Cookie("wechat", "weixin")
             });
 
-            Assert.AreEqual("qq".ToStream(System.Text.Encoding.ASCII).ReadToEnd(System.Text.Encoding.ASCII), "qq");
-            Assert.AreEqual("qq".ToBytes(System.Text.Encoding.ASCII).ConvertToString(System.Text.Encoding.ASCII), "qq");
+            Assert.AreEqual("qq".StringToStream(System.Text.Encoding.ASCII).ReadToEnd(System.Text.Encoding.ASCII), "qq");
+            Assert.AreEqual("qq".StringToBytes(System.Text.Encoding.ASCII).ConvertToString(System.Text.Encoding.ASCII), "qq");
         }
 
 

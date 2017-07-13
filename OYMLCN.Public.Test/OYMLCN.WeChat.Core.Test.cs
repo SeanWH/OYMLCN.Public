@@ -583,7 +583,7 @@ namespace OYMLCN.WeChat.Test
 <CreateTime>12345678</CreateTime>
 <MsgType><![CDATA[text]]></MsgType>
 <Content><![CDATA[你好]]></Content>
-</xml>".RemoveBr());
+</xml>".RemoveWrap());
             Assert.AreEqual(WeChatResponse.ResponseImage(request, "media_id").Source, @"<xml>
 <ToUserName><![CDATA[OpenId]]></ToUserName>
 <FromUserName><![CDATA[AppId]]></FromUserName>
@@ -592,7 +592,7 @@ namespace OYMLCN.WeChat.Test
 <Image>
 <MediaId><![CDATA[media_id]]></MediaId>
 </Image>
-</xml>".RemoveBr());
+</xml>".RemoveWrap());
             Assert.AreEqual(WeChatResponse.ResponseVoice(request, "media_id").Source, @"<xml>
 <ToUserName><![CDATA[OpenId]]></ToUserName>
 <FromUserName><![CDATA[AppId]]></FromUserName>
@@ -601,7 +601,7 @@ namespace OYMLCN.WeChat.Test
 <Voice>
 <MediaId><![CDATA[media_id]]></MediaId>
 </Voice>
-</xml>".RemoveBr());
+</xml>".RemoveWrap());
             Assert.AreEqual(WeChatResponse.ResponseVideo(request, "media_id", "title", "description").Source, @"<xml>
 <ToUserName><![CDATA[OpenId]]></ToUserName>
 <FromUserName><![CDATA[AppId]]></FromUserName>
@@ -612,7 +612,7 @@ namespace OYMLCN.WeChat.Test
 <Title><![CDATA[title]]></Title>
 <Description><![CDATA[description]]></Description>
 </Video>
-</xml>".RemoveBr());
+</xml>".RemoveWrap());
             Assert.AreEqual(WeChatResponse.ResponseMusic(request, "media_id", "MUSIC_Url", "TITLE", "DESCRIPTION", "HQ_MUSIC_Url").Source, @"<xml>
 <ToUserName><![CDATA[OpenId]]></ToUserName>
 <FromUserName><![CDATA[AppId]]></FromUserName>
@@ -625,7 +625,7 @@ namespace OYMLCN.WeChat.Test
 <HQMusicUrl><![CDATA[HQ_MUSIC_Url]]></HQMusicUrl>
 <ThumbMediaId><![CDATA[media_id]]></ThumbMediaId>
 </Music>
-</xml>".RemoveBr());
+</xml>".RemoveWrap());
 
             Assert.AreEqual(WeChatResponse.ResponseNews(request,
                 new WeChatResponse.Article("title1", "description1", "picurl", "url"),
@@ -650,20 +650,20 @@ namespace OYMLCN.WeChat.Test
 <Url><![CDATA[url]]></Url>
 </item>
 </Articles>
-</xml>".RemoveBr());
+</xml>".RemoveWrap());
             Assert.AreEqual(WeChatResponse.TransferToCustomerService(request).Source, @"<xml>
 <ToUserName><![CDATA[OpenId]]></ToUserName>
 <FromUserName><![CDATA[AppId]]></FromUserName>
 <CreateTime>12345678</CreateTime>
 <MsgType><![CDATA[transfer_customer_service]]></MsgType>
-</xml>".RemoveBr());
+</xml>".RemoveWrap());
             Assert.AreEqual(WeChatResponse.TransferToCustomerService(request, "test1").Source, @"<xml>
 <ToUserName><![CDATA[OpenId]]></ToUserName>
 <FromUserName><![CDATA[AppId]]></FromUserName>
 <CreateTime>12345678</CreateTime>
 <MsgType><![CDATA[transfer_customer_service]]></MsgType>
 <TransInfo><KfAccount><![CDATA[test1@test]]></KfAccount></TransInfo>
-</xml>".RemoveBr());
+</xml>".RemoveWrap());
         }
 
         [TestMethod]

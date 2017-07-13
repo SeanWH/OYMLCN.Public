@@ -27,6 +27,6 @@ namespace OYMLCN.WeChat
         /// <param name="cfg">基础接口配置</param>
         /// <returns></returns>
         public static string ConfigVerify(this Dictionary<string, string> query, Config cfg) =>
-            query.IsValidRequest(cfg) == null ? string.Empty : query.SelectValue("echostr");
+            query.IsValidRequest(cfg) == null ? string.Empty : query.GetValueOrDefault("echostr");
     }
 }

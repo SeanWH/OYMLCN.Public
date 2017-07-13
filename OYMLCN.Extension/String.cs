@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -79,11 +80,17 @@ namespace OYMLCN
 
 
         /// <summary>
+        /// 判断字符串是否为空
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmpty(this string str) => string.IsNullOrEmpty(str);
+        /// <summary>
         /// 判断字符串是否为空/空格
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static bool IsNullOrEmpty(this string str) => string.IsNullOrEmpty(str?.Trim());
+        public static bool IsNullOrWhiteSpace(this string str) => string.IsNullOrWhiteSpace(str);
         /// <summary>
         /// 判断字符串是否是邮箱地址
         /// </summary>
@@ -92,15 +99,27 @@ namespace OYMLCN
         public static bool IsEmail(this string str) =>
             str.IsNullOrEmpty() ? false : new Regex(@"[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?").IsMatch(str.Trim());
 
+
         /// <summary>
         /// 截取字符串
         /// </summary>
         /// <param name="str"></param>
-        /// <param name="start"></param>
-        /// <param name="length"></param>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
         /// <returns></returns>
-        public static string SubString(this string str, int start, int length = int.MaxValue) =>
-            new string(str.Skip(start).Take(length).ToArray());
+        public static string Sub(this string str, int startIndex, int endIndex)=>
+            str.Substring(startIndex, endIndex - startIndex);
+
+        /// <summary>
+        /// 截取字符串
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="startIndex"></param>
+        /// <param name="subLength"></param>
+        /// <returns></returns>
+        public static string SubString(this string str, int startIndex, int subLength = int.MaxValue) =>
+            new string(str.Skip(startIndex).Take(subLength).ToArray());
+
 
         /// <summary>
         /// 根据占位符紧接多个字符串 即string.Format
@@ -108,19 +127,19 @@ namespace OYMLCN
         /// <param name="str"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        public static string FormatString(this string str, params string[] param) => string.Format(str, param);
+        public static string StringFormat(this string str, params string[] param) => string.Format(str, param);
         /// <summary>
         /// 分割字符串未每一个单字
         /// </summary>
         /// <param name="str">待分割字符串</param>
         /// <returns></returns>
-        public static string[] ToStringArray(this string str) => str.Select(x => x.ToString()).ToArray();
+        public static string[] StringToArray(this string str) => str.Select(x => x.ToString()).ToArray();
         /// <summary>
         /// 判断字符是不是汉字
         /// </summary>
         /// <param name="text">待判断字符或字符串</param>
         /// <returns>true是 false不是</returns>
-        public static bool IsChineseReg(this string text) => Regex.IsMatch(text, @"[\u4e00-\u9fbb]+$");
+        public static bool IsChineseRegString(this string text) => Regex.IsMatch(text, @"[\u4e00-\u9fbb]+$");
 
 
         /// <summary>
@@ -171,7 +190,7 @@ namespace OYMLCN
         /// <param name="str"></param>
         /// <param name="option">分割结果去重方式</param>
         /// <returns></returns>
-        public static string[] AutoSplit(this string str, StringSplitOptions option = StringSplitOptions.RemoveEmptyEntries) =>
+        public static string[] SplitAuto(this string str, StringSplitOptions option = StringSplitOptions.RemoveEmptyEntries) =>
             str?.SplitByMultiSign("|", "\\", "/", "、", ":", "：", "，", ",", "　", " ", "\t");
 
         /// <summary>
@@ -179,7 +198,37 @@ namespace OYMLCN
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static string[] SplitByLine(this string str) => str?.SplitByMultiSign("\t", "\r", "\n");
+        public static string[] SplitByLine(this string str) => str?.SplitByMultiSign("\r\n", "\r", "\n");
+
+
+
+        /// <summary>
+        /// 将所有换行及其前后多余的空格替换掉合并为一行
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string AllInOneLine(this string str) =>
+            str.RemoveNormal("\r\n", "\r", "\n");
+
+        /// <summary>
+        /// 去除过多的换行符
+        /// </summary>
+        /// <param name="html"></param>
+        /// <param name="keep">文本中保留的换行符最大数量（文本末尾的换行将不会保留）</param>
+        /// <returns></returns>
+        public static string RemoveWrap(this string html, byte keep = 0)
+        {
+            string[] param = new string[] { "\r\n", "\r", "\n" };
+            if (keep == 0)
+                return html.ReplaceNormal(string.Empty, param);
+
+            var stop = "._RWHS_.";
+            var word = html.ReplaceNormal(stop, param);
+            string wrap = string.Empty;
+            for (var i = 0; i < keep; i++)
+                wrap += "\r\n";
+            return word.SplitBySign(stop, StringSplitOptions.RemoveEmptyEntries).Join(wrap);
+        }
 
 
 
@@ -258,13 +307,13 @@ namespace OYMLCN
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static string GetHostUrl(this string url) => url.ToUri().GetHostUrl();
+        public static string UrlGetHost(this string url) => url.ToUri().GetHost();
         /// <summary>
         /// 获取Uri的协议域名地址
         /// </summary>
         /// <param name="uri"></param>
         /// <returns></returns>
-        public static string GetHostUrl(this Uri uri) => uri == null ? null : $"{uri.Scheme}://{uri.Host}/";
+        public static string GetHost(this Uri uri) => uri == null ? null : $"{uri.Scheme}://{uri.Host}/";
 
 
         /// <summary>
@@ -298,7 +347,7 @@ namespace OYMLCN
         /// <param name="str"></param>
         /// <param name="encoder">默认使用UTF-8进行编码</param>
         /// <returns></returns>
-        public static Stream ToStream(this string str, Encoding encoder = null) => new MemoryStream(str.ToBytes(encoder));
+        public static Stream StringToStream(this string str, Encoding encoder = null) => new MemoryStream(str.StringToBytes(encoder));
 
         /// <summary>
         /// 将字符串填充到byte[]字节流中
@@ -306,6 +355,72 @@ namespace OYMLCN
         /// <param name="str"></param>
         /// <param name="encoder">默认使用UTF-8进行编码</param>
         /// <returns></returns>
-        public static byte[] ToBytes(this string str, Encoding encoder = null) => encoder?.GetBytes(str) ?? Encoding.UTF8.GetBytes(str);
+        public static byte[] StringToBytes(this string str, Encoding encoder = null) => encoder?.GetBytes(str) ?? Encoding.UTF8.GetBytes(str);
+
+
+        /// <summary>
+        /// 正则匹配所有结果
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="pattern"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static string[] RegexMatches(this string str, string pattern, RegexOptions options = RegexOptions.None)
+        {
+            var result = new List<string>();
+            if (!str.IsNullOrEmpty())
+            {
+                var data = Regex.Matches(str, pattern, options);
+                foreach (var item in data)
+                    result.Add(item.ToString());
+            }
+            return result.ToArray();
+        }
+
+        /// <summary>
+        /// 将字符串数组拼接成字符串
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="separator"></param>
+        /// <returns></returns>
+        public static string Join(this IEnumerable<string> list, string separator = "") =>
+            string.Join(separator, list);
+
+        /// <summary>
+        /// 替换字符串
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="newValue">新值</param>
+        /// <param name="oldValue">旧值（由于使用正则匹配，值不能为空格，否则会返回空字符串）</param>
+        /// <returns></returns>
+        public static string ReplaceNormal(this string str, string newValue, params string[] oldValue) =>
+            Regex.Replace(str, $"({oldValue.Join("|")})", newValue);
+
+        /// <summary>
+        /// 替换字符串（忽略大小写）
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="newValue">新值</param>
+        /// <param name="oldValue">旧值（由于使用正则匹配，值不能为空格，否则会返回空字符串）</param>
+        public static string ReplaceIgnoreCase(this string str, string newValue, params string[] oldValue) =>
+            Regex.Replace(str, $"({oldValue.Join("|")})", newValue, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+        /// <summary>
+        /// 移除字符串
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="word">值（由于使用正则匹配，值不能为空格，否则会返回空字符串）</param>
+        /// <returns></returns>
+        public static string RemoveNormal(this string str, params string[] word) =>
+            word.Length == 0 ? str : str.RegexMatches($"[^({word.Join("|")})]").Join();
+        /// <summary>
+        /// 移除字符串
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="word">值（由于使用正则匹配，值不能为空格，否则会返回空字符串）</param>
+        /// <returns></returns>
+        public static string RemoveIgnoreCase(this string str, params string[] word) =>
+            word.Length == 0 ? str : str.RegexMatches($"[^({word.Join("|")})]", RegexOptions.Compiled| RegexOptions.IgnoreCase).Join();
+
     }
 }

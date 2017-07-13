@@ -18,7 +18,7 @@ namespace OYMLCN
         /// <param name="html"></param>
         /// <param name="length">截取长度（默认0则返回完整结果）</param>
         /// <returns></returns>
-        public static string RemoveHtml(this string html, int length = 0)
+        public static string HtmlRemove(this string html, int length = 0)
         {
             if (html == null)
                 return string.Empty;
@@ -35,80 +35,39 @@ namespace OYMLCN
         /// </summary>
         /// <param name="html"></param>
         /// <returns></returns>
-        public static string RemoveScript(this string html)
+        public static string HtmlRemoveScript(this string html)
         {
             if (html == null)
                 return string.Empty;
             return Regex.Replace(html, @"(\<script(.+?)\</script\>)|(\<style(.+?)\</style\>)", "", RegexOptions.IgnoreCase | RegexOptions.Singleline);
         }
         /// <summary>
-        /// 替换换行Br为换行符（且最少保留一个换行符，默认保留两个）
+        /// 替换换行Br为换行符
         /// </summary>
         /// <param name="html"></param>
-        /// <param name="max">最大换行符保留数(该值必须大于等于1)</param>
         /// <returns></returns>
-        public static string ReplaceBr(this string html, int max = 2)
+        public static string HtmlReplaceBr(this string html)
         {
             if (html == null)
                 return string.Empty;
-            const string source = "\r\n";
-            string key = source;
-            for (var i = 1; i < max; i++)
-                key += source;
-            html = html
-                .Replace("\r", "{{__rbrn__}}")
-                .Replace("\n", "{{__rbrn__}}")
-                .Replace("{{__rbrn__}}", source)
-                .Replace("\t", source)
-                .Replace("<br>", source)
-                .Replace("<br/>", source)
-                .Replace("<br />", source);
-            do
-                html = html.Replace(key + source, key);
-            while (html.Contains(key + source));
-            return html;
+            return html.ReplaceIgnoreCase("\r\n", "<br>", "<br/>", "<br />");
         }
 
-        /// <summary>
-        /// 将所有换行及其前后多余的空格替换掉合并为一行
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static string AllInOneLine(this string str)
-        {
-            var lines = str.SplitByLine();
-            for (var i = 0; i < lines.Length; i++)
-                lines[i] = lines[i].Trim();
-            return string.Join("", lines);
-        }
 
-        /// <summary>
-        /// 去除所有换行符
-        /// </summary>
-        /// <param name="html"></param>
-        /// <returns></returns>
-        public static string RemoveBr(this string html) => html.ReplaceBr().Replace("\r", "").Replace("\n", "").Replace("\t", "");
         /// <summary>
         /// Html的多个连续空格只保留一个
         /// </summary>
         /// <param name="html"></param>
         /// <returns></returns>
-        public static string RemoveSpace(this string html)
+        public static string HtmlRemoveSpace(this string html)
         {
             if (html == null)
                 return string.Empty;
-            var str = string.Join(" ", html.Replace("&nbsp;", " ").Replace("　", " ").SplitBySign(" ", StringSplitOptions.RemoveEmptyEntries).ToArray());
+            var str = html.ReplaceIgnoreCase(" ", "&nbsp;", "　").SplitBySign(" ", StringSplitOptions.RemoveEmptyEntries).Join(" ");
             do str = str.Replace("  ", " ");
             while (str.Contains("  "));
             return str;
         }
-        /// <summary>
-        /// 去除所有HTML标签和换行获取第一行内容
-        /// </summary>
-        /// <param name="html"></param>
-        /// <returns></returns>
-        public static string HtmlGetFirstLine(this string html) =>
-            html.RemoveSpace().ReplaceBr().RemoveScript().RemoveHtml().SplitBySign("\n").FirstOrDefault()?.SplitBySign("\r").FirstOrDefault()?.Trim();
 
         /// <summary>
         /// HTML转义为数据库合法模式
