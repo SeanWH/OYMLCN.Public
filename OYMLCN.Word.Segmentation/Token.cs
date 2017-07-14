@@ -7,7 +7,7 @@ namespace OYMLCN.Word.Segmentation
         public int StartIndex { get; set; }
         public int EndIndex { get; set; }
 
-        public Token(string word, int startIndex, int endIndex)
+        internal Token(string word, int startIndex, int endIndex)
         {
             Word = word;
             StartIndex = startIndex;

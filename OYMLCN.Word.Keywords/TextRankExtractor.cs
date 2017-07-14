@@ -1,11 +1,14 @@
-﻿using System;
+﻿#pragma warning disable
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using OYMLCN.Word.Segmentation;
+using OYMLCN.Word.Segmentation.Pos;
 
-namespace OYMLCN.Word.KeyWord
+namespace OYMLCN.Word.Keywords
 {
+    /// <summary>
+    /// 文本排序
+    /// </summary>
     public class TextRankExtractor : KeywordExtractor
     {
         private static readonly IEnumerable<string> DefaultPosFilter = new List<string>()
@@ -23,6 +26,9 @@ namespace OYMLCN.Word.KeyWord
                    && wp.Word.Trim().Length >= 2
                    && !StopWords.Contains(wp.Word.ToLower());
 
+        /// <summary>
+        /// 文本排序
+        /// </summary>
         public TextRankExtractor()
         {
             Span = 5;

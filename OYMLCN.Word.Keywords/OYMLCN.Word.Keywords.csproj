@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp1.0;net452</TargetFrameworks>
+    <RootNamespace>OYMLCN.Word.KeyWord</RootNamespace>
+    <Version>0.1.0</Version>
+    <Description>基于TF-IDF的关键词提取组件
+扩展方法（String）：GetKeyWords、GetKeyWordsOnlyNoun、GetKeyWordsOnlyVerb、GetKeyWordsNounAndVerb
+另外还有各自获取权重值的扩展方法：GetKeyWordsWegiht、GetKeyWordsWegihtOnlyNoun、GetKeyWordsWegihtOnlyVerb、GetKeyWordsWegihtNounAndVerb</Description>
+    <Authors>VicBilibily欧阳敏岚</Authors>
+    <Company>广东佰群网络科技股份有限公司</Company>
+    <Product>OYMLCN.Word.Keywords</Product>
+    <Copyright>OYML.CN</Copyright>
+    <PackageLicenseUrl>https://github.com/VicBilibily/OYMLCN.Public/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://www.oyml.cn/OYMLCN.Word.Keywords</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.Word.Keywords</RepositoryUrl>
+    <RepositoryType>Github</RepositoryType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp1.0|AnyCPU'">
+    <DocumentationFile>bin\Release\netcoreapp1.0\OYMLCN.Word.KeyWord.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp1.0|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp1.0\OYMLCN.Word.KeyWord.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
+    <ProjectReference Include="..\OYMLCN.Json\OYMLCN.Json.csproj" />
+    <ProjectReference Include="..\OYMLCN.Word.Segmentation\OYMLCN.Word.Segmentation.csproj" />
+  </ItemGroup>
+
+</Project>

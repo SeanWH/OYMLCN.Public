@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
-using OYMLCN.Word.Segmentation;
 
-namespace OYMLCN.Word.KeyWord
+namespace OYMLCN.Word.Segmentation.Pos
 {
     internal class Viterbi
     {

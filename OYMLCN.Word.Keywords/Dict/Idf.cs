@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OYMLCN.Word.KeyWord
+namespace OYMLCN.Word.Keywords
 {
-    public static partial class Dict
+    internal static partial class Dict
     {
 #if !DEBUG
         static IDictionary<string, double> _idf;

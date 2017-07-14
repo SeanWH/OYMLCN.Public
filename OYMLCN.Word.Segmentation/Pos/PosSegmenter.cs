@@ -1,5 +1,4 @@
 ﻿#pragma warning disable
-using OYMLCN.Word.Segmentation;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,7 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 
-namespace OYMLCN.Word.KeyWord
+namespace OYMLCN.Word.Segmentation.Pos
 {
     public class PosSegmenter
     {

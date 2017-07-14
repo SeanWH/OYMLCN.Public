@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using OYMLCN.Word.Segmentation;
+using OYMLCN.Word.Segmentation.Pos;
 
 namespace OYMLCN
 {
@@ -65,6 +66,24 @@ namespace OYMLCN
             (segmenter ?? Segmenter).CutForSearch(str, false);
 
         /// <summary>
+        /// 获取分词词类标记
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="segmenter">分词器（不提供则使用默认分词词典）</param>
+        /// <returns></returns>
+        public static IEnumerable<Pair> CutApartAndGetFlag(this string str, Segmenter segmenter = null) =>
+            new PosSegmenter(segmenter ?? Segmenter).Cut(str);
+        /// <summary>
+        /// 获取分词词类标记（不使用HMM算法）
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="segmenter">分词器（不提供则使用默认分词词典）</param>
+        /// <returns></returns>
+        public static IEnumerable<Pair> CutApartAndGetFlagWithoutHMM(this string str, Segmenter segmenter = null) =>
+            new PosSegmenter(segmenter ?? Segmenter).Cut(str, false);
+
+
+        /// <summary>
         /// 获取分词词语以及位置标记
         /// </summary>
         /// <param name="str"></param>
@@ -106,7 +125,7 @@ namespace OYMLCN
         /// <param name="str"></param>
         /// <returns></returns>
         public static bool CheckSpell(this string str) =>
-            ((_spellChecker ?? (_spellChecker = new SpellChecker())).Suggests(str) as string[]).Length>0;
+            ((_spellChecker ?? (_spellChecker = new SpellChecker())).Suggests(str) as string[]).Length > 0;
 
     }
 }

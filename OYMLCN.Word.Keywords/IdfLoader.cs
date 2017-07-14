@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace OYMLCN.Word.KeyWord
+namespace OYMLCN.Word.Keywords
 {
     internal class IdfLoader
     {

@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using OYMLCN.Word.Segmentation;
 using System.Linq;
+using OYMLCN.Word.Segmentation.Pos;
 
-namespace OYMLCN.Word.KeyWord
+namespace OYMLCN.Word.Keywords
 {
+    /// <summary>
+    /// TF-IDF
+    /// </summary>
     public class TfidfExtractor : KeywordExtractor
     {
         private static readonly int DefaultWordCount = 20;
@@ -17,6 +21,10 @@ namespace OYMLCN.Word.KeyWord
         private IDictionary<string, double> IdfFreq { get; set; }
         private double MedianIdf { get; set; }
 
+        /// <summary>
+        /// TF-IDF
+        /// </summary>
+        /// <param name="segmenter"></param>
         public TfidfExtractor(Segmenter segmenter = null)
         {
             if (segmenter.IsNull())
@@ -33,7 +41,10 @@ namespace OYMLCN.Word.KeyWord
             IdfFreq = Loader.IdfFreq;
             MedianIdf = Loader.MedianIdf;
         }
-
+        /// <summary>
+        /// 设置IDF频率词典
+        /// </summary>
+        /// <param name="idfPath"></param>
         public void SetIdfPath(string idfPath)
         {
             Loader.SetNewPath(idfPath);
@@ -67,6 +78,13 @@ namespace OYMLCN.Word.KeyWord
             return freq;
         }
 
+        /// <summary>
+        /// 提取关键词
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="count"></param>
+        /// <param name="allowPos">词类</param>
+        /// <returns></returns>
         public override IEnumerable<string> ExtractTags(string text, int count = 20, IEnumerable<string> allowPos = null)
         {
             if (count <= 0)
@@ -75,7 +93,13 @@ namespace OYMLCN.Word.KeyWord
             var freq = GetWordIfidf(text, allowPos);
             return freq.OrderByDescending(p => p.Value).Select(p => p.Key).Take(count);
         }
-
+        /// <summary>
+        /// 提取关键词（包含权重）
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="count"></param>
+        /// <param name="allowPos">词类</param>
+        /// <returns></returns>
         public override IEnumerable<WordWeightPair> ExtractTagsWithWeight(string text, int count = 20, IEnumerable<string> allowPos = null)
         {
             if (count <= 0)
@@ -89,10 +113,18 @@ namespace OYMLCN.Word.KeyWord
             }).Take(count);
         }
     }
-
+    /// <summary>
+    /// 关键词
+    /// </summary>
     public class WordWeightPair
     {
+        /// <summary>
+        /// 关键词
+        /// </summary>
         public string Word { get; set; }
+        /// <summary>
+        /// 权重
+        /// </summary>
         public double Weight { get; set; }
     }
 }

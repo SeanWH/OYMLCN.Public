@@ -6,12 +6,11 @@ using System.Text.RegularExpressions;
 
 namespace OYMLCN.Word.Segmentation
 {
-    public partial class Word
+    partial class Word
     {
-
         static List<Word> _dict;
 #if DEBUG
-        public static List<Word> Dict
+        internal static List<Word> Dict
         {
             get
             {
