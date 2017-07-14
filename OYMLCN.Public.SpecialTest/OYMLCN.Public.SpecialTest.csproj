@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
     <ProjectReference Include="..\OYMLCN.Json\OYMLCN.Json.csproj" />
+    <ProjectReference Include="..\OYMLCN.Word.KeyWord\OYMLCN.Word.KeyWord.csproj" />
     <ProjectReference Include="..\OYMLCN.Word.Segmentation.Dictionary\OYMLCN.Word.Segmentation.Dictionary.csproj" />
     <ProjectReference Include="..\OYMLCN.Word.Segmentation\OYMLCN.Word.Segmentation.csproj" />
   </ItemGroup>

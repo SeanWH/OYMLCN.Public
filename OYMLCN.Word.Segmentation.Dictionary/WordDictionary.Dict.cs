@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using OYMLCN;
 
-namespace OYMLCN.Word.Segmentation.Dictionary
+namespace OYMLCN.Word.Segmentation
 {
     public partial class Word
     {

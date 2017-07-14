@@ -2,17 +2,35 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp1.0;net452</TargetFrameworks>
-    <Description>基于jieba结巴分词的分词组件</Description>
+    <Description>基于jieba结巴分词的分词组件
+扩展方法（String）：CutApart、CutAllApart、CutApartForSearch、GetWordTokenize、GetWordTokenizeForSearch、CheckSpell
+除CheckSpell外均有WithoutHMM不使用HMM算法分词模式的方法扩展
+主要类：Segmenter、PosSegmenter
+可通过创建Segmenter实例调用LoadUserDict、AddWord、DeleteWord来扩充内置词典，若使用扩充词典在调用扩展方法时需要传入该实例。
+</Description>
+    <Version>0.1.0</Version>
+    <Authors>VicBilibily欧阳敏岚</Authors>
+    <Company>广东佰群网络科技股份有限公司</Company>
+    <Product>OYMLCN.Word.Segmentation</Product>
+    <Copyright>OYML.CN</Copyright>
+    <PackageLicenseUrl>https://github.com/VicBilibily/OYMLCN.Public/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://www.oyml.cn/OYMLCN.Word.Segmentation</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.Word.Segmentation</RepositoryUrl>
+    <RepositoryType>Github</RepositoryType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp1.0|AnyCPU'">
+    <DocumentationFile>bin\Release\netcoreapp1.0\OYMLCN.Word.Segmentation.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp1.0|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp1.0\OYMLCN.Word.Segmentation.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
     <ProjectReference Include="..\OYMLCN.Json\OYMLCN.Json.csproj" />
     <ProjectReference Include="..\OYMLCN.Word.Segmentation.Dictionary\OYMLCN.Word.Segmentation.Dictionary.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Extension\" />
   </ItemGroup>
 
 </Project>

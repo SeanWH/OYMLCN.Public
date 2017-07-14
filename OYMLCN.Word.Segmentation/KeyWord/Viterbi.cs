@@ -8,7 +8,7 @@ using OYMLCN.Word.Segmentation;
 
 namespace OYMLCN.Word.KeyWord
 {
-    public class Viterbi
+    internal class Viterbi
     {
         private static readonly Lazy<Viterbi> Lazy = new Lazy<Viterbi>(() => new Viterbi());
 
@@ -55,17 +55,10 @@ namespace OYMLCN.Word.KeyWord
 
         private static void LoadModel()
         {
-            //var startJson = File.ReadAllText(Path.GetFullPath(ConfigManager.PosProbStartFile));
-            //_startProbs = JsonConvert.DeserializeObject<IDictionary<string, double>>(startJson);
-
-            //var transJson = File.ReadAllText(Path.GetFullPath(ConfigManager.PosProbTransFile));
-            //_transProbs = JsonConvert.DeserializeObject<IDictionary<string, IDictionary<string, double>>>(transJson);
-
-            //var emitJson = File.ReadAllText(Path.GetFullPath(ConfigManager.PosProbEmitFile));
-            //_emitProbs = JsonConvert.DeserializeObject<IDictionary<string, IDictionary<char, double>>>(emitJson);
-
-            //var tabJson = File.ReadAllText(Path.GetFullPath(ConfigManager.CharStateTabFile));
-            //_stateTab = JsonConvert.DeserializeObject<IDictionary<char, List<string>>>(tabJson);
+            _startProbs = Dict.PosStartProbs;
+            _transProbs = Dict.PosTransProbs;
+            _emitProbs = Dict.PosEmitProbs;
+            _stateTab = Dict.StateTab;
         }
 
         private Tuple<double, List<string>> ViterbiCut(string sentence)

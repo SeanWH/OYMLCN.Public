@@ -6,7 +6,7 @@ using System.Linq;
 namespace OYMLCN.Word.Segmentation
 {
     // Refer to: https://github.com/brianfromoregon/trie
-    public class TrieNode
+    internal class TrieNode
     {
         public char Char { get; set; }
         public int Frequency { get; set; }
@@ -53,7 +53,7 @@ namespace OYMLCN.Word.Segmentation
         }
     }
 
-    public interface ITrie
+    internal interface ITrie
     {
         //string BestMatch(string word, long maxTime);
         bool Contains(string word);
@@ -64,7 +64,7 @@ namespace OYMLCN.Word.Segmentation
         int TotalFrequency { get; }
     }
 
-    public class Trie : ITrie
+    internal class Trie : ITrie
     {
         private static readonly char RootChar = '\0';
 

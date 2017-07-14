@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace OYMLCN.Word.Segmentation.Dictionary
+namespace OYMLCN.Word.Segmentation
 {
     public partial class Word
     {

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OYMLCN.Word.Segmentation.Dictionary
+namespace OYMLCN.Word.Segmentation
 {
-    public static partial class Viterbi
+    public static partial class Dict
     {
 #if DEBUG
 

@@ -2,6 +2,16 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp1.0;net452</TargetFrameworks>
+    <Version>0.1.0</Version>
+    <Authors>VicBilibily欧阳敏岚</Authors>
+    <Company>广东佰群网络科技股份有限公司</Company>
+    <Product>OYMLCN.Word.Segmentation</Product>
+    <Description>分词词典包</Description>
+    <Copyright>OYML.CN</Copyright>
+    <PackageLicenseUrl>https://github.com/VicBilibily/OYMLCN.Public/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://www.oyml.cn/OYMLCN.Word.Segmentation</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.Word.Segmentation.Dictionary</RepositoryUrl>
+    <RepositoryType>Github</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>

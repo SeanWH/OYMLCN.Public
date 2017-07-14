@@ -40,7 +40,7 @@ namespace OYMLCN.Word.KeyWord
             try
             {
                 _wordTagTab = new Dictionary<string, string>();
-                foreach (var item in Segmentation.Dictionary.Word.Dict)
+                foreach (var item in Segmentation.Word.Dict)
                     _wordTagTab[item.Key] = item.Tag;
             }
             catch (IOException e)

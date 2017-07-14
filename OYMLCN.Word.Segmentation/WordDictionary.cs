@@ -6,7 +6,7 @@ using System.Text;
 
 namespace OYMLCN.Word.Segmentation
 {
-    public class WordDictionary
+    internal class WordDictionary
     {
         private static readonly Lazy<WordDictionary> lazy = new Lazy<WordDictionary>(() => new WordDictionary());
 
@@ -20,7 +20,7 @@ namespace OYMLCN.Word.Segmentation
 
         private void LoadDict()
         {
-            foreach (var item in Segmentation.Dictionary.Word.Dict)
+            foreach (var item in Segmentation.Word.Dict)
             {
                 Trie[item.Key] = item.Frequency;
                 Total += item.Frequency;

@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace OYMLCN.Word.Segmentation
 {
-    public interface ISpellChecker
+    internal interface ISpellChecker
     {
         IEnumerable<string> Suggests(string word);
     }
 
-    public class SpellChecker : ISpellChecker
+    internal class SpellChecker : ISpellChecker
     {
         internal static readonly WordDictionary WordDict = WordDictionary.Instance;
 

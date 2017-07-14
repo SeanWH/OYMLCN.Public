@@ -1,7 +1,7 @@
 ﻿#pragma warning disable
 namespace OYMLCN.Word.Segmentation
 {
-    public class Node
+    internal class Node
     {
         public char Value { get; private set; }
         public Node Parent { get; private set; }

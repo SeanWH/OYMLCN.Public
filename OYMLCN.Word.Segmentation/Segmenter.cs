@@ -8,6 +8,9 @@ using System.Text.RegularExpressions;
 
 namespace OYMLCN.Word.Segmentation
 {
+    /// <summary>
+    /// 分词器
+    /// </summary>
     public class Segmenter
     {
         private static readonly WordDictionary WordDict = WordDictionary.Instance;
@@ -17,7 +20,6 @@ namespace OYMLCN.Word.Segmentation
         private static readonly object locker = new object();
 
         internal IDictionary<string, string> UserWordTagTab { get; set; }
-
 
         internal static readonly Regex RegexChineseDefault = new Regex(@"([\u4E00-\u9FD5a-zA-Z0-9+#&\._]+)", RegexOptions.Compiled);
 
@@ -31,9 +33,18 @@ namespace OYMLCN.Word.Segmentation
         internal static readonly Regex RegexUserDict = new Regex("^(?<word>.+?)(?<freq> [0-9]+)?(?<tag> [a-z]+)?$", RegexOptions.Compiled);
 
 
-        public Segmenter() =>
-            UserWordTagTab = new Dictionary<string, string>();
+        /// <summary>
+        /// 分词器
+        /// </summary>
+        public Segmenter() => UserWordTagTab = new Dictionary<string, string>();
 
+        /// <summary>
+        /// 分词
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="cutAll">使用全模式</param>
+        /// <param name="hmm">使用HMM算法</param>
+        /// <returns></returns>
         public IEnumerable<string> Cut(string text, bool cutAll = false, bool hmm = true)
         {
             var reHan = RegexChineseDefault;
@@ -55,7 +66,12 @@ namespace OYMLCN.Word.Segmentation
 
             return CutIt(text, cutMethod, reHan, reSkip, cutAll);
         }
-
+        /// <summary>
+        /// 搜索引擎分词
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="hmm">使用HMM算法</param>
+        /// <returns></returns>
         public IEnumerable<string> CutForSearch(string text, bool hmm = true)
         {
             var result = new List<string>();
@@ -84,7 +100,13 @@ namespace OYMLCN.Word.Segmentation
 
             return result;
         }
-
+        /// <summary>
+        /// 词语位置标记
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="mode">位置标记分词模式</param>
+        /// <param name="hmm">使用HMM算法</param>
+        /// <returns></returns>
         public IEnumerable<Token> Tokenize(string text, TokenizerMode mode = TokenizerMode.Default, bool hmm = true)
         {
             var result = new List<Token>();
@@ -278,8 +300,7 @@ namespace OYMLCN.Word.Segmentation
             return words;
         }
 
-        internal IEnumerable<string> CutIt(string text, Func<string, IEnumerable<string>> cutMethod,
-                                           Regex reHan, Regex reSkip, bool cutAll)
+        internal IEnumerable<string> CutIt(string text, Func<string, IEnumerable<string>> cutMethod, Regex reHan, Regex reSkip, bool cutAll)
         {
             var result = new List<string>();
             var blocks = reHan.Split(text);
@@ -305,6 +326,11 @@ namespace OYMLCN.Word.Segmentation
             return result;
         }
 
+
+        /// <summary>
+        /// 加载用户词典
+        /// </summary>
+        /// <param name="userDictFile"></param>
         public void LoadUserDict(string userDictFile)
         {
             var dictFullPath = Path.GetFullPath(userDictFile);
@@ -342,7 +368,12 @@ namespace OYMLCN.Word.Segmentation
                 }
             }
         }
-
+        /// <summary>
+        /// 增加词语
+        /// </summary>
+        /// <param name="word"></param>
+        /// <param name="freq">频度（0则自动分配）</param>
+        /// <param name="tag">词性</param>
         public void AddWord(string word, int freq = 0, string tag = null)
         {
             if (freq <= 0)
@@ -352,11 +383,11 @@ namespace OYMLCN.Word.Segmentation
             if (!string.IsNullOrEmpty(tag))
                 UserWordTagTab[word] = tag;
         }
-
-        public void DeleteWord(string word) =>
-            WordDict.DeleteWord(word);
-
-
+        /// <summary>
+        /// 移除词语
+        /// </summary>
+        /// <param name="word"></param>
+        public void DeleteWord(string word) => WordDict.DeleteWord(word);
 
         private void AddBufferToWordList(List<string> words, string buf)
         {
@@ -373,10 +404,18 @@ namespace OYMLCN.Word.Segmentation
 
     }
 
-
+    /// <summary>
+    /// 位置标记分词模式
+    /// </summary>
     public enum TokenizerMode
     {
+        /// <summary>
+        /// 默认
+        /// </summary>
         Default,
+        /// <summary>
+        /// 搜索式
+        /// </summary>
         Search
     }
 }

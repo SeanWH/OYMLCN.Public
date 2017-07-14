@@ -6,11 +6,11 @@ using System.Text.RegularExpressions;
 
 namespace OYMLCN.Word.Segmentation
 {
-    public interface IFinalSeg
+    internal interface IFinalSeg
     {
         IEnumerable<string> Cut(string sentence);
     }
-    public class Viterbi : IFinalSeg
+    internal class Viterbi : IFinalSeg
     {
         private static readonly Lazy<Viterbi> Lazy = new Lazy<Viterbi>(() => new Viterbi());
         private static readonly char[] States = { 'B', 'M', 'E', 'S' };
@@ -57,8 +57,8 @@ namespace OYMLCN.Word.Segmentation
                 {'S', -1.4652633398537678}
             };
 
-            _transProbs = Dictionary.Viterbi.TransProbs;
-            _emitProbs = Dictionary.Viterbi.EmitProbs;
+            _transProbs = Dict.TransProbs;
+            _emitProbs = Dict.EmitProbs;
         }
 
         private IEnumerable<string> ViterbiCut(string sentence)

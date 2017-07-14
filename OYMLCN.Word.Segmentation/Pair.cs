@@ -1,7 +1,7 @@
 ﻿#pragma warning disable
 namespace OYMLCN.Word.Segmentation
 {
-    public class Pair<TKey>
+    internal class Pair<TKey>
     {
         public TKey Key { get; set; }
         public double Freq { get; set; }
