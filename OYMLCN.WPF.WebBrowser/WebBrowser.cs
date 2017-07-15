@@ -36,7 +36,7 @@ namespace OYMLCN.WPF
         /// </summary>
         /// <param name="wb"></param>
         /// <returns></returns>
-        public static string GetCookies(this WebBrowser wb) => WebBrowserHelper.GetCookies(wb.Source.GetHostUrl());
+        public static string GetCookies(this WebBrowser wb) => WebBrowserHelper.GetCookies(wb.Source.GetHost());
         /// <summary>
         /// 执行Js代码（可有返回值）
         /// </summary>
@@ -107,7 +107,7 @@ namespace OYMLCN.WPF
     /// </summary>
     public partial class WebBrowserHelper : IDisposable
     {
-        static string appName = Process.GetCurrentProcess().ProcessName + ".exe";
+        static string appName = System.Diagnostics.Process.GetCurrentProcess().ProcessName + ".exe";
         #region SetIEKeyforWebBrowserControl
         static void SetIEKeyforWebBrowserControl(string verKey)
         {
@@ -116,7 +116,7 @@ namespace OYMLCN.WPF
             // 64位
             try
             {
-                Regkey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\\Wow6432Node\\Microsoft\\Internet Explorer\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION", true);
+                Regkey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\\Wow6432Node\\Microsoft\\Internet Explorer\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION", true);
                 if (Regkey != null && Convert.ToString(Regkey.GetValue(appName)) != verKey)
                     Regkey.SetValue(appName, verKey, RegistryValueKind.DWord);
             }
@@ -130,7 +130,7 @@ namespace OYMLCN.WPF
             // 32位
             try
             {
-                Regkey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION", true);
+                Regkey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION", true);
                 if (Regkey != null && Convert.ToString(Regkey.GetValue(appName)) != verKey)
                     Regkey.SetValue(appName, verKey, RegistryValueKind.DWord);
             }

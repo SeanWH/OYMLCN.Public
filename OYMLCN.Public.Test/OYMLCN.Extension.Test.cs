@@ -242,7 +242,7 @@ namespace OYMLCN.Extension.Test
             Assert.AreEqual("\r\n<br/>\r\n<br />\t\t\r\n<br>\r\n\t\t\r\n".HtmlReplaceBr().Trim(), string.Empty);
             Assert.AreEqual("123\r\n<br/>\r\n<br />\r\n<br>321\r\n\r\n".HtmlReplaceBr().RemoveWrap(1), "123\r\n321");
             Assert.AreEqual("\r\n\t<br/>\n\r\t".RemoveWrap(), "\t<br/>\t");
-            Assert.AreEqual("1&nbsp; 2 　  3  　 ".HtmlRemoveSpace(), "1 2 3");
+            Assert.AreEqual("1&nbsp; 2 　  3  　 ".RemoveSpace(), "1 2 3");
             var url = "http://www.qq.com/index.html?qq=10000&code=$%43<>><%";
             var urlEncoded = "http%3A%2F%2Fwww.qq.com%2Findex.html%3Fqq%3D10000%26code%3D%24%2543%3C%3E%3E%3C%25";
             Assert.AreEqual(url.UrlEncode(), urlEncoded);

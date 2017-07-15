@@ -18,7 +18,7 @@ namespace OYMLCN
         /// <param name="html"></param>
         /// <param name="length">截取长度（默认0则返回完整结果）</param>
         /// <returns></returns>
-        public static string HtmlRemove(this string html, int length = 0)
+        public static string RemoveHtml(this string html, int length = 0)
         {
             if (html == null)
                 return string.Empty;
@@ -35,7 +35,7 @@ namespace OYMLCN
         /// </summary>
         /// <param name="html"></param>
         /// <returns></returns>
-        public static string HtmlRemoveScript(this string html)
+        public static string RemoveScript(this string html)
         {
             if (html == null)
                 return string.Empty;
@@ -46,7 +46,7 @@ namespace OYMLCN
         /// </summary>
         /// <param name="html"></param>
         /// <returns></returns>
-        public static string HtmlReplaceBr(this string html)
+        public static string ReplaceHtmlBr(this string html)
         {
             if (html == null)
                 return string.Empty;
@@ -55,15 +55,16 @@ namespace OYMLCN
 
 
         /// <summary>
-        /// Html的多个连续空格只保留一个
+        /// 多个连续空格只保留一个
+        /// Html字符串则会替换 &amp;nbsp; 以及 &amp;ensp; 空格符
         /// </summary>
         /// <param name="html"></param>
         /// <returns></returns>
-        public static string HtmlRemoveSpace(this string html)
+        public static string RemoveSpace(this string html)
         {
             if (html == null)
                 return string.Empty;
-            var str = html.ReplaceIgnoreCase(" ", "&nbsp;", "　").SplitBySign(" ", StringSplitOptions.RemoveEmptyEntries).Join(" ");
+            var str = html.ReplaceIgnoreCase(" ", "&nbsp;", "&ensp;", "　").SplitBySign(" ", StringSplitOptions.RemoveEmptyEntries).Join(" ");
             do str = str.Replace("  ", " ");
             while (str.Contains("  "));
             return str;

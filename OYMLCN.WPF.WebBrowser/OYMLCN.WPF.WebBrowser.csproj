@@ -16,7 +16,7 @@
     <PackageProjectUrl>https://tfs.oyml.cn/OYMLCN/Open/OYMLCN.WPF.WebBrowser</PackageProjectUrl>
     <RepositoryUrl>https://tfs.oyml.cn/OYMLCN/Open/OYMLCN.WPF.WebBrowser</RepositoryUrl>
     <Description>通过WebBrowserHelper对WPF中的WebBrowser进行事件绑定</Description>
-    <Version>0.1.3</Version>
+    <Version>0.1.4</Version>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>bin\Debug\net452\OYMLCN.WPF.WebBrowser.xml</DocumentationFile>
