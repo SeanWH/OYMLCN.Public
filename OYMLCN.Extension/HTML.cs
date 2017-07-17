@@ -50,7 +50,7 @@ namespace OYMLCN
         {
             if (html == null)
                 return string.Empty;
-            return html.ReplaceIgnoreCase("\r\n", "<br>", "<br/>", "<br />");
+            return html.ReplaceIgnoreCaseWithRegex("\r\n", "<br>", "<br/>", "<br />");
         }
 
 
@@ -64,7 +64,7 @@ namespace OYMLCN
         {
             if (html == null)
                 return string.Empty;
-            var str = html.ReplaceIgnoreCase(" ", "&nbsp;", "&ensp;", "　").SplitBySign(" ", StringSplitOptions.RemoveEmptyEntries).Join(" ");
+            var str = html.ReplaceIgnoreCaseWithRegex(" ", "&nbsp;", "&ensp;", "　").SplitBySign(" ", StringSplitOptions.RemoveEmptyEntries).Join(" ");
             do str = str.Replace("  ", " ");
             while (str.Contains("  "));
             return str;

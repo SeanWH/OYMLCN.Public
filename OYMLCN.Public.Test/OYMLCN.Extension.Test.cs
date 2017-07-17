@@ -236,11 +236,11 @@ namespace OYMLCN.Extension.Test
         public void HTMLTest()
         {
             string html = "<html><head><link href='/css/footer.css' rel='stylesheet'/><style type='text/css'>.demo{}</style><script src=''>demo()</script></head><body>你好<h3>世界</h3></body></html>";
-            Assert.AreEqual(html.HtmlRemove(), ".demo{}demo()你好世界");
-            Assert.AreEqual(html.HtmlRemoveScript(), "<html><head><link href='/css/footer.css' rel='stylesheet'/></head><body>你好<h3>世界</h3></body></html>");
-            Assert.AreEqual(html.HtmlRemoveScript().HtmlRemove(), "你好世界");
-            Assert.AreEqual("\r\n<br/>\r\n<br />\t\t\r\n<br>\r\n\t\t\r\n".HtmlReplaceBr().Trim(), string.Empty);
-            Assert.AreEqual("123\r\n<br/>\r\n<br />\r\n<br>321\r\n\r\n".HtmlReplaceBr().RemoveWrap(1), "123\r\n321");
+            Assert.AreEqual(html.RemoveHtml(), ".demo{}demo()你好世界");
+            Assert.AreEqual(html.RemoveScript(), "<html><head><link href='/css/footer.css' rel='stylesheet'/></head><body>你好<h3>世界</h3></body></html>");
+            Assert.AreEqual(html.RemoveScript().RemoveHtml(), "你好世界");
+            Assert.AreEqual("\r\n<br/>\r\n<br />\t\t\r\n<br>\r\n\t\t\r\n".ReplaceHtmlBr().Trim(), string.Empty);
+            Assert.AreEqual("123\r\n<br/>\r\n<br />\r\n<br>321\r\n\r\n".ReplaceHtmlBr().RemoveWrap(1), "123\r\n321");
             Assert.AreEqual("\r\n\t<br/>\n\r\t".RemoveWrap(), "\t<br/>\t");
             Assert.AreEqual("1&nbsp; 2 　  3  　 ".RemoveSpace(), "1 2 3");
             var url = "http://www.qq.com/index.html?qq=10000&code=$%43<>><%";
@@ -345,6 +345,8 @@ namespace OYMLCN.Extension.Test
             CollectionAssert.AreEqual("你好".StringToArray(), new string[] { "你", "好" });
             Assert.IsFalse("hi".IsChineseRegString());
             Assert.IsTrue("你好".IsChineseRegString());
+
+            Assert.AreEqual("/*||*/".RemoveNormal("/*||*/"), "");
         }
 
         [TestMethod]

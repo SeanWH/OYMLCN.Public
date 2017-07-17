@@ -94,6 +94,12 @@ namespace OYMLCN
             return hn;
         }
 
+        /// <summary>
+        /// 移除空节点
+        /// </summary>
+        /// <param name="hn"></param>
+        /// <param name="xpath"></param>
+        /// <returns></returns>
         public static HtmlNode RemoveEmptyNodes(this HtmlNode hn, params string[] xpath)
         {
             foreach (var item in xpath)
