@@ -15,10 +15,11 @@ namespace OYMLCN
         /// </summary>
         /// <param name="hn"></param>
         /// <param name="removeDataAttribute">移除data-属性</param>
+        /// <param name="removeMeta">移除head的meta标签</param>
         /// <param name="removeInlineStyle">移除内联样式</param>
         /// <param name="removeEventAttribute">移除on事件属性</param>
         /// <returns></returns>
-        public static string GetCleanHtml(this HtmlNode hn, bool removeDataAttribute = false, bool removeInlineStyle = true, bool removeEventAttribute = true)
+        public static string GetCleanHtml(this HtmlNode hn, bool removeDataAttribute = false, bool removeMeta = true, bool removeInlineStyle = true, bool removeEventAttribute = true)
         {
             if (removeInlineStyle)
             {
@@ -40,6 +41,8 @@ namespace OYMLCN
                             data.Remove();
                 }
             }
+            if (removeMeta)
+                hn.RemoveNodes("//meta");
 
             hn.RemoveEmptyNodes("//div");
 
