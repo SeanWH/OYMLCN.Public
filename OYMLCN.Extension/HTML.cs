@@ -64,7 +64,7 @@ namespace OYMLCN
         {
             if (html == null)
                 return string.Empty;
-            var str = html.ReplaceIgnoreCaseWithRegex(" ", "&nbsp;", "&ensp;", "　").SplitBySign(" ", StringSplitOptions.RemoveEmptyEntries).Join(" ");
+            var str = html.ReplaceIgnoreCaseWithRegex(" ", "&nbsp;", "&ensp;", "　", "\t").SplitBySign(" ", StringSplitOptions.RemoveEmptyEntries).Join(" ");
             do str = str.Replace("  ", " ");
             while (str.Contains("  "));
             return str;
