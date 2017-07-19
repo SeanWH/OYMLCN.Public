@@ -50,6 +50,37 @@ namespace OYMLCN
         }
 
         /// <summary>
+        /// 获取去除HTML标签后的文本（block元素会自动换行）
+        /// </summary>
+        /// <param name="hn"></param>
+        /// <returns></returns>
+        public static string GetCleanText(this HtmlNode hn)
+        {
+            hn.RemoveNodes("//img", "//map", "//audio", "//canvas");
+            string html = hn.InnerHtml;
+
+            var block = new string[] {
+                "address","article","aside",
+                "blockquote",
+                "caption","code","cite",
+                "div","dl","details",
+                "footer",
+                @"h(\d)","header",
+                "label","ul","ol","li",
+                "nav",
+                "p","pre",
+                "q",
+                "table","tr","textarea",
+                "select","section",
+            };
+
+            html = html
+                .ReplaceHtmlBr()
+                .ReplaceIgnoreCaseWithRegex("\r\n", block.Select(d => $"<{d}>").ToArray());
+            return html.RemoveHtml().SplitByLine().Select(d => d.Trim()).ToArray().Join("\r\n");
+        }
+
+        /// <summary>
         /// 将字符串转换为Html便捷操作模式
         /// </summary>
         /// <param name="html"></param>

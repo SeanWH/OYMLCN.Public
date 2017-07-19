@@ -441,7 +441,7 @@ namespace OYMLCN
         /// <param name="str"></param>
         /// <param name="word">需要移除的字符(不能包含正则占位符)</param>
         /// <returns></returns>
-        public static string RemoveIgnoreCaseWithWithRegex(this string str, params string[] word) =>
+        public static string RemoveIgnoreCaseWithRegex(this string str, params string[] word) =>
             word.Length == 0 ? str : str.RegexMatches($"[^({word.Join("|")})]", RegexOptions.Compiled | RegexOptions.IgnoreCase).Join();
 
     }

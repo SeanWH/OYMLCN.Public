@@ -17,7 +17,7 @@
 跨平台封装：CryptographyExtension、DateTimeExtension、EnumExtension、FileExtension、HTMLExtension、、PinYinExtension、StreamExtension、StringExtension、ZipExtension</Description>
     <Copyright>OYML.CN</Copyright>
     <PackageProjectUrl>https://www.oyml.cn/OYMLCN.Extension</PackageProjectUrl>
-    <Version>0.3.14</Version>
+    <Version>0.3.15</Version>
     <PackageLicenseUrl>https://github.com/VicBilibily/OYMLCN.Public/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.Extension</RepositoryUrl>
     <RepositoryType>Github</RepositoryType>
