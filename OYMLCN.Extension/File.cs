@@ -29,22 +29,42 @@ namespace OYMLCN
         /// <param name="file"></param>
         /// <param name="content">文本内容</param>
         /// <param name="appendOnEnd">在文件结尾添加，false时在文件开头添加</param>
-        public static void AppendText(this FileInfo file, string content, bool appendOnEnd = true)
+        public static void Append(this FileInfo file, string content, bool appendOnEnd = true)
         {
-            StringBuilder str = new StringBuilder();
-            var temp = file.ReadAllText();
             if (appendOnEnd)
-            {
-                str.AppendLine(temp);
-                str.AppendLine(content);
-            }
+                using (var writer = file.AppendText())
+                    writer.Write(content);
             else
             {
-                str.AppendLine(content);
-                str.AppendLine(temp);
+                StringBuilder str = new StringBuilder();
+                var temp = file.ReadAllText();
+                str.Append(content);
+                str.Append(temp);
+                file.WriteAllText(str.ToString());
             }
-            file.WriteAllText(str.ToString());
         }
+        /// <summary>
+        /// 向文本文件追加文本
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="content">文本内容</param>
+        /// <param name="appendOnEnd">在文件结尾添加，false时在文件开头添加</param>
+        public static void AppendLine(this FileInfo file, string content, bool appendOnEnd = true)
+        {
+            if (appendOnEnd)
+                using (var writer = file.AppendText())
+                    writer.WriteLine(content);
+            else
+            {
+                StringBuilder str = new StringBuilder();
+                var temp = file.ReadAllText();
+                str.AppendLine(content);
+                str.Append(temp);
+                file.WriteAllText(str.ToString());
+            }
+        }
+
+
         /// <summary>
         /// 读取文本文件
         /// </summary>
