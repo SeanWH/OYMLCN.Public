@@ -14,7 +14,11 @@ namespace OYMLCN
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        public static FileInfo GetFileInfo(this string filePath) => new FileInfo(filePath);
+        public static FileInfo GetFileInfo(this string filePath)
+        {
+            try { return new FileInfo(filePath); }
+            catch { return null; }
+        }
 
         /// <summary>
         /// 将文本信息保存到文件
@@ -83,7 +87,11 @@ namespace OYMLCN
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static DirectoryInfo GetDirectoryInfo(this string path) => new DirectoryInfo(path);
+        public static DirectoryInfo GetDirectoryInfo(this string path)
+        {
+            try { return new DirectoryInfo(path); }
+            catch { return null; }
+        }
         /// <summary>
         /// 获取文件夹大小(字节)
         /// </summary>

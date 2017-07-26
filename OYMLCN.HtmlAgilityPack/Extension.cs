@@ -19,7 +19,7 @@ namespace OYMLCN
         /// <param name="removeInlineStyle">移除内联样式</param>
         /// <param name="removeEventAttribute">移除on事件属性</param>
         /// <returns></returns>
-        public static string GetCleanHtml(this HtmlNode hn, bool removeDataAttribute = false, bool removeMeta = true, bool removeInlineStyle = true, bool removeEventAttribute = true)
+        public static string GetCleanHtml(this HtmlNode hn, bool removeDataAttribute = false, bool removeMeta = true, bool removeInlineStyle = true, bool removeEventAttribute = true, bool allInOneLine = true)
         {
             if (removeInlineStyle)
             {
@@ -45,8 +45,10 @@ namespace OYMLCN
                 hn.RemoveNodes("//meta");
 
             hn.RemoveEmptyNodes("//div");
-
-            return hn.OwnerDocument.DocumentNode.InnerHtml.AllInOneLine().RemoveSpace();
+            if (allInOneLine)
+                return hn.OwnerDocument.DocumentNode.InnerHtml.AllInOneLine().RemoveSpace();
+            else
+                return hn.OwnerDocument.DocumentNode.InnerHtml.RemoveSpace().SplitByLine().Select(d => d.Trim()).ToArray().Join("\r\n");
         }
 
         /// <summary>

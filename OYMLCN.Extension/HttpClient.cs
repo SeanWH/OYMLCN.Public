@@ -141,7 +141,7 @@ namespace OYMLCN
 
             if (queryDir != null)
             {
-                var queries = queryDir.Select(d => new { d.Key, FileInfo = d.Value.GetFileInfo(), d.Value }).GroupBy(d => d.FileInfo.Exists);
+                var queries = queryDir.Select(d => new { d.Key, FileInfo = d.Value.GetFileInfo(), d.Value }).GroupBy(d => d.FileInfo?.Exists ?? false);
                 if (queries.Where(d => d.Key).Count() == 0 && data.IsNullOrEmpty())
                     content = formContent = new FormUrlEncodedContent(queryDir);
                 else
