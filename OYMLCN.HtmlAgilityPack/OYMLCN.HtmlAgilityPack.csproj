@@ -10,7 +10,7 @@
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Authors>VicBilibily欧阳敏岚</Authors>
-    <Version>0.1.14</Version>
+    <Version>0.1.15</Version>
     <Description>HtmlAgilityPackExtension
 String.AsAgilityHtml()
 HtmlNode.GetInnerHtml

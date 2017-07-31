@@ -18,6 +18,7 @@ namespace OYMLCN
         /// <param name="removeMeta">移除head的meta标签</param>
         /// <param name="removeInlineStyle">移除内联样式</param>
         /// <param name="removeEventAttribute">移除on事件属性</param>
+        /// <param name="allInOneLine">标记是否合并为一行</param>
         /// <returns></returns>
         public static string GetCleanHtml(this HtmlNode hn, bool removeDataAttribute = false, bool removeMeta = true, bool removeInlineStyle = true, bool removeEventAttribute = true, bool allInOneLine = true)
         {
@@ -46,7 +47,7 @@ namespace OYMLCN
 
             hn.RemoveEmptyNodes("//div");
             if (allInOneLine)
-                return hn.OwnerDocument.DocumentNode.InnerHtml.AllInOneLine().RemoveSpace();
+                return hn.OwnerDocument.DocumentNode.InnerHtml.AllInOneLine().RemoveSpace().Replace("> <","><");
             else
                 return hn.OwnerDocument.DocumentNode.InnerHtml.RemoveSpace().SplitByLine().Select(d => d.Trim()).ToArray().Join("\r\n");
         }
@@ -79,7 +80,7 @@ namespace OYMLCN
             html = html
                 .ReplaceHtmlBr()
                 .ReplaceIgnoreCaseWithRegex("\r\n", block.Select(d => $"<{d}>").ToArray());
-            return html.RemoveHtml().SplitByLine().Select(d => d.Trim()).ToArray().Join("\r\n");
+            return html.RemoveHtml().SplitByLine().Select(d => d.Trim()).ToArray().Join("\r\n").HtmlDecode();
         }
 
         /// <summary>
@@ -166,7 +167,7 @@ namespace OYMLCN
         /// <param name="hn"></param>
         /// <param name="xpath"></param>
         /// <returns></returns>
-        public static string GetInnerText(this HtmlNode hn, string xpath) => hn?.SelectSingleNode(xpath)?.InnerText?.Trim();
+        public static string GetInnerText(this HtmlNode hn, string xpath) => hn?.SelectSingleNode(xpath)?.InnerText?.HtmlDecode().Trim();
 
         /// <summary>
         /// 获取指定路径元素的属性值
