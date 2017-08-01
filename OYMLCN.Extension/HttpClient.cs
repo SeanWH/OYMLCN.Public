@@ -11,7 +11,7 @@ namespace OYMLCN
     /// <summary>
     /// HttpClient方法封装
     /// </summary>
-    public static partial class HttpClient
+    public static partial class HttpClientExtension
     {
         /// <summary>
         /// 通过HttpGet获取数据

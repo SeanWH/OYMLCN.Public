@@ -40,8 +40,10 @@ namespace OYMLCN
         {
             if (data.Length == 0)
                 return;
-            ListViewItem lvi = new ListViewItem();
-            lvi.Text = data[0].ToString();
+            ListViewItem lvi = new ListViewItem()
+            {
+                Text = data[0].ToString()
+            };
             for (var i = 1; i < data.Length; i++)
                 lvi.SubItems.Add(data[i]?.ToString());
             view.Items.Add(lvi);

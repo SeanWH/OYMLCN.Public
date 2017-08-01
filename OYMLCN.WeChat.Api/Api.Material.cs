@@ -95,7 +95,7 @@ namespace OYMLCN.WeChat
                 else if (type == MediaType.Video)
                     throw new NotSupportedException("下载视频请使用MaterialVideoDownloadUrl获取下载地址");
                 else
-                    return HttpClient.PostData(ApiUrl("/cgi-bin/material/get_material?access_token={0}", access_token), "{\"media_id\":\"" + mediaId + "\"}", mediaType: "application/json");
+                    return HttpClientExtension.PostData(ApiUrl("/cgi-bin/material/get_material?access_token={0}", access_token), "{\"media_id\":\"" + mediaId + "\"}", mediaType: "application/json");
             }
             public static MaterialVideoInfo GetVideoInfo(string access_token, string media_id) =>
                  ApiPost<MaterialVideoInfo>(JsonCreate.GetVideoInfo(media_id), "/cgi-bin/material/get_material?access_token={0}", access_token);

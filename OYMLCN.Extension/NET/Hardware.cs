@@ -9,7 +9,7 @@ namespace OYMLCN
     /// <summary>
     /// 硬件信息
     /// </summary>
-    public static class Hardware
+    public static class HardwareExtension
     {
         /// <summary>
         /// CPU 唯一标识

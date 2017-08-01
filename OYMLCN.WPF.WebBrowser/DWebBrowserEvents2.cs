@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace OYMLCN.WPF
 {
     [ComImport, TypeLibType(TypeLibTypeFlags.FHidden), InterfaceType(ComInterfaceType.InterfaceIsIDispatch), Guid("34A715A0-6587-11D0-924A-0020AFC7AC4D")]
-    interface DWebBrowserEvents2
+    interface IDWebBrowserEvents2
     {
         [DispId(0x66)]
         void StatusTextChange([In] string text);

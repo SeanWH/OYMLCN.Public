@@ -5,7 +5,7 @@ namespace OYMLCN
     /// <summary>
     /// 进程或线程相关操作
     /// </summary>
-    public static partial class Process
+    public static partial class ProcessExtension
     {
         /// <summary>
         /// 挂起线程（Thread.Sleep一年）

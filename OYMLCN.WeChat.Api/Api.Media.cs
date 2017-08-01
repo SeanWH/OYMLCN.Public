@@ -20,7 +20,7 @@ namespace OYMLCN.WeChat
                 if (type == MediaType.News)
                     throw new NotSupportedException("不能下载图文信息");
                 else if (type == MediaType.Video)
-                    url = HttpClient.GetString(url).ParseToJToken()["video_url"].ToString();
+                    url = HttpClientExtension.GetString(url).ParseToJToken()["video_url"].ToString();
                 return url;
             }
             public static string SpeexDownloadUrl(string access_token, string media_id) =>

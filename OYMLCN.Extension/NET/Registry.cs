@@ -8,7 +8,7 @@ namespace OYMLCN
     /// <summary>
     /// 注册表操作
     /// </summary>
-    public static class Registry
+    public static class RegistryExtension
     {
 
         /// <summary>

@@ -8,7 +8,7 @@ namespace OYMLCN.WPF
 {
     public partial class WebBrowserHelper
     {
-        private class WebBrowserEvent : StandardOleMarshalObject, DWebBrowserEvents2
+        private class WebBrowserEvent : StandardOleMarshalObject, IDWebBrowserEvents2
         {
             private WebBrowserHelper _helperInstance = null;
 

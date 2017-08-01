@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -53,14 +52,13 @@ namespace OYMLCN
         /// <param name="nextAction">若已存在实例的调用方法</param>
         public static void OneInstanceStartup(Action runAction, Action nextAction = null)
         {
-            bool createdNew;
-            singleInstanceWatcher = new Semaphore(0, 1, System.Diagnostics.Process.GetCurrentProcess().MainModule.ModuleName, out createdNew);
+            singleInstanceWatcher = new Semaphore(0, 1, Process.GetCurrentProcess().MainModule.ModuleName, out bool createdNew);
             if (createdNew)
                 runAction.Invoke();
             else
             {
                 var current = System.Diagnostics.Process.GetCurrentProcess();
-                foreach (var process in System.Diagnostics.Process.GetProcessesByName(current.ProcessName))
+                foreach (var process in Process.GetProcessesByName(current.ProcessName))
                     if (process.Id != current.Id)
                     {
                         if (nextAction != null)
@@ -82,8 +80,7 @@ namespace OYMLCN
         {
             try
             {
-                var exception = e.ExceptionObject as Exception;
-                if (exception != null)
+                if (e.ExceptionObject is Exception exception)
                     ThreadPool.QueueUserWorkItem(o =>
                     {
                         MessageBox.Show(exception.Message, "程序异常", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -102,14 +99,14 @@ namespace OYMLCN
         /// <summary>
         /// 杀掉程序主线程
         /// </summary>
-        public static void KillMainProcess() => OYMLCN.Process.Kill(System.Diagnostics.Process.GetCurrentProcess().MainModule.ModuleName);
+        public static void KillMainProcess() => ProcessExtension.Kill(Process.GetCurrentProcess().MainModule.ModuleName);
 
         /// <summary>
         /// 捕获所有未处理异常
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public static void DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        public static void DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             e.Handled = true;
             try

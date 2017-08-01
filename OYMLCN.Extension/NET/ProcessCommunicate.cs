@@ -13,7 +13,7 @@ namespace OYMLCN
     /// <summary>
     /// 进程或线程相关操作
     /// </summary>
-    public static partial class Process
+    public static partial class ProcessExtension
     {
         /// <summary>
         /// 进程通讯相关方法封装

@@ -235,9 +235,7 @@ namespace OYMLCN.WPF
         /// <param name="webBrowser"></param>
         public WebBrowserHelper(WebBrowser webBrowser)
         {
-            if (webBrowser == null)
-                throw new ArgumentNullException("webBrowser");
-            _webBrowser = webBrowser;
+            _webBrowser = webBrowser ?? throw new ArgumentNullException("webBrowser");
             _webBrowser.Dispatcher.BeginInvoke(new Action(Attach), DispatcherPriority.Loaded);
         }
 
@@ -269,7 +267,7 @@ namespace OYMLCN.WPF
                 cookieType,
                 ReflectionService.BindingFlags,
                 null,
-                new[] { axIWebBrowser2, webBrowserEvent, typeof(DWebBrowserEvents2) },
+                new[] { axIWebBrowser2, webBrowserEvent, typeof(IDWebBrowserEvents2) },
                 CultureInfo.CurrentUICulture);
         }
 
