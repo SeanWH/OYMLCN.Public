@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -91,6 +92,22 @@ namespace OYMLCN
         /// <param name="str"></param>
         /// <returns></returns>
         public static bool IsNullOrWhiteSpace(this string str) => string.IsNullOrWhiteSpace(str);
+        /// <summary>
+        /// 判断字符串是否为空格类型
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsWhiteSpace(this string value)
+        {
+            foreach (var c in value)
+            {
+                if (char.IsWhiteSpace(c)) continue;
+                return false;
+            }
+            return true;
+        }
+
+
         /// <summary>
         /// 判断字符串是否是邮箱地址
         /// </summary>
@@ -274,6 +291,40 @@ namespace OYMLCN
             }
             return new string(c);
         }
+        /// <summary>
+        /// ASCII转小写
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string ToLowerForASCII(this string value)
+        {
+            if (value.IsNullOrWhiteSpace())
+                return value;
+            var sb = new StringBuilder(value.Length);
+            foreach (var c in value)
+                if (c < 'A' || c > 'Z')
+                    sb.Append(c);
+                else
+                    sb.Append((char)(c + 0x20));
+            return sb.ToString();
+        }
+        /// <summary>
+        /// ASCII转大写
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns> 
+        public static string ToUpperForASCII(this string value)
+        {
+            if (value.IsNullOrWhiteSpace())
+                return value;
+            var sb = new StringBuilder(value.Length);
+            foreach (var c in value)
+                if (c < 'a' || c > 'z')
+                    sb.Append(c);
+                else
+                    sb.Append((char)(c - 0x20));
+            return sb.ToString();
+        }
 
 
 
@@ -443,6 +494,102 @@ namespace OYMLCN
         /// <returns></returns>
         public static string RemoveIgnoreCaseWithRegex(this string str, params string[] word) =>
             word.Length == 0 ? str : str.RegexMatches($"[^({word.Join("|")})]", RegexOptions.Compiled | RegexOptions.IgnoreCase).Join();
+
+
+        /// <summary>
+        /// 判断字符串是否以指定字符开头
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public static bool IsBeginWith(this string s, char c) =>
+            s.IsNullOrEmpty() ? false : s[0] == c;
+        /// <summary>
+        /// 判断字符串是否以指定字符开头
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="chars"></param>
+        /// <returns></returns>
+        public static bool IsBeginWithAny(this string s, IEnumerable<char> chars) =>
+            s.IsNullOrEmpty() ? false : chars.Contains(s[0]);
+        /// <summary>
+        /// 判断字符串是否以指定字符开头
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="chars"></param>
+        /// <returns></returns>
+        public static bool IsBeginWithAny(this string s, params char[] chars) =>
+            s.IsBeginWithAny(chars.AsEnumerable());
+        /// <summary>
+        /// 判断字符串是否以指定字符开头
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="comparisonType"></param>
+        /// <returns></returns>
+        public static bool IsBeginWith(this string a, string b, StringComparison comparisonType = StringComparison.Ordinal) =>
+            (a == null || b == null) ? false : a.StartsWith(b, comparisonType);
+#if NET452
+        /// <summary>
+        /// 判断字符串是否以指定字符开头
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="ignoreCase"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
+        public static bool IsBeginWith(this string a, string b, bool ignoreCase, CultureInfo culture) =>
+            (a == null || b == null) ? false : a.StartsWith(b, ignoreCase, culture);
+#endif
+        /// <summary>
+        /// 判断字符串是否以指定字符结尾
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public static bool IsFinishWith(this string s, char c)
+        {
+            if (s.IsNullOrEmpty()) return false;
+            return s.Last() == c;
+        }
+        /// <summary>
+        /// 判断字符串是否以指定字符结尾
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="chars"></param>
+        /// <returns></returns>
+        public static bool IsFinishWithAny(this string s, IEnumerable<char> chars) =>
+            s.IsNullOrEmpty() ? false : chars.Contains(s.Last());
+        /// <summary>
+        /// 判断字符串是否以指定字符结尾
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="chars"></param>
+        /// <returns></returns>
+        public static bool IsFinishWithAny(this string s, params char[] chars) =>
+            s.IsFinishWithAny(chars.AsEnumerable());
+        /// <summary>
+        /// 判断字符串是否以指定字符结尾
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="comparisonType"></param>
+        /// <returns></returns>
+        public static bool IsFinishWith(this string a, string b, StringComparison comparisonType = StringComparison.Ordinal) =>
+            (a == null || b == null) ? false : a.EndsWith(b, comparisonType);
+#if NET452
+        /// <summary>
+        /// 判断字符串是否以指定字符结尾
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="ignoreCase"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
+        public static bool IsFinishWith(this string a, string b, bool ignoreCase, CultureInfo culture) =>
+            (a == null || b == null) ? false : a.EndsWith(b, ignoreCase, culture);
+#endif
+
 
     }
 }

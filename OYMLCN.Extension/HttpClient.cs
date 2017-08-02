@@ -66,11 +66,11 @@ namespace OYMLCN
                     UseCookies = true,
 
                 };
-                client = new System.Net.Http.HttpClient(handler);
+                client = new HttpClient(handler);
             }
             client.Timeout = new TimeSpan(0, 0, timeout);
             var t = client.GetStreamAsync(url);
-            t.Wait();
+            t.Wait();            
             var result = t.Result;
             client.Dispose();
             return result;
