@@ -57,7 +57,7 @@ namespace OYMLCN
                 runAction.Invoke();
             else
             {
-                var current = System.Diagnostics.Process.GetCurrentProcess();
+                var current = Process.GetCurrentProcess();
                 foreach (var process in Process.GetProcessesByName(current.ProcessName))
                     if (process.Id != current.Id)
                     {
@@ -99,7 +99,7 @@ namespace OYMLCN
         /// <summary>
         /// 杀掉程序主线程
         /// </summary>
-        public static void KillMainProcess() => ProcessExtension.Kill(Process.GetCurrentProcess().MainModule.ModuleName);
+        public static void KillMainProcess() => Process.GetCurrentProcess().Kill();
 
         /// <summary>
         /// 捕获所有未处理异常
