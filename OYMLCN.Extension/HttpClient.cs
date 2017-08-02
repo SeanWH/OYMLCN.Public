@@ -160,7 +160,7 @@ namespace OYMLCN
                 }
             }
 
-            if (content == null)
+            if (content.IsNull())
                 content = new StringContent(string.Empty);
             var stri = content.ReadAsStringAsync().Result;
             var t = client.PostAsync(url, content);

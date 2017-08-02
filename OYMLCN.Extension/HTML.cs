@@ -20,7 +20,7 @@ namespace OYMLCN
         /// <returns></returns>
         public static string RemoveHtml(this string html, int length = 0)
         {
-            if (html == null)
+            if (html.IsNull())
                 return string.Empty;
             string strText = Regex.Replace(html, "<[^>]+>", "");
             strText = Regex.Replace(strText, "&[^;]+;", "");
@@ -37,7 +37,7 @@ namespace OYMLCN
         /// <returns></returns>
         public static string RemoveScript(this string html)
         {
-            if (html == null)
+            if (html.IsNull())
                 return string.Empty;
             return Regex.Replace(html, @"(\<script(.+?)\</script\>)|(\<style(.+?)\</style\>)", "", RegexOptions.IgnoreCase | RegexOptions.Singleline);
         }
@@ -48,7 +48,7 @@ namespace OYMLCN
         /// <returns></returns>
         public static string ReplaceHtmlBr(this string html)
         {
-            if (html == null)
+            if (html.IsNull())
                 return string.Empty;
             return html.ReplaceIgnoreCaseWithRegex("\r\n", "<br>", "<br/>", "<br />");
         }
@@ -62,7 +62,7 @@ namespace OYMLCN
         /// <returns></returns>
         public static string RemoveSpace(this string html)
         {
-            if (html == null)
+            if (html.IsNull())
                 return string.Empty;
             var str = html.ReplaceIgnoreCaseWithRegex(" ", "&nbsp;", "&ensp;", "　", "\t").SplitBySign(" ", StringSplitOptions.RemoveEmptyEntries).Join(" ");
             do str = str.Replace("  ", " ");
@@ -110,7 +110,7 @@ namespace OYMLCN
         /// <returns></returns>
         public static string ToQueryString(this Dictionary<string, string> formData)
         {
-            if (formData == null || formData.Count == 0)
+            if (formData.IsNull() || formData.Count == 0)
                 return "";
 
             StringBuilder sb = new StringBuilder();

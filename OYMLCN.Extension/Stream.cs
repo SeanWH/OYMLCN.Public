@@ -26,7 +26,7 @@ namespace OYMLCN
         public static Stream FillFormDataStream(this Stream stream, Dictionary<string, string> formData)
         {
             string dataString = formData.ToQueryString();
-            var formDataBytes = formData == null ? new byte[0] : Encoding.UTF8.GetBytes(dataString);
+            var formDataBytes = formData.IsNull() ? new byte[0] : Encoding.UTF8.GetBytes(dataString);
             stream.Write(formDataBytes, 0, formDataBytes.Length);
             stream.Seek(0, SeekOrigin.Begin);
             return stream;

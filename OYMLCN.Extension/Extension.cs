@@ -26,7 +26,7 @@ namespace OYMLCN
                     return false;//数字验证
                 if (address.IndexOf(str.Remove(2)) == -1)
                     return false;//省份验证
-                if (str.Substring(6, 6).Insert(4, "-").Insert(2, "-").ConvertToNullableDatetime() == null)
+                if (str.Substring(6, 6).Insert(4, "-").Insert(2, "-").ConvertToNullableDatetime().IsNull())
                     return false;//生日验证  
                 return true;//符合GB11643-1989标准
             }
@@ -36,7 +36,7 @@ namespace OYMLCN
                     return false;//数字验证  
                 if (address.IndexOf(str.Remove(2)) == -1)
                     return false;//省份验证  
-                if (str.Substring(6, 8).Insert(6, "-").Insert(4, "-").ConvertToNullableDatetime() == null)
+                if (str.Substring(6, 8).Insert(6, "-").Insert(4, "-").ConvertToNullableDatetime().IsNull())
                     return false;//生日验证  
                 string[] arrVarifyCode = ("1,0,x,9,8,7,6,5,4,3,2").Split(',');
                 string[] Wi = ("7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2").Split(',');
@@ -80,7 +80,7 @@ namespace OYMLCN
         /// <param name="enumerable"></param>
         /// <returns></returns>
         public static bool IsEmpty<T>(this IEnumerable<T> enumerable) =>
-            (enumerable == null) || !enumerable.Any();
+            enumerable.IsNull() || !enumerable.Any();
         /// <summary>
         /// 判断集合是否不为空或Null
         /// </summary>
@@ -88,7 +88,7 @@ namespace OYMLCN
         /// <param name="enumerable"></param>
         /// <returns></returns>
         public static bool IsNotEmpty<T>(this IEnumerable<T> enumerable) =>
-            (enumerable != null) && enumerable.Any();
+            enumerable.IsNotNull() && enumerable.Any();
         /// <summary>
         /// 获取字典值
         /// </summary>

@@ -107,6 +107,14 @@ namespace OYMLCN
             return true;
         }
 
+        /// <summary>
+        /// 对比两个字符串是否相等
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="value"></param>
+        /// <param name="comparison"></param>
+        /// <returns></returns>
+        public static bool IsEqual(this string str, string value, StringComparison comparison = StringComparison.Ordinal) => (str.IsNull() || value.IsNull()) ? false : str.Equals(value, comparison);
 
         /// <summary>
         /// 判断字符串是否是邮箱地址
@@ -364,7 +372,7 @@ namespace OYMLCN
         /// </summary>
         /// <param name="uri"></param>
         /// <returns></returns>
-        public static string GetHost(this Uri uri) => uri == null ? null : $"{uri.Scheme}://{uri.Host}/";
+        public static string GetHost(this Uri uri) => uri.IsNull() ? null : $"{uri.Scheme}://{uri.Host}/";
 
 
         /// <summary>
@@ -528,7 +536,7 @@ namespace OYMLCN
         /// <param name="comparisonType"></param>
         /// <returns></returns>
         public static bool IsBeginWith(this string a, string b, StringComparison comparisonType = StringComparison.Ordinal) =>
-            (a == null || b == null) ? false : a.StartsWith(b, comparisonType);
+            (a.IsNull() || b.IsNull()) ? false : a.StartsWith(b, comparisonType);
 #if NET452
         /// <summary>
         /// 判断字符串是否以指定字符开头
@@ -539,7 +547,7 @@ namespace OYMLCN
         /// <param name="culture"></param>
         /// <returns></returns>
         public static bool IsBeginWith(this string a, string b, bool ignoreCase, CultureInfo culture) =>
-            (a == null || b == null) ? false : a.StartsWith(b, ignoreCase, culture);
+            (a.IsNull() || b.IsNull()) ? false : a.StartsWith(b, ignoreCase, culture);
 #endif
         /// <summary>
         /// 判断字符串是否以指定字符结尾
@@ -576,7 +584,7 @@ namespace OYMLCN
         /// <param name="comparisonType"></param>
         /// <returns></returns>
         public static bool IsFinishWith(this string a, string b, StringComparison comparisonType = StringComparison.Ordinal) =>
-            (a == null || b == null) ? false : a.EndsWith(b, comparisonType);
+            (a.IsNull() || b.IsNull()) ? false : a.EndsWith(b, comparisonType);
 #if NET452
         /// <summary>
         /// 判断字符串是否以指定字符结尾
@@ -587,7 +595,7 @@ namespace OYMLCN
         /// <param name="culture"></param>
         /// <returns></returns>
         public static bool IsFinishWith(this string a, string b, bool ignoreCase, CultureInfo culture) =>
-            (a == null || b == null) ? false : a.EndsWith(b, ignoreCase, culture);
+            (a.IsNull() || b.IsNull()) ? false : a.EndsWith(b, ignoreCase, culture);
 #endif
 
 

@@ -19,7 +19,8 @@ namespace OYMLCN
         /// <returns></returns>
         public static byte[] ToBytes(this Image Image, ImageFormat imageFormat)
         {
-            if (Image == null) { return null; }
+            if (Image.IsNull())
+                return null;
             byte[] data = null;
             using (MemoryStream ms = new MemoryStream())
             {
@@ -42,7 +43,7 @@ namespace OYMLCN
         /// <returns>Image</returns>
         public static Image ToImage(this byte[] byteArrayIn)
         {
-            if (byteArrayIn == null)
+            if (byteArrayIn.IsNull())
                 return null;
             using (MemoryStream ms = new MemoryStream(byteArrayIn))
             {
