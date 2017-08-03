@@ -71,9 +71,21 @@ namespace OYMLCN
         public static void WriteToFile(this Stream memoryStream, string fileName)
         {
             memoryStream.Seek(0, SeekOrigin.Begin);
-            using (var localFile = new FileStream(fileName, FileMode.OpenOrCreate))
-                localFile.Write((memoryStream as MemoryStream).ToArray(), 0, (int)memoryStream.Length);
+            (memoryStream as MemoryStream).ToArray().WriteToFile(fileName);
         }
+
+        /// <summary>
+        /// 将byte[]字节数组写入文件
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="fileName"></param>
+        public static void WriteToFile(this byte[] content, string fileName)
+        {
+            using (var localFile = new FileStream(fileName, FileMode.OpenOrCreate))
+                localFile.Write(content, 0, content.Length);
+        }
+
+
         /// <summary>
         /// 获取文件流FileStream
         /// </summary>
