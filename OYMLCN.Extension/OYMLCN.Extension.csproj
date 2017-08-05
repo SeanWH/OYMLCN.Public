@@ -14,10 +14,10 @@
     <Company>广东佰群网络科技股份有限公司</Company>
     <Description>常用类型方法扩展封装
 .Net独有：BitmapExtension、BitmapHandler、HardwareExtension、ProcessExtension、RegistryExtension、SystemInfo、WebClientExtension
-跨平台封装：CryptographyExtension、DateTimeExtension、EnumExtension、FileExtension、HTMLExtension、、HttpClientExtension、PinYinExtension、StreamExtension、StringExtension、ZipExtension</Description>
+跨平台封装：CryptographyExtension、DateTimeExtension、EnumExtension、FileExtension、HTMLExtension、、HttpClientExtension、StreamExtension、StringExtension、ZipExtension</Description>
     <Copyright>OYML.CN</Copyright>
     <PackageProjectUrl>https://www.oyml.cn/OYMLCN.Extension</PackageProjectUrl>
-    <Version>0.3.20</Version>
+    <Version>0.3.21</Version>
     <PackageLicenseUrl>https://github.com/VicBilibily/OYMLCN.Public/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.Extension</RepositoryUrl>
     <RepositoryType>Github</RepositoryType>

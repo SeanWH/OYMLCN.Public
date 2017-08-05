@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp1.0;net452</TargetFrameworks>
+    <RootNamespace>OYMLCN</RootNamespace>
+    <Authors>VicBilibily欧阳敏岚</Authors>
+    <Company>广东佰群网络科技股份有限公司</Company>
+    <Version>0.1.0</Version>
+    <Description>PinYinExtension 独立封装</Description>
+    <Copyright>OYML.CN</Copyright>
+    <PackageLicenseUrl>https://github.com/VicBilibily/OYMLCN.Public/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://www.oyml.cn/OYMLCN.Word.Pinyin</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.Word.Pinyin</RepositoryUrl>
+    <RepositoryType>Github</RepositoryType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
+  </ItemGroup>
+
+</Project>
