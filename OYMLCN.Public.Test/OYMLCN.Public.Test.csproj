@@ -9,16 +9,28 @@
     <TargetFrameworks>netcoreapp1.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="OYMLCN.Json.Test.cs" />
+    <Compile Remove="OYMLCN.WeChat.Api.Test.cs" />
+    <Compile Remove="OYMLCN.WeChat.Core.Test.cs" />
+    <Compile Remove="OYMLCN.Xml.Test.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="OYMLCN.Json.Test.cs" />
+    <None Include="OYMLCN.WeChat.Api.Test.cs" />
+    <None Include="OYMLCN.WeChat.Core.Test.cs" />
+    <None Include="OYMLCN.Xml.Test.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170427-09" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.1.18" />
     <PackageReference Include="MSTest.TestFramework" Version="1.1.18" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
-    <ProjectReference Include="..\OYMLCN.Json\OYMLCN.Json.csproj" />
+    <!--<ProjectReference Include="..\OYMLCN.Json\OYMLCN.Json.csproj" />
     <ProjectReference Include="..\OYMLCN.WeChat.Api\OYMLCN.WeChat.Api.Core.csproj" />
     <ProjectReference Include="..\OYMLCN.WeChat.Core\OYMLCN.WeChat.Core.csproj" />
-    <ProjectReference Include="..\OYMLCN.Xml\OYMLCN.Xml.csproj" />
+    <ProjectReference Include="..\OYMLCN.Xml\OYMLCN.Xml.csproj" />-->
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />

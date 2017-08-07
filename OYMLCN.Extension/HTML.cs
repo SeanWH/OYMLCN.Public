@@ -55,19 +55,18 @@ namespace OYMLCN
 
 
         /// <summary>
-        /// 多个连续空格只保留一个
-        /// Html字符串则会替换 &amp;nbsp; 以及 &amp;ensp; 空格符
+        /// 字符串去除 &amp;nbsp;/&amp;ensp;/&amp;emsp;/&amp;thinsp;/&amp;zwnj;/&amp;zwj; 空格符 制表符 
         /// </summary>
         /// <param name="html"></param>
+        /// <param name="keepOneSpace">保留一个空格</param>
         /// <returns></returns>
-        public static string RemoveSpace(this string html)
+        public static string RemoveSpace(this string html, bool keepOneSpace = true)
         {
             if (html.IsNull())
                 return string.Empty;
-            var str = html.ReplaceIgnoreCaseWithRegex(" ", "&nbsp;", "&ensp;", "　", "\t").SplitBySign(" ", StringSplitOptions.RemoveEmptyEntries).Join(" ");
-            do str = str.Replace("  ", " ");
-            while (str.Contains("  "));
-            return str;
+            return html.SplitByMultiSign("　", " ", "&nbsp;", "&ensp;", "&emsp;", "&thinsp;", "&zwnj;", "&zwj;", "\t")
+                       .Where(d => !d.Trim().IsNullOrEmpty())
+                       .Join(keepOneSpace ? " " : string.Empty);
         }
 
         /// <summary>
