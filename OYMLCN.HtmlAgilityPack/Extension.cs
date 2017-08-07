@@ -77,10 +77,14 @@ namespace OYMLCN
                 "select","section",
             };
 
-            html = html
+            return html
                 .ReplaceHtmlBr()
-                .ReplaceIgnoreCaseWithRegex("\r\n", block.Select(d => $"<{d}>").ToArray());
-            return html.RemoveHtml().SplitByLine().Select(d => d.Trim()).ToArray().Join("\r\n").HtmlDecode();
+                .ReplaceIgnoreCaseWithRegex("\r\n", block.Select(d => $"<{d}>").ToArray())
+                .HtmlDecode()
+                .RemoveHtml()
+                .SplitByLine()
+                .Select(d => d.Trim()).ToArray()
+                .Join("\r\n");
         }
 
         /// <summary>
