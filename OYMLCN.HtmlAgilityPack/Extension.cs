@@ -80,6 +80,7 @@ namespace OYMLCN
             return html
                 .ReplaceHtmlBr()
                 .ReplaceIgnoreCaseWithRegex("\r\n", block.Select(d => $"<{d}>").ToArray())
+                .RemoveSpace()
                 .HtmlDecode()
                 .RemoveHtml()
                 .SplitByLine()
