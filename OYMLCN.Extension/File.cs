@@ -26,7 +26,12 @@ namespace OYMLCN
         /// </summary>
         /// <param name="file"></param>
         /// <param name="content">文本内容</param>
-        public static void WriteAllText(this FileInfo file, string content) => File.WriteAllText(file.FullName, content);
+        public static void WriteAllText(this FileInfo file, string content)
+        {
+            if (!file.Exists)
+                file.Directory.Create();
+            File.WriteAllText(file.FullName, content);
+        }
         /// <summary>
         /// 向文本文件追加文本
         /// </summary>
@@ -35,6 +40,9 @@ namespace OYMLCN
         /// <param name="appendOnEnd">在文件结尾添加，false时在文件开头添加</param>
         public static void Append(this FileInfo file, string content, bool appendOnEnd = true)
         {
+            if (!file.Exists)
+                file.Directory.Create();
+
             if (appendOnEnd)
                 using (var writer = file.AppendText())
                     writer.Write(content);
@@ -55,6 +63,9 @@ namespace OYMLCN
         /// <param name="appendOnEnd">在文件结尾添加，false时在文件开头添加</param>
         public static void AppendLine(this FileInfo file, string content, bool appendOnEnd = true)
         {
+            if (!file.Exists)
+                file.Directory.Create();
+
             if (appendOnEnd)
                 using (var writer = file.AppendText())
                     writer.WriteLine(content);
