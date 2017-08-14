@@ -198,7 +198,6 @@ namespace OYMLCN.Extension.Test
             TestDic.Add("1", "test");
             Assert.IsFalse(TestDic.FirstOrDefault().IsDefault());
             Assert.IsTrue(TestDic.FirstOrDefault(d => d.Key == "0").IsDefault());
-
         }
 
         // 涉及多项文件操作，偶尔会测试失败
@@ -347,6 +346,10 @@ namespace OYMLCN.Extension.Test
             Assert.IsTrue("你好".IsChineseRegString());
 
             Assert.AreEqual("/*||*/".RemoveNormal("/*||*/"), "");
+
+            Assert.IsTrue("hahanihaoya".Contains("ke", "ni"));
+            Assert.IsFalse("123".Contains("ke", "ni"));
+
         }
 
         [TestMethod]

@@ -598,6 +598,20 @@ namespace OYMLCN
             (a.IsNull() || b.IsNull()) ? false : a.EndsWith(b, ignoreCase, culture);
 #endif
 
+        /// <summary>
+        /// 返回一个值，该值指示指定的子串是否出现在此字符串中。
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="words"></param>
+        /// <returns></returns>
+        public static bool Contains(this string str, params string[] words)
+        {
+            var contain = false;
+            foreach (var word in words)
+                if (contain = str.Contains(word))
+                    break;
+            return contain;
+        }
 
     }
 }
