@@ -350,6 +350,8 @@ namespace OYMLCN.Extension.Test
             Assert.IsTrue("hahanihaoya".Contains("ke", "ni"));
             Assert.IsFalse("123".Contains("ke", "ni"));
 
+            Assert.AreEqual("畢業".ToSimplifiedChinese(), "毕业");
+            Assert.AreEqual("毕业".ToTraditionalChinese(), "畢業");
         }
 
         [TestMethod]

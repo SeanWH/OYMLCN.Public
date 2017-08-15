@@ -6,7 +6,8 @@
     <SccLocalPath>SAK</SccLocalPath>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp1.0</TargetFrameworks>
+    <!--<TargetFrameworks>netcoreapp1.0</TargetFrameworks>-->
+    <TargetFrameworks>net452</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="OYMLCN.Json.Test.cs" />
