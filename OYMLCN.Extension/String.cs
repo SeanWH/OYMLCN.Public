@@ -599,7 +599,7 @@ namespace OYMLCN
 #endif
 
         /// <summary>
-        /// 返回一个值，该值指示指定的子串是否出现在此字符串中。
+        /// 返回一个值，该值指示指定的子串是否出现在此字符串‘,中。
         /// </summary>
         /// <param name="str"></param>
         /// <param name="words"></param>
@@ -612,6 +612,19 @@ namespace OYMLCN
                     break;
             return contain;
         }
+
+        /// <summary>
+        /// 去除文本开头的标点及标识符
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string TrimStartPuntuation(this string str) =>
+            str?.TrimStart(
+                '~', '～', '-', '—', '－', '^', '.', '*',
+                '，', '。', '?', '？', ':', '：', ';', '；',
+                '[', '【', '{', ']', '】', '}', '|', '丨', '/','\\',
+                '<', '《', '>', '》', '·', '`', '\'', '"'
+                );
 
     }
 }
