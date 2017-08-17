@@ -140,11 +140,11 @@ namespace OYMLCN
         /// 截取字符串
         /// </summary>
         /// <param name="str"></param>
-        /// <param name="startIndex"></param>
+        /// <param name="skipLength"></param>
         /// <param name="subLength"></param>
         /// <returns></returns>
-        public static string SubString(this string str, int startIndex, int subLength = int.MaxValue) =>
-            new string(str.Skip(startIndex).Take(subLength).ToArray());
+        public static string SubString(this string str, int skipLength, int subLength = int.MaxValue) =>
+            new string(str.Skip(skipLength).Take(subLength).ToArray());
 
 
         /// <summary>
@@ -454,6 +454,9 @@ namespace OYMLCN
         /// <returns></returns>
         public static string ReplaceNormal(this string str, string newValue, params string[] oldValue)
         {
+            if (newValue.IsNullOrWhiteSpace())
+                return str;
+
             foreach (var item in oldValue)
                 str = str.Replace(item, newValue);
             return str;
@@ -614,19 +617,34 @@ namespace OYMLCN
             return contain;
         }
 
+        static char[] Puntuation = new char[] {
+            '~', '～', '-', '—', '－', '–', '^', '*',
+            ',', '，', '.', '。', '?', '？', ':', '：', ';', '；',
+            '[', '【', '{', ']', '】', '}', '|', '丨', '/', '\\',
+            '(', '（', ')', '）', '<', '《', '>', '》',
+            '·', '`', '\'', '"'
+        };
         /// <summary>
         /// 去除文本开头的标点及标识符
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
         public static string TrimStartPuntuation(this string str) =>
-            str?.TrimStart(
-                '~', '～', '-', '—', '－', '–', '^', '*',
-                ',', '，', '.', '。', '?', '？', ':', '：', ';', '；',
-                '[', '【', '{', ']', '】', '}', '|', '丨', '/', '\\',
-                '<', '《', '>', '》', '·', '`', '\'', '"'
-                )
-                .Trim();
+            str?.TrimStart(Puntuation).Trim();
+        /// <summary>
+        /// 去除文本结尾的标点及标识符
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string TrimEndPuntuation(this string str) =>
+            str?.TrimEnd(Puntuation).Trim();
+        /// <summary>
+        /// 去除文本两段的标点及标识符
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string TrimPuntuation(this string str) =>
+            str?.Trim(Puntuation).Trim();
 
 #if NET452
         /// <summary>
