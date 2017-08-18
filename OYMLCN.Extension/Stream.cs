@@ -15,7 +15,7 @@ namespace OYMLCN
         /// <param name="stream"></param>
         /// <param name="encoder">编码格式 默认为UTF-8</param>
         /// <returns></returns>
-        public static string ReadToEnd(this Stream stream, Encoding encoder = null)=>
+        public static string ReadToEnd(this Stream stream, Encoding encoder = null) =>
             new StreamReader(stream, encoder ?? Encoding.UTF8).ReadToEnd().Replace("\0", "");
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace OYMLCN
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        public static FileStream ReadToStream(this FileInfo file) => new FileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        public static FileStream ReadToStream(this FileInfo file) => file?.Exists ?? false ? new FileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite) : null;
 
     }
 }
