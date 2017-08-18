@@ -134,7 +134,6 @@ namespace OYMLCN
 
             HttpContent content = null;
             StringContent strContent = null;
-            FormUrlEncodedContent formContent = null;
             MultipartFormDataContent multiContent = null;
             if (!data.IsNullOrEmpty())
                 content = strContent = new StringContent(data, (encoder ?? Encoding.UTF8), mediaType);
@@ -143,7 +142,7 @@ namespace OYMLCN
             {
                 var queries = queryDir.Select(d => new { d.Key, FileInfo = d.Value.GetFileInfo(), d.Value }).GroupBy(d => d.FileInfo?.Exists ?? false);
                 if (queries.Where(d => d.Key).Count() == 0 && data.IsNullOrEmpty())
-                    content = formContent = new FormUrlEncodedContent(queryDir);
+                    content = strContent = new StringContent(queryDir.ToQueryString());
                 else
                 {
                     content = multiContent = new MultipartFormDataContent();
