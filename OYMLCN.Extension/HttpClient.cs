@@ -176,12 +176,14 @@ namespace OYMLCN
         /// </summary>
         /// <param name="url">请求Url</param>
         /// <param name="queryDir">表单数据集合（Value可为有效的文件路径，否者均为文本text/text）</param>
+        /// <param name="timeout">请求超时时间（单位：秒）</param>
         /// <param name="cookieContainer">Cookie容器</param>
         /// <returns></returns>
-        public static Stream CurlPost(string url, Dictionary<string, string> queryDir = null, CookieContainer cookieContainer = null)
+        public static Stream CurlPost(string url, Dictionary<string, string> queryDir = null, int timeout = 30, CookieContainer cookieContainer = null)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
+            request.Timeout = timeout * 1000;
             var postStream = new MemoryStream();
             string boundary = "----" + DateTime.Now.Ticks.ToString("x");
             string fileFormdataTemplate = "\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: application/octet-stream\r\n\r\n";
