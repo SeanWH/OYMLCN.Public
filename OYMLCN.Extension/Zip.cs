@@ -14,13 +14,14 @@ namespace OYMLCN
         /// 将传入字符串以GZip算法压缩后，返回Base64编码字符
         /// </summary>
         /// <param name="rawString">需要压缩的字符串</param>
+        /// <param name="compressionLevel">压缩效率</param>
         /// <returns>压缩后的Base64编码的字符串</returns>
-        public static string GZipCompressString(this string rawString)
+        public static string GZipCompressString(this string rawString, CompressionLevel compressionLevel = CompressionLevel.Optimal)
         {
             if (string.IsNullOrEmpty(rawString) || rawString.Length == 0)
                 return "";
             byte[] rawData = Encoding.UTF8.GetBytes(rawString.ToString());
-            byte[] zippedData = Compress(rawData);
+            byte[] zippedData = GZipCompress(rawData, compressionLevel);
             return Convert.ToBase64String(zippedData);
         }
 
@@ -28,14 +29,21 @@ namespace OYMLCN
         /// GZip压缩
         /// </summary>
         /// <param name="rawData"></param>
+        /// <param name="compressionLevel">压缩效率</param>
         /// <returns></returns>
-        private static byte[] Compress(byte[] rawData)
+        public static byte[] GZipCompress(this byte[] rawData, CompressionLevel compressionLevel = CompressionLevel.Optimal)
         {
             MemoryStream ms = new MemoryStream();
-            using (GZipStream compressedzipStream = new GZipStream(ms, CompressionMode.Compress, true))
+            using (GZipStream compressedzipStream = new GZipStream(ms, compressionLevel, true))
                 compressedzipStream.Write(rawData, 0, rawData.Length);
             return ms.ToArray();
         }
+        /// <summary>
+        /// GZip压缩
+        /// </summary>
+        /// <param name="rawData"></param>
+        /// <returns></returns>
+        public static byte[] GZipCompress(this Stream rawData) => rawData?.ToBytes().GZipCompress();
 
         /// <summary>
         /// 将传入的二进制字符串资料以GZip算法解压缩
@@ -47,7 +55,7 @@ namespace OYMLCN
             if (string.IsNullOrEmpty(zippedString) || zippedString.Length == 0)
                 return "";
             byte[] zippedData = Convert.FromBase64String(zippedString.ToString());
-            return Encoding.UTF8.GetString(Decompress(zippedData));
+            return Encoding.UTF8.GetString(GZipDecompress(zippedData));
         }
 
         /// <summary>
@@ -55,7 +63,7 @@ namespace OYMLCN
         /// </summary>
         /// <param name="zippedData"></param>
         /// <returns></returns>
-        private static byte[] Decompress(byte[] zippedData)
+        public static byte[] GZipDecompress(this byte[] zippedData)
         {
             using (MemoryStream ms = new MemoryStream(zippedData))
             using (MemoryStream outBuffer = new MemoryStream())
@@ -75,6 +83,12 @@ namespace OYMLCN
                 return outBuffer.ToArray();
             }
         }
+        /// <summary>
+        /// ZIP解压
+        /// </summary>
+        /// <param name="zippedData"></param>
+        /// <returns></returns>
+        public static byte[] GZipDecompress(this Stream zippedData) => zippedData?.ToBytes().GZipDecompress();
 
         /// <summary>
         /// 使用指定的文件夹创建Zip压缩文件

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -162,5 +163,44 @@ namespace OYMLCN
             return sb.ToString();
         }
 
+        /// <summary>
+        /// 获取文本全部行
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        public static IEnumerable<string> ToLines(this TextReader reader)
+        {
+            string line;
+            while ((line = reader.ReadLine()) != null)
+                yield return line;
+        }
+        /// <summary>
+        /// 获取文本全部非空行
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        public static IEnumerable<string> NonEmptyLines(this TextReader reader)
+        {
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                if (line == "") continue;
+                yield return line;
+            }
+        }
+        /// <summary>
+        /// 获取文本全部非空格行
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        public static IEnumerable<string> NonWhiteSpaceLines(this TextReader reader)
+        {
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                if (line.IsWhiteSpace()) continue;
+                yield return line;
+            }
+        }
     }
 }

@@ -541,7 +541,6 @@ namespace OYMLCN
         /// <returns></returns>
         public static bool IsBeginWith(this string a, string b, StringComparison comparisonType = StringComparison.Ordinal) =>
             (a.IsNull() || b.IsNull()) ? false : a.StartsWith(b, comparisonType);
-#if NET452
         /// <summary>
         /// 判断字符串是否以指定字符开头
         /// </summary>
@@ -552,7 +551,6 @@ namespace OYMLCN
         /// <returns></returns>
         public static bool IsBeginWith(this string a, string b, bool ignoreCase, CultureInfo culture) =>
             (a.IsNull() || b.IsNull()) ? false : a.StartsWith(b, ignoreCase, culture);
-#endif
         /// <summary>
         /// 判断字符串是否以指定字符结尾
         /// </summary>
@@ -589,7 +587,6 @@ namespace OYMLCN
         /// <returns></returns>
         public static bool IsFinishWith(this string a, string b, StringComparison comparisonType = StringComparison.Ordinal) =>
             (a.IsNull() || b.IsNull()) ? false : a.EndsWith(b, comparisonType);
-#if NET452
         /// <summary>
         /// 判断字符串是否以指定字符结尾
         /// </summary>
@@ -600,7 +597,6 @@ namespace OYMLCN
         /// <returns></returns>
         public static bool IsFinishWith(this string a, string b, bool ignoreCase, CultureInfo culture) =>
             (a.IsNull() || b.IsNull()) ? false : a.EndsWith(b, ignoreCase, culture);
-#endif
 
         /// <summary>
         /// 返回一个值，该值指示指定的子串是否出现在此字符串‘,中。
@@ -646,7 +642,6 @@ namespace OYMLCN
         public static string TrimPuntuation(this string str) =>
             str?.Trim(Puntuation).Trim();
 
-#if NET452
         /// <summary>
          /// 中文字符工具类
          /// </summary>
@@ -679,7 +674,6 @@ namespace OYMLCN
             int ret = LCMapString(LOCALE_SYSTEM_DEFAULT, LCMAP_TRADITIONAL_CHINESE, source, source.Length, target, source.Length);
             return target;
         }
-#endif
 
 
 

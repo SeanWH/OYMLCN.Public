@@ -20,6 +20,7 @@ namespace OYMLCN.Word.Segmentation
 
         private void LoadDict()
         {
+
             foreach (var item in Segmentation.Word.Dict)
             {
                 Trie[item.Key] = item.Frequency;

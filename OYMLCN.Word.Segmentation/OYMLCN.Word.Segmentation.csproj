@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp1.0;net452</TargetFrameworks>
+    <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
     <Description>基于jieba结巴分词的分词组件
 扩展方法（String）：CutApart、CutAllApart、CutApartForSearch、CutApartAndGetFlag、GetWordTokenize、GetWordTokenizeForSearch、CheckSpell
 除CheckSpell外均有WithoutHMM不使用HMM算法分词模式的方法扩展
 主要类：Segmenter、PosSegmenter
 可通过创建Segmenter实例调用LoadUserDict、AddWord、DeleteWord来扩充内置词典，若在扩展方法中使用扩充词典，需要在调用扩展方法时需要传入该实例。
 </Description>
-    <Version>0.1.0</Version>
+    <Version>1.0.0</Version>
     <Authors>VicBilibily欧阳敏岚</Authors>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Product>OYMLCN.Word.Segmentation</Product>
@@ -30,6 +30,21 @@
   <ItemGroup>
     <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
     <ProjectReference Include="..\OYMLCN.Json\OYMLCN.Json.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

@@ -16,8 +16,8 @@
     <FileVersion>0.0.0.0</FileVersion>
     <Company>欧阳敏岚工作室</Company>
     <Authors>VicBilibily</Authors>
-    <Version>0.1.2</Version>
-    <Description>ComboBoxExtension、ListViewExtension</Description>
+    <Version>1.0.0</Version>
+    <Description>ComboBoxExtension、ControlExtension、ListViewExtension</Description>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\net452\OYMLCN.WinformControl.xml</DocumentationFile>

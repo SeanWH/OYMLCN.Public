@@ -6,20 +6,17 @@
     <SccLocalPath>SAK</SccLocalPath>
   </PropertyGroup>
   <PropertyGroup>
-    <!--<TargetFrameworks>netcoreapp1.0</TargetFrameworks>-->
-    <TargetFrameworks>net452</TargetFrameworks>
+    <TargetFramework>net452</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="OYMLCN.Json.Test.cs" />
     <Compile Remove="OYMLCN.WeChat.Api.Test.cs" />
     <Compile Remove="OYMLCN.WeChat.Core.Test.cs" />
-    <Compile Remove="OYMLCN.Xml.Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="OYMLCN.Json.Test.cs" />
     <None Include="OYMLCN.WeChat.Api.Test.cs" />
     <None Include="OYMLCN.WeChat.Core.Test.cs" />
-    <None Include="OYMLCN.Xml.Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170427-09" />

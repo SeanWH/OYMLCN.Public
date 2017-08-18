@@ -12,19 +12,6 @@ namespace OYMLCN
     /// </summary>
     public static class SystemInfo
     {
-        /// <summary>
-        /// 字节总量转换为MB标识
-        /// </summary>
-        /// <param name="length"></param>
-        /// <returns></returns>
-        public static decimal BytesLengthToMB(this uint length) => Math.Round(length / Convert.ToDecimal(1024 * 1024), 2, MidpointRounding.AwayFromZero);
-        /// <summary>
-        /// 字节总量转换为GB标识
-        /// </summary>
-        /// <param name="length"></param>
-        /// <returns></returns>
-        public static decimal BytesLengthToGB(this uint length) => Math.Round(length / Convert.ToDecimal(1024 * 1024 * 1024), 2, MidpointRounding.AwayFromZero);
-
 #if NET452
 
         /// <summary>
@@ -170,6 +157,19 @@ namespace OYMLCN
         /// 判断系统是否为Windows10/Server2016
         /// </summary>
         public static bool IsWindows10 => Environment.OSVersion.Version.Major == 10;
+
+        /// <summary>
+        /// 判断系统版本是否高于或是Windows Server2008
+        /// </summary>
+        public static bool IsWindows2008OrHigher => Environment.OSVersion.Version.Major >= 6;
+        /// <summary>
+        /// 判断系统版本是否高于或是Windows7/Server2012 R2
+        /// </summary>
+        public static bool IsWindows7OrHigher => Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor >= 1 || Environment.OSVersion.Version.Major > 6;
+        /// <summary>
+        /// 判断系统版本是否高于或是Windows7/Server2012 R2
+        /// </summary>
+        public static bool IsWindows8OrHigher => Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor >= 2 || Environment.OSVersion.Version.Major > 6;
 #endif
 
     }

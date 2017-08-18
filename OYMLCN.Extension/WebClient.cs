@@ -1,5 +1,4 @@
-﻿#if NET452
-using System.Net;
+﻿using System.Net;
 using System.Text;
 
 namespace OYMLCN
@@ -63,4 +62,3 @@ namespace OYMLCN
         }
     }
 }
-#endif

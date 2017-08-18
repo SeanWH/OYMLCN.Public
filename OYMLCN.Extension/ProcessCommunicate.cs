@@ -1,7 +1,8 @@
-﻿#if NET452
-using System;
+﻿using System;
+#if NET452
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting;
+#endif
 using System.IO.Pipes;
 using System.Threading;
 using System.IO;
@@ -125,6 +126,7 @@ namespace OYMLCN
             }
 
 
+#if NET452
             /// <summary>
             /// IpcChannel通讯管道
             /// </summary>
@@ -153,6 +155,7 @@ namespace OYMLCN
                     RemotingConfiguration.RegisterWellKnownClientType(new WellKnownClientTypeEntry(type, $"ipc://{portName}/{type.FullName}"));
                 }
             }
+#endif
 
             /// <summary>
             /// 命名管道通信
@@ -211,4 +214,3 @@ namespace OYMLCN
     }
 
 }
-#endif

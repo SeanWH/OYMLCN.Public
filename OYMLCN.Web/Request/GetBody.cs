@@ -1,4 +1,4 @@
-﻿#if !NETCOREAPP1_0
+﻿#if NET452
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
@@ -12,7 +12,7 @@ namespace OYMLCN
     /// </summary>
     public static partial class RequestExtension
     {
-#if !NETCOREAPP1_0
+#if NET452
         /// <summary>
         /// 获取请求正文内容
         /// </summary>
@@ -27,7 +27,7 @@ namespace OYMLCN
         /// <returns></returns>
         public static Stream GetBody(this HttpRequest request)
         {
-#if !NETCOREAPP1_0
+#if NET452
             return request.InputStream;
 #else
             return request.Body;

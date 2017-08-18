@@ -59,6 +59,9 @@ namespace OYMLCN.Open.SpecialTest
                     形式化算法的概念部分源自尝试解决希尔伯特提出的判定问题，并在其后尝试定义有效计算性或者有效方法中成形。这些尝试包括库尔特·哥德尔、雅克·埃尔布朗和斯蒂芬·科尔·克莱尼分别于1930年、1934年和1935年提出的递归函数，阿隆佐·邱奇于1936年提出的λ演算，1936年Emil Leon Post的Formulation 1和艾伦·图灵1937年提出的图灵机。即使在当前，依然常有直觉想法难以定义为形式化算法的情况。";
             Console.WriteLine(string.Join("\r\n", str.GetKeyWordsWegiht(int.MaxValue).Select(d => "{0}/{1}".StringFormat(d.Word, d.Weight.ToString()))));
 
+
+            Console.WriteLine("哈哈");
+
             Console.ReadLine();
         }
     }

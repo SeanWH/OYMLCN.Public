@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp1.0;net452</TargetFrameworks>
+    <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
     <RootNamespace>OYMLCN.Word.KeyWord</RootNamespace>
-    <Version>0.1.0</Version>
+    <Version>1.0.0</Version>
     <Description>基于TF-IDF的关键词提取组件
 扩展方法（String）：GetKeyWords、GetKeyWordsOnlyNoun、GetKeyWordsOnlyVerb、GetKeyWordsNounAndVerb
 另外还有各自获取权重值的扩展方法：GetKeyWordsWegiht、GetKeyWordsWegihtOnlyNoun、GetKeyWordsWegihtOnlyVerb、GetKeyWordsWegihtNounAndVerb</Description>
@@ -29,6 +29,25 @@
     <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
     <ProjectReference Include="..\OYMLCN.Json\OYMLCN.Json.csproj" />
     <ProjectReference Include="..\OYMLCN.Word.Segmentation\OYMLCN.Word.Segmentation.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
