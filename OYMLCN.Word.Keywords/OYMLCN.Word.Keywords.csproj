@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
     <RootNamespace>OYMLCN.Word.KeyWord</RootNamespace>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Description>基于TF-IDF的关键词提取组件
 扩展方法（String）：GetKeyWords、GetKeyWordsOnlyNoun、GetKeyWordsOnlyVerb、GetKeyWordsNounAndVerb
 另外还有各自获取权重值的扩展方法：GetKeyWordsWegiht、GetKeyWordsWegihtOnlyNoun、GetKeyWordsWegihtOnlyVerb、GetKeyWordsWegihtNounAndVerb</Description>
