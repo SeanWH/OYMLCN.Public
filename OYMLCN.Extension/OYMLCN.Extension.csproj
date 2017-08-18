@@ -8,14 +8,13 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
     <RootNamespace>OYMLCN</RootNamespace>
     <Authors>VicBilibily欧阳敏岚</Authors>
     <Company>广东佰群网络科技股份有限公司</Company>
-    <Description>
-      常用类型方法扩展封装
-      .Net独有：BitmapExtension、BitmapHandler、HardwareExtension、RegistryExtension、SystemInfo
-      跨平台封装：CryptographyExtension、DateTimeExtension、EnumExtension、FileExtension、FormatExtension、HTMLExtension、HttpClientExtension、ProcessExtension、StreamExtension、StringExtension、WebClientExtension、XmlExtension、ZipExtension</Description>
+    <Description>常用类型方法扩展封装
+.Net独有：BitmapExtension、BitmapHandler、HardwareExtension、RegistryExtension、SystemInfo
+跨平台封装：CryptographyExtension、DateTimeExtension、EnumExtension、FileExtension、FormatExtension、HTMLExtension、HttpClientExtension、ProcessExtension、StreamExtension、StringExtension、WebClientExtension、XmlExtension、ZipExtension</Description>
     <Copyright>OYML.CN</Copyright>
     <PackageProjectUrl>https://www.oyml.cn/OYMLCN.Extension</PackageProjectUrl>
     <Version>1.0.0</Version>
@@ -29,14 +28,14 @@
   </ItemGroup>
   
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netcoreapp1.0\OYMLCN.Extension.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netstandard2.0\OYMLCN.Extension.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netcoreapp1.0\OYMLCN.Extension.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard2.0\OYMLCN.Extension.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
     <Reference Include="System.Management" />
     <Reference Include="System.Web" />
     <Reference Include="System.Drawing" />

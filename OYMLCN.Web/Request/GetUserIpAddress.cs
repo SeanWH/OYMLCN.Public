@@ -1,4 +1,4 @@
-﻿#if NET452
+﻿#if NET461
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
@@ -12,7 +12,7 @@ namespace OYMLCN
     /// </summary>
     public static partial class RequestExtension
     {
-#if NET452
+#if NET461
         /// <summary>
         /// 获取用户客户端请求的Ip地址
         /// </summary>
@@ -27,7 +27,7 @@ namespace OYMLCN
         /// <returns></returns>
         public static string GetUserIpAddress(this HttpRequest request)
         {
-#if NET452
+#if NET461
             return request.UserHostAddress;
 #else
             return request.HttpContext.Features.Get<IHttpConnectionFeature>()?.RemoteIpAddress.ToString();

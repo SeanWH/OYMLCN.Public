@@ -7,33 +7,32 @@
   </PropertyGroup>
   <PropertyGroup>
     <!--<PlatformTarget>x86</PlatformTarget>-->
-    <TargetFramework>net452</TargetFramework>
+    <TargetFramework>net461</TargetFramework>
     <RootNamespace>OYMLCN.WPF</RootNamespace>
     <Authors>VicBilibily欧阳敏岚</Authors>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Copyright>OYML.CN</Copyright>
-    <PackageLicenseUrl>https://www.oyml.cn/</PackageLicenseUrl>
-    <PackageProjectUrl>https://tfs.oyml.cn/OYMLCN/Open/OYMLCN.WPF.WebBrowser</PackageProjectUrl>
-    <RepositoryUrl>https://tfs.oyml.cn/OYMLCN/Open/OYMLCN.WPF.WebBrowser</RepositoryUrl>
+    <PackageLicenseUrl>https://github.com/VicBilibily/OYMLCN.Public/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://www.oyml.cn/OYMLCN.WPF.WebBrowser</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.WPF.WebBrowser</RepositoryUrl>
     <Description>通过WebBrowserHelper对WPF中的WebBrowser进行事件绑定</Description>
     <Version>0.1.5</Version>
+    <RepositoryType>Github</RepositoryType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\net452\OYMLCN.WPF.WebBrowser.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\net461\OYMLCN.WPF.WebBrowser.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\net452\OYMLCN.WPF.WebBrowser.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\net461\OYMLCN.WPF.WebBrowser.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' != 'net35'">
-    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.mshtml">
       <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\PublicAssemblies\Microsoft.mshtml.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsBase" />

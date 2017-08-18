@@ -1,5 +1,5 @@
 ﻿using System;
-#if NET452
+#if NET461
 using System.Management;
 #endif
 using System.Runtime.InteropServices;
@@ -12,7 +12,7 @@ namespace OYMLCN
     /// </summary>
     public static class SystemInfo
     {
-#if NET452
+#if NET461
 
         /// <summary>
         /// 内存信息

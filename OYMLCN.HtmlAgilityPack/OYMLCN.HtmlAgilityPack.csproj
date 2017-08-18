@@ -6,7 +6,7 @@
     <SccLocalPath>SAK</SccLocalPath>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFramework>net452</TargetFramework>
+    <TargetFramework>net461</TargetFramework>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Authors>VicBilibily欧阳敏岚</Authors>
@@ -21,14 +21,15 @@ GetIdNode
 GetDescendants
 GetAttributeNode、GetAttributeNodes
 GetClassNameNode、GetClassNameNodes</Description>
-    <PackageLicenseUrl>https://www.oyml.cn/</PackageLicenseUrl>
-    <Copyright>开放使用项目</Copyright>
-    <PackageProjectUrl>https://tfs.oyml.cn/OYMLCN/Open/OYMLCN.HtmlAgilityPack</PackageProjectUrl>
-    <RepositoryUrl>https://tfs.oyml.cn/OYMLCN/Open/OYMLCN.HtmlAgilityPack</RepositoryUrl>
+    <PackageLicenseUrl>https://github.com/VicBilibily/OYMLCN.Public/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>OYML.CN</Copyright>
+    <PackageProjectUrl>https://www.oyml.cn/OYMLCN.HtmlAgilityPack</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.HtmlAgilityPack</RepositoryUrl>
     <FileVersion>0.0.1.0</FileVersion>
+    <RepositoryType>Github</RepositoryType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\net452\OYMLCN.HtmlAgilityPack.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\net461\OYMLCN.HtmlAgilityPack.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.5.1" />

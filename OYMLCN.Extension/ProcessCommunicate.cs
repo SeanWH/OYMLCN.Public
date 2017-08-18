@@ -1,5 +1,5 @@
 ﻿using System;
-#if NET452
+#if NET461
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting;
 #endif
@@ -126,7 +126,7 @@ namespace OYMLCN
             }
 
 
-#if NET452
+#if NET461
             /// <summary>
             /// IpcChannel通讯管道
             /// </summary>

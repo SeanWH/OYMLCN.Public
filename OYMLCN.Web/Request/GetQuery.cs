@@ -1,4 +1,4 @@
-﻿#if NET452
+﻿#if NET461
 using System.Web;
 using System.Collections.Specialized;
 #else
@@ -15,7 +15,7 @@ namespace OYMLCN
     public static partial class RequestExtension
     {
 
-#if NET452
+#if NET461
         private static Dictionary<string, string> ToDictionary(this NameValueCollection query)
         {
             var dic = new Dictionary<string, string>();
@@ -36,7 +36,7 @@ namespace OYMLCN
 #endif
 
 
-#if NET452
+#if NET461
         /// <summary>
         /// 获取请求参数集合
         /// </summary>
@@ -51,7 +51,7 @@ namespace OYMLCN
         /// <returns></returns>
         public static Dictionary<string, string> GetQuery(this HttpRequest request)
         {
-#if NET452
+#if NET461
             return request.Params.ToDictionary();
 #else
             if (request.Method != "POST")
@@ -71,7 +71,7 @@ namespace OYMLCN
             }
 #endif
         }
-#if NET452
+#if NET461
         /// <summary>
         /// 获取指定键的请求参数值
         /// </summary>

@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-#if NET452 && NoBuild
+#if NoBuild
 using System.Drawing;
 using System.Drawing.Imaging;
 #endif
@@ -14,7 +14,7 @@ namespace OYMLCN.Extension.Test
     [TestClass]
     public class UnitTest
     {
-#if NET452 && NoBuild
+#if NoBuild
         // 示例方法 不进行单元测试
         public void BitmapTest()
         {
@@ -66,7 +66,7 @@ namespace OYMLCN.Extension.Test
             Assert.AreEqual(((ulong)length).BytesLengthToMB(), 1024);
             Assert.AreEqual(((ulong)length).BytesLengthToGB(), 1);
 
-#if NET452 && NoBuild
+#if NoBuild
             var memory = OYMLCN.SystemInfo.Memory.Initialize();
             uint demo = 0;
             demo = memory.UsedPercent;

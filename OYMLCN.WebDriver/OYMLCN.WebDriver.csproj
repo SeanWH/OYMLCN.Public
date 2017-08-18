@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net452</TargetFramework>
+    <TargetFramework>net461</TargetFramework>
     <Description>Selenium WebDriver 的调用封装
 请另外安装对应驱动程序的NuGet包
 IE：Selenium.InternetExplorer.WebDriver （兼容性一般）
@@ -20,11 +20,11 @@ PhantomJS：Selenium.PhantomJS.WebDriver（未测试）</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\net452\OYMLCN.WebDriver.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\net461\OYMLCN.WebDriver.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\net452\OYMLCN.WebDriver.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\net461\OYMLCN.WebDriver.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

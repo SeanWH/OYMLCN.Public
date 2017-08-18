@@ -1,4 +1,4 @@
-﻿#if NET452
+﻿#if NET461
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
@@ -11,7 +11,7 @@ namespace OYMLCN
     /// </summary>
     public static partial class RequestExtension
     {
-#if NET452
+#if NET461
         /// <summary>
         /// 获取域名以后的路径
         /// </summary>
@@ -26,7 +26,7 @@ namespace OYMLCN
         /// <returns></returns>
         public static string GetUrlPath(this HttpRequest request)
         {
-#if NET452
+#if NET461
             return request.Url.AbsolutePath;
 #else
             return request.Path.Value;

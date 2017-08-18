@@ -454,8 +454,8 @@ namespace OYMLCN
         /// <returns></returns>
         public static string ReplaceNormal(this string str, string newValue, params string[] oldValue)
         {
-            if (newValue.IsNullOrWhiteSpace())
-                return str;
+            if (newValue.IsNull())
+                newValue = string.Empty;
 
             foreach (var item in oldValue)
                 str = str.Replace(item, newValue);

@@ -3,7 +3,13 @@
 （已通过调试测试）表明通过调试的方式与微信公众平台Api联调进行有效验证。
 （已通过单元测试）表明通过单元测试的方法与微信公众平台说明文档示例进行验证。
 
- V0.3.X 进行中
+ V1.0.0
+ 项目不再依赖所有MVC及WebApi，允许有选择地使用相应的框架扩展。
+ 不再支持NetCore1.0(NetStandard1.6)，已升级NetCore2.0(NetStandard2.0)支持。
+    MVC对应扩展包：OYMLCN.WeChat.Mvc
+ WebApi对应扩展包：OYMLCN.WeChat.AspNetWebApi
+
+ V0.3.X
  对项目整体进行调整，部分命名变更，方法扩展集中到Extension，枚举移到Enum命名空间。
 
  微信消息统一请求处理入口MessageHandler
@@ -24,7 +30,7 @@
     第二步：验证消息的确来自微信服务器
       方法1：OYMLCN.WeChat.Extension.CreateSignature(timestamp,nonce,token) 创建签名后对比signature，一致后返回echostr。
       方法2：调用ConfigVerify(cfg)扩展方法，将方法返回的值（echostr）返回。
-        调用方式：（分别扩展了HttpRequest、Controller、HttpRequestBase、ApiController、HttpRequestMessage类，后三仅.NET452）
+        调用方式：（分别扩展了HttpRequest、Controller、HttpRequestBase、ApiController、HttpRequestMessage类，后三仅.NET461）
           1、Controller及ApiController可调用 this.ConfigVerify(cfg)或this.Request.ConfigVerify(cfg)。
           2、其他地方调用则获取当前请求的Request后调用扩展方法。 
       方法3：调用IsValidRequest(cfg)扩展方法，对签名进行验证，若正确则返回true，再然后返回echostr。
@@ -49,7 +55,7 @@
   个性化菜单接口  MenuCreatCondition
   获取自定义菜单配置接口  MenuConfigQuery
 消息管理  （已通过调试测试）
-    消息调用入口：分别扩展了HttpRequest、Controller、HttpRequestBase、ApiController、HttpRequestMessage类，后三仅.NET452。
+    消息调用入口：分别扩展了HttpRequest、Controller、HttpRequestBase、ApiController、HttpRequestMessage类，后三仅.NET461。
   验证消息真实性  （已通过调试测试）
     通过消息调用入口IsValidRequest(cfg)扩展方法，对签名进行验证，若正确则返回true。
   接收普通消息  （已通过单元测试）

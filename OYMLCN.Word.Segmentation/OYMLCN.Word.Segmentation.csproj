@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Description>基于jieba结巴分词的分词组件
 扩展方法（String）：CutApart、CutAllApart、CutApartForSearch、CutApartAndGetFlag、GetWordTokenize、GetWordTokenizeForSearch、CheckSpell
 除CheckSpell外均有WithoutHMM不使用HMM算法分词模式的方法扩展
@@ -17,14 +17,15 @@
     <PackageProjectUrl>https://www.oyml.cn/OYMLCN.Word.Segmentation</PackageProjectUrl>
     <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.Word.Segmentation</RepositoryUrl>
     <RepositoryType>Github</RepositoryType>
+  
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp1.0|AnyCPU'">
-    <DocumentationFile>bin\Release\netcoreapp1.0\OYMLCN.Word.Segmentation.xml</DocumentationFile>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\OYMLCN.Word.Segmentation.xml</DocumentationFile>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp1.0|AnyCPU'">
-    <DocumentationFile>bin\Debug\netcoreapp1.0\OYMLCN.Word.Segmentation.xml</DocumentationFile>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.0\OYMLCN.Word.Segmentation.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

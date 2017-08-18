@@ -112,7 +112,6 @@ namespace OYMLCN.WPF
         static void SetIEKeyforWebBrowserControl(string verKey)
         {
             RegistryKey Regkey = null;
-#if !NET35
             // 64位
             try
             {
@@ -126,7 +125,6 @@ namespace OYMLCN.WPF
                 if (Regkey != null)
                     Regkey.Close();
             }
-#endif
             // 32位
             try
             {

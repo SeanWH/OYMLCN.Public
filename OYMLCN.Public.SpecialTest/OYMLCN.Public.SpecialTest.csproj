@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net452</TargetFramework>
+    <TargetFramework>net461</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.Text.Encoding.Extensions" Version="4.3.0" />
@@ -12,7 +12,7 @@
     <ProjectReference Include="..\OYMLCN.Word.Keywords\OYMLCN.Word.Keywords.csproj" />
     <ProjectReference Include="..\OYMLCN.Word.Segmentation\OYMLCN.Word.Segmentation.csproj" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp1.0'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.0'">
     <PackageReference Include="System.Text.Encoding.CodePages">
       <Version>4.3.0</Version>
     </PackageReference>

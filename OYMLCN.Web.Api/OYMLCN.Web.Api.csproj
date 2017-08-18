@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <Description>ASP.Net Web Api 的相关扩展 (对OYMLCN.Web的兼容扩展)
+ExtensionBase扩展类HttpRequestBase、HttpRequest、HttpRequestMessage
+ExtensionBase.GetUrlPath()、ExtensionBase.GetUserAgent()
+ExtensionBase.GetQuery()、ExtensionBase.GetQuery(key)
+ExtensionBase.GetBody()、ExtensionBase.GetUserIpAddress()</Description>
+    <Version>0.2.2</Version>
+    <Authors>VicBilibily欧阳敏岚</Authors>
+    <Company>广东佰群网络科技股份有限公司</Company>
+    <Copyright>OYML.CN</Copyright>
+    <PackageProjectUrl>https://www.oyml.cn/OYMLCN.Web.Api</PackageProjectUrl>
+    <RootNamespace>OYMLCN</RootNamespace>
+    <PackageLicenseUrl>https://github.com/VicBilibily/OYMLCN.Public/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.Web.Api</RepositoryUrl>
+    <RepositoryType>Github</RepositoryType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\net461\OYMLCN.Web.Api.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\net461\OYMLCN.Web.Api.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Web" />
+    <PackageReference Include="Microsoft.AspNet.WebApi" Version="5.2.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OYMLCN.Web\OYMLCN.Web.csproj" />
+  </ItemGroup>
+</Project>

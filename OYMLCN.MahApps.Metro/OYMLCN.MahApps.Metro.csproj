@@ -6,20 +6,21 @@
     <SccLocalPath>SAK</SccLocalPath>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFramework>net452</TargetFramework>
+    <TargetFramework>net461</TargetFramework>
     <RootNamespace>OYMLCN</RootNamespace>
     <Authors>VicBilibily欧阳敏岚</Authors>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Version>0.1.0</Version>
-    <Copyright>开放使用项目</Copyright>
-    <PackageLicenseUrl>https://www.oyml.cn/</PackageLicenseUrl>
-    <PackageProjectUrl>https://tfs.oyml.cn/OYMLCN/Open/OYMLCN.MahApps.Metro</PackageProjectUrl>
-    <RepositoryUrl>https://tfs.oyml.cn/OYMLCN/Open/OYMLCN.MahApps.Metro</RepositoryUrl>
+    <Copyright>OYML.CN</Copyright>
+    <PackageLicenseUrl>https://github.com/VicBilibily/OYMLCN.Public/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://www.oyml.cn/OYMLCN.MahApps.Metro</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.MahApps.Metro</RepositoryUrl>
     <Description>MahApps.Metro的方法封装（仅项目已使用到的）
 ShowMessage</Description>
+    <RepositoryType>Github</RepositoryType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\net452\OYMLCN.MahApps.Metro.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\net461\OYMLCN.MahApps.Metro.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />

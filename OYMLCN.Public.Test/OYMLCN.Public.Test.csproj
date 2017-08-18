@@ -6,7 +6,7 @@
     <SccLocalPath>SAK</SccLocalPath>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFramework>net452</TargetFramework>
+    <TargetFramework>net461</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="OYMLCN.Json.Test.cs" />
@@ -27,16 +27,9 @@
     <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
     <!--<ProjectReference Include="..\OYMLCN.Json\OYMLCN.Json.csproj" />
     <ProjectReference Include="..\OYMLCN.WeChat.Api\OYMLCN.WeChat.Api.Core.csproj" />
-    <ProjectReference Include="..\OYMLCN.WeChat.Core\OYMLCN.WeChat.Core.csproj" />
-    <ProjectReference Include="..\OYMLCN.Xml\OYMLCN.Xml.csproj" />-->
+    <ProjectReference Include="..\OYMLCN.WeChat.Core\OYMLCN.WeChat.Core.csproj" />-->
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
   </ItemGroup>  
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp1.0'">
-    <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
-  </ItemGroup>
 </Project>

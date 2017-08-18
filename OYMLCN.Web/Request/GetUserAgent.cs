@@ -1,4 +1,4 @@
-﻿#if NET452
+﻿#if NET461
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
@@ -11,7 +11,7 @@ namespace OYMLCN
     /// </summary>
     public static partial class RequestExtension
     {
-#if NET452
+#if NET461
         /// <summary>
         /// 获取浏览器UserAgent
         /// </summary>
