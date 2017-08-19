@@ -11,10 +11,10 @@ namespace OYMLCN
     /// </summary>
     public static class Extension
     {
+        #region ReleaseMemory释放内存
         [DllImport("kernel32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool SetProcessWorkingSetSize(IntPtr process,
-            UIntPtr minimumWorkingSetSize, UIntPtr maximumWorkingSetSize);
+        private static extern bool SetProcessWorkingSetSize(IntPtr process, UIntPtr minimumWorkingSetSize, UIntPtr maximumWorkingSetSize);
         /// <summary>
         /// 释放内存
         /// </summary>
@@ -52,8 +52,37 @@ namespace OYMLCN
                 SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle, (UIntPtr)0xFFFFFFFF, (UIntPtr)0xFFFFFFFF);
             }
         }
+        #endregion
 
-
+        #region Enum
+        /// <summary>
+        /// 将枚举值转换为字符串值（替换 _ 标头）
+        /// </summary>
+        /// <param name="enumClass"></param>
+        /// <returns></returns>
+        public static string EnumToString(this Enum enumClass) => enumClass.ToString().TrimStart('_');
+        /// <summary>
+        /// 将枚举类型转换为Key/Value数组
+        /// 必须为enum枚举的任意值，其他类型将返回Null
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumClass"></param>
+        /// <returns></returns>
+        public static Dictionary<string, T> EnumToKeyValues<T>(this T enumClass)
+        {
+            try
+            {
+                var reuslt = new Dictionary<string, T>();
+                foreach (T value in Enum.GetValues(enumClass.GetType()))
+                    reuslt.Add(value.ToString(), value);
+                return reuslt;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        #endregion
 
         /// <summary>
         /// 验证居民身份证号码
@@ -97,6 +126,7 @@ namespace OYMLCN
             throw new FormatException("身份证长度不正确或暂未支持该身份证验证");
         }
 
+        #region IsDefault/IsNull/IsEmpty
         /// <summary>
         /// 判断字典键值类型是否未赋值
         /// </summary>
@@ -134,7 +164,10 @@ namespace OYMLCN
         /// <param name="enumerable"></param>
         /// <returns></returns>
         public static bool IsNotEmpty<T>(this IEnumerable<T> enumerable) =>
-            enumerable.IsNotNull() && enumerable.Any();
+            enumerable.IsNotNull() && enumerable.Any(); 
+        #endregion
+
+        #region IDictionary
         /// <summary>
         /// 获取字典值
         /// </summary>
@@ -168,7 +201,8 @@ namespace OYMLCN
         {
             foreach (var key in other.Keys)
                 dict[key] = other[key];
-        }
+        } 
+        #endregion
 
         /// <summary>
         /// CharToInt32

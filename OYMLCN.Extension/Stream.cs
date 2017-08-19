@@ -15,8 +15,11 @@ namespace OYMLCN
         /// <param name="stream"></param>
         /// <param name="encoder">编码格式 默认为UTF-8</param>
         /// <returns></returns>
-        public static string ReadToEnd(this Stream stream, Encoding encoder = null) =>
-            new StreamReader(stream, encoder ?? Encoding.UTF8).ReadToEnd().Replace("\0", "");
+        public static string ReadToEnd(this Stream stream, Encoding encoder = null)
+        {
+            stream.Seek(0, SeekOrigin.Begin);
+            return new StreamReader(stream, encoder ?? Encoding.UTF8).ReadToEnd().Replace("\0", "");
+        }
 
         /// <summary>
         /// 填充表单信息
@@ -84,14 +87,6 @@ namespace OYMLCN
             using (var localFile = new FileStream(fileName, FileMode.OpenOrCreate))
                 localFile.Write(content, 0, content.Length);
         }
-
-
-        /// <summary>
-        /// 获取文件流FileStream
-        /// </summary>
-        /// <param name="file"></param>
-        /// <returns></returns>
-        public static FileStream ReadToStream(this FileInfo file) => file?.Exists ?? false ? new FileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite) : null;
 
     }
 }

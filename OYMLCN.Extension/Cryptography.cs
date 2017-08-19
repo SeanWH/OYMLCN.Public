@@ -59,7 +59,7 @@ namespace OYMLCN
         /// Base64加密
         /// </summary>
         /// <param name="str"></param>
-        /// <param name="encoder">加密采用的编码方式（默认为UTF8）</param>
+        /// <param name="encoder">编码方式（默认为UTF8）</param>
         /// <returns></returns>
         public static string EncodeToBase64(this string str, Encoding encoder = null) => 
             Convert.ToBase64String((encoder ?? Encoding.UTF8).GetBytes(str));
@@ -67,7 +67,7 @@ namespace OYMLCN
         /// Base64解密
         /// </summary>
         /// <param name="str"></param>
-        /// <param name="encoder">加密采用的编码方式（默认为UTF8）</param>
+        /// <param name="encoder">编码方式（默认为UTF8）</param>
         /// <returns>解密后的字符串</returns>
         public static string DecodeFromBase64(this string str, Encoding encoder = null) =>
             (encoder ?? Encoding.UTF8).GetString(Convert.FromBase64String(str));
@@ -101,25 +101,17 @@ namespace OYMLCN
             return Encoding.Unicode.GetString(data, 0, data.Length);
         }
 
-
-        /// <summary>
-        /// 获取AES加密的256位密钥
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static string GetEncodingAesKey(this string str) => "".RandCode(32);
-
         /// <summary>
         /// AES加密
         /// </summary>
         /// <param name="str">明文</param>
-        /// <param name="encodingAesKey">256位密钥</param>
+        /// <param name="encodingAesKey">密钥</param>
         /// <returns></returns>
         public static string AESEncrypt(this string str, string encodingAesKey)
         {
             byte[] toEncryptArray = Encoding.UTF8.GetBytes(str);
             var aes = Aes.Create();
-            aes.Key = Encoding.UTF8.GetBytes(encodingAesKey);
+            aes.Key = Encoding.UTF8.GetBytes(encodingAesKey.EncodeToMD5());
             aes.Mode = CipherMode.ECB;
             aes.Padding = PaddingMode.PKCS7;
             ICryptoTransform cTransform = aes.CreateEncryptor();
@@ -130,13 +122,13 @@ namespace OYMLCN
         /// AES解密
         /// </summary>
         /// <param name="str">密文</param>
-        /// <param name="encodingAesKey">256位密钥</param>
+        /// <param name="encodingAesKey">密钥</param>
         /// <returns></returns>
         public static string AESDecrypt(this string str, string encodingAesKey)
         {
             byte[] toEncryptArray = Convert.FromBase64String(str);
             var aes = Aes.Create();
-            aes.Key = Encoding.UTF8.GetBytes(encodingAesKey);
+            aes.Key = Encoding.UTF8.GetBytes(encodingAesKey.EncodeToMD5());
             aes.Mode = CipherMode.ECB;
             aes.Padding = PaddingMode.PKCS7;
             ICryptoTransform cTransform = aes.CreateDecryptor();

@@ -101,7 +101,7 @@ namespace OYMLCN.Extension.Test
             Assert.AreEqual(demo.EncodeToBase64().DecodeFromBase64(), demo);
             Assert.AreEqual(demo.StringToBitString().BitStringToString(), demo);
 
-            var demoKey = StringExtension.RandCode(32);
+            var demoKey = "111";
             Assert.AreEqual(demo.AESEncrypt(demoKey).AESDecrypt(demoKey), demo);
             Assert.AreEqual(demo.DESEncrypt(demoKey).DESDecrypt(demoKey), demo);
 

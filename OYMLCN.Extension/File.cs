@@ -20,6 +20,13 @@ namespace OYMLCN
             try { return new FileInfo(filePath); }
             catch { return null; }
         }
+        /// <summary>
+        /// 获取文件流FileStream
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public static FileStream ReadToStream(this FileInfo file) => file?.Exists ?? false ? new FileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite) : null;
+
 
         /// <summary>
         /// 将文本信息保存到文件

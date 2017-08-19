@@ -11,6 +11,7 @@ namespace OYMLCN
     /// </summary>
     public static class FormatExtension
     {
+        #region 字节转更大单位
         struct CapacityInfo
         {
             /// <summary>
@@ -114,7 +115,6 @@ namespace OYMLCN
             return bytes.ToString() + "B";
         }
 
-
         /// <summary>
         /// 字节总量转换为MB标识
         /// </summary>
@@ -127,6 +127,101 @@ namespace OYMLCN
         /// <param name="length"></param>
         /// <returns></returns>
         public static decimal BytesLengthToGB(this ulong length) => Math.Round(length / Convert.ToDecimal(1024 * 1024 * 1024), 2, MidpointRounding.AwayFromZero);
+        #endregion
+
+        #region DateTimeToString
+        /// <summary>
+        /// 日期转换为中文 年月
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static string ToCnMonthString(this DateTime dt) => dt.ToString("yyyy年MM月");
+        /// <summary>
+        /// 日期转换为中文 年月日
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static string ToCnDateString(this DateTime dt) => dt.ToString("yyyy年MM月dd日");
+        /// <summary>
+        /// 时间转换为中文 年月日时分|秒
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <param name="second">是否包含秒</param>
+        /// <returns></returns>
+        public static string ToCnDatetimeString(this DateTime dt, bool second = false) =>
+            dt.ToString(second ? "yyyy年MM月dd日 HH:mm:ss" : "yyyy年MM月dd日 HH:mm");
+
+        /// <summary>
+        /// 时间转换 时分|秒
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <param name="second">是否包含秒</param>
+        /// <returns></returns>
+        public static string ToTimeString(this DateTime dt, bool second = false) =>
+            dt.ToString(second ? "HH:mm:ss" : "HH:mm");
+        /// <summary>
+        /// 时间转换 日时分|秒
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <param name="second">是否包含秒</param>
+        /// <returns></returns>
+        public static string ToDayTimeString(this DateTime dt, bool second = false) =>
+            dt.ToString(second ? "dd HH:mm:ss" : "dd HH:mm");
+
+        /// <summary>
+        /// 与现在时间的间隔（中文） --前/后
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static string ToCnIntervalString(this DateTime dt)
+        {
+            var interval = dt - DateTime.Now;
+            var endStr = interval > TimeSpan.Parse("0") ? "后" : "前";
+            var day = interval.Days;
+            if (day != 0)
+            {
+                if (day == -1)
+                    return "昨天";
+                if (day == 1)
+                    return "明天";
+                day = day < 0 ? day * -1 : day;
+                if (day >= 365)
+                    return $"{day / 365}年{endStr}";
+                else if (day >= 30)
+                    return $"{day / 30}个月{endStr}";
+                else if (day >= 7)
+                    return $"{day / 7}周{endStr}";
+                else
+                    return $"{day}天{endStr}";
+            }
+            var hour = interval.Hours;
+            if (hour != 0)
+            {
+                if (dt.Date == DateTime.Now.Date && hour < -6)
+                    return "今天";
+                if (hour > 0 && DateTime.Now.AddDays(1).Date == dt.Date)
+                    return "明天";
+                hour = hour < 0 ? hour * -1 : hour;
+                return $"{hour}小时{endStr}";
+            }
+            var minute = interval.Minutes;
+            if (minute != 0)
+            {
+                if (minute < 0 && minute > -3)
+                    return "刚刚";
+                minute = minute < 0 ? minute * -1 : minute;
+                return $"{minute}分钟{endStr}";
+            }
+            var second = interval.Seconds;
+            {
+                if (second > 0)
+                    return $"{second}秒后";
+                return "刚刚";
+            }
+
+        }
+        #endregion
+
 
     }
 }
