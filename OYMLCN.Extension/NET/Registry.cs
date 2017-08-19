@@ -23,7 +23,7 @@ namespace OYMLCN
             public static void Reg(string procotol, string exeFullPath)
             {
                 //注册的协议头，即在地址栏中的路径 如QQ的：tencent://xxxxx/xxx
-                var surekamKey = Microsoft.Win32.Registry.ClassesRoot.CreateSubKey(procotol);
+                var surekamKey = Registry.ClassesRoot.CreateSubKey(procotol);
                 //以下这些参数都是固定的，不需要更改，直接复制过去 
                 var shellKey = surekamKey.CreateSubKey("shell");
                 var openKey = shellKey.CreateSubKey("open");
@@ -38,7 +38,7 @@ namespace OYMLCN
             /// <param name="procotol"></param>
             public static void UnReg(string procotol) =>
                 //直接删除节点
-                Microsoft.Win32.Registry.ClassesRoot.DeleteSubKeyTree(procotol);
+                Registry.ClassesRoot.DeleteSubKeyTree(procotol);
         }
 
         /// <summary>

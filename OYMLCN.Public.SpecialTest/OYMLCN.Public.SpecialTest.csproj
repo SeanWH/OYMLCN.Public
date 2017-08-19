@@ -8,9 +8,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
-    <ProjectReference Include="..\OYMLCN.Json\OYMLCN.Json.csproj" />
-    <ProjectReference Include="..\OYMLCN.Word.Keywords\OYMLCN.Word.Keywords.csproj" />
-    <ProjectReference Include="..\OYMLCN.Word.Segmentation\OYMLCN.Word.Segmentation.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.0'">
     <PackageReference Include="System.Text.Encoding.CodePages">
