@@ -10,7 +10,6 @@ namespace OYMLCN
     /// </summary>
     public static class RegistryExtension
     {
-
         /// <summary>
         /// Url协议操作
         /// </summary>
@@ -40,6 +39,28 @@ namespace OYMLCN
             public static void UnReg(string procotol) =>
                 //直接删除节点
                 Microsoft.Win32.Registry.ClassesRoot.DeleteSubKeyTree(procotol);
+        }
+
+        /// <summary>
+        /// 打开注册表
+        /// </summary>
+        /// <param name="name">注册表路径</param>
+        /// <param name="writable">是否以可写方式打开</param>
+        /// <param name="hive">顶级节点（默认为CurrentUser）</param>
+        /// <returns></returns>
+        public static RegistryKey OpenRegKey(string name, bool writable = false, RegistryHive hive = RegistryHive.CurrentUser)
+        {
+            try
+            {
+                return RegistryKey.OpenBaseKey(
+                    hive, 
+                    Environment.Is64BitOperatingSystem ? RegistryView.Registry64 : RegistryView.Registry32
+                    ).OpenSubKey(name, writable);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
