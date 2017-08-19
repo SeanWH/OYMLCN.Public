@@ -458,7 +458,11 @@ namespace OYMLCN
                 newValue = string.Empty;
 
             foreach (var item in oldValue)
+            {
+                if (str.IsNullOrEmpty())
+                    return str;
                 str = str.Replace(item, newValue);
+            }
             return str;
         }
 
