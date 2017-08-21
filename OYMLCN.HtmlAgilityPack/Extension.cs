@@ -11,6 +11,37 @@ namespace OYMLCN
     public static class HtmlAgilityPackExtension
     {
         /// <summary>
+        /// 将字符串转换为Html便捷操作模式
+        /// </summary>
+        /// <param name="html"></param>
+        /// <param name="removeComment">移除注释</param>
+        /// <param name="removeScriptLinkStyle">移除脚本样式相关区块</param>
+        /// <returns></returns>
+        public static HtmlNode AsAgilityHtml(this string html, bool removeComment = true, bool removeScriptLinkStyle = true)
+        {
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(html);
+            if (removeComment)
+            {
+                var comments = doc.DocumentNode.SelectNodes("//comment()");
+                if (comments != null)
+                    foreach (var comment in comments)
+                        comment.ParentNode.RemoveChild(comment);
+            }
+            if (removeScriptLinkStyle)
+            {
+                foreach (var script in doc.DocumentNode.Descendants("script").ToArray())
+                    script.Remove();
+                foreach (var style in doc.DocumentNode.Descendants("style").ToArray())
+                    style.Remove();
+                foreach (var link in doc.DocumentNode.Descendants("link").ToArray())
+                    link.Remove();
+            }
+            return doc.DocumentNode;
+        }
+
+
+        /// <summary>
         /// 获取精简后的HTML(空的div会被移除)
         /// </summary>
         /// <param name="hn"></param>
@@ -47,7 +78,7 @@ namespace OYMLCN
 
             hn.RemoveEmptyNodes("//div");
             if (allInOneLine)
-                return hn.OwnerDocument.DocumentNode.InnerHtml.AllInOneLine().RemoveSpace().Replace("> <","><");
+                return hn.OwnerDocument.DocumentNode.InnerHtml.AllInOneLine().RemoveSpace().Replace("> <", "><");
             else
                 return hn.OwnerDocument.DocumentNode.InnerHtml.RemoveSpace().SplitByLine().Select(d => d.Trim()).ToArray().Join("\r\n");
         }
@@ -88,35 +119,6 @@ namespace OYMLCN
                 .Join("\r\n");
         }
 
-        /// <summary>
-        /// 将字符串转换为Html便捷操作模式
-        /// </summary>
-        /// <param name="html"></param>
-        /// <param name="removeComment">移除注释</param>
-        /// <param name="removeScriptLinkStyle">移除脚本样式相关区块</param>
-        /// <returns></returns>
-        public static HtmlNode AsAgilityHtml(this string html, bool removeComment = true, bool removeScriptLinkStyle = true)
-        {
-            HtmlDocument doc = new HtmlDocument();
-            doc.LoadHtml(html);
-            if (removeComment)
-            {
-                var comments = doc.DocumentNode.SelectNodes("//comment()");
-                if (comments != null)
-                    foreach (var comment in comments)
-                        comment.ParentNode.RemoveChild(comment);
-            }
-            if (removeScriptLinkStyle)
-            {
-                foreach (var script in doc.DocumentNode.Descendants("script").ToArray())
-                    script.Remove();
-                foreach (var style in doc.DocumentNode.Descendants("style").ToArray())
-                    style.Remove();
-                foreach (var link in doc.DocumentNode.Descendants("link").ToArray())
-                    link.Remove();
-            }
-            return doc.DocumentNode;
-        }
 
         /// <summary>
         /// 从Dom中移除符合条件的元素
@@ -159,6 +161,16 @@ namespace OYMLCN
             return hn;
         }
 
+
+        /// <summary>
+        /// 获取指定标签名称的所有元素
+        /// </summary>
+        /// <param name="hn"></param>
+        /// <param name="tagName">标签名</param>
+        /// <returns></returns>
+        public static IEnumerable<HtmlNode> GetDescendants(this HtmlNode hn, string tagName) => hn.Descendants(tagName);
+
+
         /// <summary>
         /// 获取指定路径内元素的Html
         /// </summary>
@@ -184,141 +196,19 @@ namespace OYMLCN
         /// <returns></returns>
         public static string GetAttributeValue(this HtmlNode gn, string xpath, string attr, string def) =>
             gn?.SelectSingleNode(xpath)?.GetAttributeValue(attr, def);
-
-
-
-        /// <summary>
-        /// 获取具有指定属性名的元素
-        /// </summary>
-        /// <param name="hnc"></param>
-        /// <param name="attrName"></param>
-        /// <returns></returns>
-        public static HtmlNode GetAttributeNode(this HtmlNode hnc, string attrName) =>
-            hnc.GetAttributeNodes(attrName)?.FirstOrDefault();
-        /// <summary>
-        /// 获取具有指定属性名以及包含指定值的元素
-        /// </summary>
-        /// <param name="hnc"></param>
-        /// <param name="attrName"></param>
-        /// <param name="attrValue"></param>
-        /// <returns></returns>
-        public static HtmlNode GetAttributeNode(this HtmlNode hnc, string attrName, string attrValue) =>
-            hnc.GetAttributeNodes(attrName, attrValue)?.FirstOrDefault();
-
+        
 
         /// <summary>
-        /// 获取指定标签名称的所有元素
+        /// 获取Input标签的Name/Value字典
         /// </summary>
         /// <param name="hn"></param>
-        /// <param name="tagName">标签名</param>
         /// <returns></returns>
-        public static IEnumerable<HtmlNode> GetDescendants(this HtmlNode hn, string tagName) => hn.Descendants(tagName);
-
-        /// <summary>
-        /// 获取具有指定属性名的元素集合
-        /// </summary>
-        /// <param name="hnc"></param>
-        /// <param name="attrName"></param>
-        /// <returns></returns>
-        public static IEnumerable<HtmlNode> GetAttributeNodes(this HtmlNode hnc, string attrName) =>
-            hnc.ChildNodes.GetAttributeNodes(attrName);
-        /// <summary>
-        /// 获取具有指定属性名以及包含指定值的元素集合
-        /// </summary>
-        /// <param name="hnc"></param>
-        /// <param name="attrName"></param>
-        /// <param name="attrValue"></param>
-        /// <returns></returns>
-        public static IEnumerable<HtmlNode> GetAttributeNodes(this HtmlNode hnc, string attrName, string attrValue) =>
-            hnc.ChildNodes.GetAttributeNodes(attrName, attrValue);
-
-        /// <summary>
-        /// 获取具有指定属性名的元素
-        /// </summary>
-        /// <param name="hnc"></param>
-        /// <param name="attrName"></param>
-        /// <returns></returns>
-        public static HtmlNode GetAttributeNode(this HtmlNodeCollection hnc, string attrName) =>
-            hnc.GetAttributeNodes(attrName)?.FirstOrDefault();
-        /// <summary>
-        /// 获取具有指定属性名以及包含指定值的元素
-        /// </summary>
-        /// <param name="hnc"></param>
-        /// <param name="attrName"></param>
-        /// <param name="attrValue"></param>
-        /// <returns></returns>
-        public static HtmlNode GetAttributeNode(this HtmlNodeCollection hnc, string attrName, string attrValue) =>
-            hnc.GetAttributeNodes(attrName, attrValue)?.FirstOrDefault();
-
-        /// <summary>
-        /// 获取具有指定属性名的元素集合
-        /// </summary>
-        /// <param name="hnc"></param>
-        /// <param name="attrName"></param>
-        /// <returns></returns>
-        public static IEnumerable<HtmlNode> GetAttributeNodes(this HtmlNodeCollection hnc, string attrName) =>
-            hnc.Where(d => d.Attributes.Where(i => i.Name == attrName).Any());
-        /// <summary>
-        /// 获取具有指定属性名以及包含指定值的元素集合
-        /// </summary>
-        /// <param name="hnc"></param>
-        /// <param name="attrName"></param>
-        /// <param name="attrValue"></param>
-        /// <returns></returns>
-        public static IEnumerable<HtmlNode> GetAttributeNodes(this HtmlNodeCollection hnc, string attrName, string attrValue) =>
-            hnc.Where(d => d.Attributes.Where(i => i.Name == attrName && i.Value.Contains(attrValue)).Any());
-
-
-
-        /// <summary>
-        /// 获取具有指定Id名称的元素
-        /// </summary>
-        /// <param name="hnc"></param>
-        /// <param name="idName"></param>
-        /// <returns></returns>
-        public static HtmlNode GetIdNode(this HtmlNode hnc, string idName) =>
-            hnc.ChildNodes.Where(d => d.Id == idName).FirstOrDefault();
-        /// <summary>
-        /// 获取具有指定Id名称的元素
-        /// </summary>
-        /// <param name="hnc"></param>
-        /// <param name="idName"></param>
-        /// <returns></returns>
-        public static HtmlNode GetIdNode(this HtmlNodeCollection hnc, string idName) =>
-            hnc.Where(d => d.Id == idName).FirstOrDefault();
-
-        /// <summary>
-        /// 获取包含指定样式名称的元素
-        /// </summary>
-        /// <param name="hnc"></param>
-        /// <param name="className"></param>
-        /// <returns></returns>
-        public static HtmlNode GetClassNameNode(this HtmlNode hnc, string className) =>
-            hnc.GetAttributeNode("class", className);
-        /// <summary>
-        /// 获取包含指定样式名称的元素集合
-        /// </summary>
-        /// <param name="hnc"></param>
-        /// <param name="className"></param>
-        /// <returns></returns>
-        public static IEnumerable<HtmlNode> GetClassNameNodes(this HtmlNode hnc, string className) =>
-            hnc.GetAttributeNodes("class", className);
-        /// <summary>
-        /// 获取包含指定样式名称的元素
-        /// </summary>
-        /// <param name="hnc"></param>
-        /// <param name="className"></param>
-        /// <returns></returns>
-        public static HtmlNode GetClassNameNode(this HtmlNodeCollection hnc, string className) =>
-            hnc.GetAttributeNode("class", className);
-        /// <summary>
-        /// 获取包含指定样式名称的元素集合
-        /// </summary>
-        /// <param name="hnc"></param>
-        /// <param name="className"></param>
-        /// <returns></returns>
-        public static IEnumerable<HtmlNode> GetClassNameNodes(this HtmlNodeCollection hnc, string className) =>
-            hnc.GetAttributeNodes("class", className);
+        public static Dictionary<string, string> GetInputsNameValue(this HtmlNode hn) =>
+            hn
+            .SelectNodes("//input")?
+            .ToDictionary(d => d.GetAttributeValue("name", ""), d => d.GetAttributeValue("value", ""))
+            .Where(d => !d.Key.IsNullOrWhiteSpace() && !d.Value.IsNullOrWhiteSpace())
+            .ToDictionary(d => d.Key, d => d.Value);
 
     }
 }
