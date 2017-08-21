@@ -461,7 +461,8 @@ namespace OYMLCN
             {
                 if (str.IsNullOrEmpty())
                     return str;
-                str = str.Replace(item, newValue);
+                if (!item.IsNullOrEmpty())
+                    str = str.Replace(item, newValue);
             }
             return str;
         }
