@@ -227,6 +227,8 @@ namespace OYMLCN
         /// <returns></returns>
         public static DateTime? ConvertToNullableDatetime(this string str)
         {
+            if (str.IsNullOrWhiteSpace())
+                return null;
             try
             {
                 return Convert.ToDateTime(str);
