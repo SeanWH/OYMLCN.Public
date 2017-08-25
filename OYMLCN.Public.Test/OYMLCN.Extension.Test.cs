@@ -98,12 +98,21 @@ namespace OYMLCN.Extension.Test
             Assert.AreEqual(demo.EncodeToSHA512(), "9b71d224bd62f3785d96d46ad3ea3d73319bfbc2890caadae2dff72519673ca72323c3d99ba5c11d7c7acc6e14b8c5da0c4663475c2e5c3adef46f73bcdec043");
             Assert.AreEqual(demo.EncodeToMD5(), "5d41402abc4b2a76b9719d911017c592");
 
+            Assert.AreEqual(demo.EncodeToHMACSHA1(demo), "9ade18f3e0ee81a5343f4a005f795dbaf9ceefd8");
+            Assert.AreEqual(demo.EncodeToHMACSHA256(demo), "b270147ff516860aafb4f52818cb149defde2fac57b451fa3b053d24e88b915a");
+            Assert.AreEqual(demo.EncodeToHMACSHA512(demo), "8f9909c45e601a31a2e6949fe6e4c739ade74f3a0a5f9489d4e5f8bc5b71c08c998c78e14ab4c524e884a308e1e4b9902e7e76d9e1328e5a603b7dfa42604d74");
+            Assert.AreEqual(demo.EncodeToHMACMD5(demo), "a092156be8e7a5c59e88705f06c05904");
+
+
             Assert.AreEqual(demo.EncodeToBase64().DecodeFromBase64(), demo);
             Assert.AreEqual(demo.StringToBitString().BitStringToString(), demo);
 
             var demoKey = "111";
             Assert.AreEqual(demo.AESEncrypt(demoKey).AESDecrypt(demoKey), demo);
             Assert.AreEqual(demo.DESEncrypt(demoKey).DESDecrypt(demoKey), demo);
+
+            CryptographyExtension.GenerateRSAKeys(out string publicKey, out string privateKey);
+            Assert.AreEqual(demo.RSAEncrypt(publicKey).RSADecrypt(privateKey), demo);
 
         }
         [TestMethod]

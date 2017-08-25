@@ -12,7 +12,7 @@ namespace OYMLCN
     /// </summary>
     public static class CryptographyExtension
     {
-        private static string Encoder<T>(this T encryptor, string str) where T: HashAlgorithm
+        private static string Encoder<T>(this T encryptor, string str) where T : HashAlgorithm
         {
             var sha1bytes = Encoding.UTF8.GetBytes(str);
             byte[] resultHash = encryptor.ComputeHash(sha1bytes);
@@ -28,23 +28,48 @@ namespace OYMLCN
         /// <returns></returns>
         public static string EncodeToSHA1(this string str) => SHA1.Create().Encoder(str);
         /// <summary>
+        /// HMACSHA1加密
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string EncodeToHMACSHA1(this string str, string key) => new HMACSHA1(Encoding.UTF8.GetBytes(key)).Encoder(str);
+
+        /// <summary>
         /// 转换字符串为SHA256加密值
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
         public static string EncodeToSHA256(this string str) => SHA256.Create().Encoder(str);
         /// <summary>
+        /// HMACSHA256加密
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string EncodeToHMACSHA256(this string str, string key) => new HMACSHA256(Encoding.UTF8.GetBytes(key)).Encoder(str);
+
+        /// <summary>
         /// 转换字符串为SHA384加密值
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
         public static string EncodeToSHA384(this string str) => SHA384.Create().Encoder(str);
+        //public static string EncodeToHMACSHA384(this string str, string key) => new HMACSHA384(Encoding.UTF8.GetBytes(key)).Encoder(str);
+
         /// <summary>
         /// 转换字符串为SHA512加密值
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
         public static string EncodeToSHA512(this string str) => SHA512.Create().Encoder(str);
+        /// <summary>
+        /// HMACSHA512加密
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string EncodeToHMACSHA512(this string str, string key) => new HMACSHA512(Encoding.UTF8.GetBytes(key)).Encoder(str);
 
         /// <summary>
         /// 转换字符串为MD5加密值
@@ -52,6 +77,14 @@ namespace OYMLCN
         /// <param name="str"></param>
         /// <returns></returns>
         public static string EncodeToMD5(this string str) => MD5.Create().Encoder(str);
+        /// <summary>
+        /// HMACMD5加密
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string EncodeToHMACMD5(this string str, string key) => new HMACMD5(Encoding.UTF8.GetBytes(key)).Encoder(str);
+
 
 
 
@@ -61,7 +94,7 @@ namespace OYMLCN
         /// <param name="str"></param>
         /// <param name="encoder">编码方式（默认为UTF8）</param>
         /// <returns></returns>
-        public static string EncodeToBase64(this string str, Encoding encoder = null) => 
+        public static string EncodeToBase64(this string str, Encoding encoder = null) =>
             Convert.ToBase64String((encoder ?? Encoding.UTF8).GetBytes(str));
         /// <summary>
         /// Base64解密
@@ -190,5 +223,51 @@ namespace OYMLCN
                 return Encoding.UTF8.GetString(ms.ToArray());
             }
         }
+
+
+        /// <summary>
+        /// 生成 RSA 公钥和私钥
+        /// </summary>
+        /// <param name="publicKey">公钥</param>
+        /// <param name="privateKey">私钥</param>
+        public static void GenerateRSAKeys(out string publicKey, out string privateKey)
+        {
+            using (var rsa = new RSACryptoServiceProvider())
+            {
+                publicKey = rsa.ToXmlString(false);
+                privateKey = rsa.ToXmlString(true);
+            }
+        }
+
+        /// <summary>
+        /// RSA 加密
+        /// </summary>
+        /// <param name="content">待加密的内容</param>
+        /// <param name="publickey">公钥</param>
+        /// <returns>经过加密的字符串</returns>
+        public static string RSAEncrypt(this string content, string publickey)
+        {
+            var rsa = new RSACryptoServiceProvider();
+            rsa.FromXmlString(publickey);
+            var cipherbytes = rsa.Encrypt(Encoding.UTF8.GetBytes(content), false);
+
+            return Convert.ToBase64String(cipherbytes);
+        }
+
+        /// <summary>
+        /// RSA 解密
+        /// </summary>
+        /// <param name="content">待解密的内容</param>
+        /// <param name="privatekey">私钥</param>
+        /// <returns>解密后的字符串</returns>
+        public static string RSADecrypt(this string content, string privatekey)
+        {
+            var rsa = new RSACryptoServiceProvider();
+            rsa.FromXmlString(privatekey);
+            var cipherbytes = rsa.Decrypt(Convert.FromBase64String(content), false);
+
+            return Encoding.UTF8.GetString(cipherbytes);
+        }
+
     }
 }
