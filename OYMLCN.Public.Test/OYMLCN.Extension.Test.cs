@@ -103,6 +103,8 @@ namespace OYMLCN.Extension.Test
             Assert.AreEqual(demo.EncodeToHMACSHA512(demo), "8f9909c45e601a31a2e6949fe6e4c739ade74f3a0a5f9489d4e5f8bc5b71c08c998c78e14ab4c524e884a308e1e4b9902e7e76d9e1328e5a603b7dfa42604d74");
             Assert.AreEqual(demo.EncodeToHMACMD5(demo), "a092156be8e7a5c59e88705f06c05904");
 
+            Assert.AreEqual("GETcvm.api.qcloud.com/v2/index.php?Action=DescribeInstances&Nonce=11886&Region=gz&SecretId=AKIDz8krbsJ5yKBZQpn74WFkmLPx3gnPhESA&Timestamp=1465185768&instanceIds.0=ins-09dx96dg&limit=20&offset=0"
+                .EncodeToHMACSHA1Base64("Gu5t9xGARNpq86cd98joQYCN3Cozk1qA"), "NSI3UqqD99b/UJb4tbG/xZpRW64=");
 
             Assert.AreEqual(demo.EncodeToBase64().DecodeFromBase64(), demo);
             Assert.AreEqual(demo.StringToBitString().BitStringToString(), demo);

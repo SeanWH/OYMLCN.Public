@@ -20,6 +20,13 @@ namespace OYMLCN
             sha1String = sha1String.Replace("-", "");
             return sha1String;
         }
+        private static string Base64Encoder<T>(this T encryptor, string key, string str) where T : HMAC
+        {
+            encryptor.Key = Encoding.UTF8.GetBytes(key);
+            byte[] dataBuffer = Encoding.UTF8.GetBytes(str);
+            byte[] hashBytes = encryptor.ComputeHash(dataBuffer);
+            return Convert.ToBase64String(hashBytes);
+        }
 
         /// <summary>
         /// 转换字符串为SHA1加密值
@@ -34,6 +41,14 @@ namespace OYMLCN
         /// <param name="key"></param>
         /// <returns></returns>
         public static string EncodeToHMACSHA1(this string str, string key) => new HMACSHA1(Encoding.UTF8.GetBytes(key)).Encoder(str);
+        /// <summary>
+        /// HMACSHA1加密(base64结果)
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string EncodeToHMACSHA1Base64(this string str, string key) => new HMACSHA1().Base64Encoder(key, str);
+
 
         /// <summary>
         /// 转换字符串为SHA256加密值
@@ -48,6 +63,14 @@ namespace OYMLCN
         /// <param name="key"></param>
         /// <returns></returns>
         public static string EncodeToHMACSHA256(this string str, string key) => new HMACSHA256(Encoding.UTF8.GetBytes(key)).Encoder(str);
+        /// <summary>
+        /// HMACSHA256加密(base64结果)
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string EncodeToHMACSHA256Base64(this string str, string key) => new HMACSHA256().Base64Encoder(key, str);
+
 
         /// <summary>
         /// 转换字符串为SHA384加密值
@@ -55,7 +78,20 @@ namespace OYMLCN
         /// <param name="str"></param>
         /// <returns></returns>
         public static string EncodeToSHA384(this string str) => SHA384.Create().Encoder(str);
-        //public static string EncodeToHMACSHA384(this string str, string key) => new HMACSHA384(Encoding.UTF8.GetBytes(key)).Encoder(str);
+        /// <summary>
+        /// HMACSHA384加密
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string EncodeToHMACSHA384(this string str, string key) => new HMACSHA384(Encoding.UTF8.GetBytes(key)).Encoder(str);
+        /// <summary>
+        /// HMACSHA384加密(base64结果)
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string EncodeToHMACSHA384Base64(this string str, string key) => new HMACSHA384().Base64Encoder(key, str);
 
         /// <summary>
         /// 转换字符串为SHA512加密值
@@ -70,7 +106,14 @@ namespace OYMLCN
         /// <param name="key"></param>
         /// <returns></returns>
         public static string EncodeToHMACSHA512(this string str, string key) => new HMACSHA512(Encoding.UTF8.GetBytes(key)).Encoder(str);
-
+        /// <summary>
+        /// HMACSHA512加密(base64结果)
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string EncodeToHMACSHA512Base64(this string str, string key) => new HMACSHA512().Base64Encoder(key, str);
+        
         /// <summary>
         /// 转换字符串为MD5加密值
         /// </summary>
@@ -84,8 +127,6 @@ namespace OYMLCN
         /// <param name="key"></param>
         /// <returns></returns>
         public static string EncodeToHMACMD5(this string str, string key) => new HMACMD5(Encoding.UTF8.GetBytes(key)).Encoder(str);
-
-
 
 
         /// <summary>
