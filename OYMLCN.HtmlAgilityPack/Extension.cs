@@ -196,19 +196,24 @@ namespace OYMLCN
         /// <returns></returns>
         public static string GetAttributeValue(this HtmlNode gn, string xpath, string attr, string def) =>
             gn?.SelectSingleNode(xpath)?.GetAttributeValue(attr, def);
-        
 
         /// <summary>
         /// 获取Input标签的Name/Value字典
         /// </summary>
         /// <param name="hn"></param>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
-        public static Dictionary<string, string> GetInputsNameValue(this HtmlNode hn) =>
-            hn
-            .SelectNodes("//input")?
-            .ToDictionary(d => d.GetAttributeValue("name", ""), d => d.GetAttributeValue("value", ""))
-            .Where(d => !d.Key.IsNullOrWhiteSpace() && !d.Value.IsNullOrWhiteSpace())
-            .ToDictionary(d => d.Key, d => d.Value);
+        public static Dictionary<string, string> GetInputsKeyValue(this HtmlNode hn, string key = "name", string value = "value") {
 
+            var dic = new Dictionary<string, string>();
+            var data =  hn
+            .SelectNodes("//input")?
+            .Select(d => new { Key = d.GetAttributeValue(key, null), Value = d.GetAttributeValue(value, null) })
+            .Where(d => !d.Key.IsNullOrWhiteSpace() && !d.Value.IsNullOrWhiteSpace());
+            foreach (var item in data)
+                dic[item.Key] = item.Value;
+            return dic;
+        }
     }
 }
