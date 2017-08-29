@@ -9,7 +9,7 @@ namespace OYMLCN
     /// <summary>
     /// RequestExtension
     /// </summary>
-    public static partial class RequestExtension
+    public static partial class WebHttpRequestExtension
     {
 #if NET461
         /// <summary>

@@ -7,7 +7,7 @@ namespace OYMLCN
     /// <summary>
     /// JsonExtension
     /// </summary>
-    public static partial class JsonExtension
+    public static partial class NewtonsoftJsonExtension
     {
         /// <summary>
         /// 转换JSON字符串为可供查询的Array数组

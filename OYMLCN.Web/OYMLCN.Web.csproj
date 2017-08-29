@@ -7,10 +7,10 @@
   </PropertyGroup>
   <PropertyGroup>
     <TargetFrameworks>net461;netcoreapp2.0</TargetFrameworks>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Authors>VicBilibily欧阳敏岚</Authors>
-    <PackageProjectUrl>https://www.oyml.cn/OYMLCN.Web</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/VicBilibily/OYMLCN.Web</PackageProjectUrl>
     <Copyright>OYML.CN</Copyright>
     <RootNamespace>OYMLCN</RootNamespace>
     <Description>ASP.Net Web 的相关扩展
@@ -19,9 +19,7 @@ ExtensionBase扩展类HttpRequestBase、HttpRequest。
 ExtensionBase.GetUrlPath()、ExtensionBase.GetUserAgent()
 ExtensionBase.GetQuery()、ExtensionBase.GetQuery(key)
 ExtensionBase.GetBody()、ExtensionBase.GetUserIpAddress()</Description>
-    <PackageLicenseUrl>https://github.com/VicBilibily/OYMLCN.Public/blob/master/LICENSE</PackageLicenseUrl>
-    <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.Web</RepositoryUrl>
-    <RepositoryType>Github</RepositoryType>
+    <Product>OYMLCN.Web</Product>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netcoreapp2.0\OYMLCN.Web.xml</DocumentationFile>
