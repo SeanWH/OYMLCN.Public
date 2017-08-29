@@ -7,7 +7,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
-    <RootNamespace>OYMLCN</RootNamespace>
+    <RootNamespace>OYMLCN.MahApps.Metro</RootNamespace>
     <Authors>VicBilibily欧阳敏岚</Authors>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Version>0.1.0</Version>

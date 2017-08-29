@@ -10,7 +10,7 @@
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Authors>VicBilibily欧阳敏岚</Authors>
-    <Version>0.1.19</Version>
+    <Version>0.1.20</Version>
     <Description>HtmlAgilityPackExtension
 String.AsAgilityHtml()
 HtmlNode.GetInnerHtml
@@ -21,12 +21,8 @@ GetIdNode
 GetDescendants
 GetAttributeNode、GetAttributeNodes
 GetClassNameNode、GetClassNameNodes</Description>
-    <PackageLicenseUrl>https://github.com/VicBilibily/OYMLCN.Public/blob/master/LICENSE</PackageLicenseUrl>
     <Copyright>OYML.CN</Copyright>
-    <PackageProjectUrl>https://www.oyml.cn/OYMLCN.HtmlAgilityPack</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.HtmlAgilityPack</RepositoryUrl>
-    <FileVersion>0.0.1.0</FileVersion>
-    <RepositoryType>Github</RepositoryType>
+    <PackageProjectUrl>https://github.com/VicBilibily/OYMLCN.HtmlAgilityPack</PackageProjectUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\net461\OYMLCN.HtmlAgilityPack.xml</DocumentationFile>

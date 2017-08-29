@@ -10,19 +10,13 @@
   </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Copyright>OYML.CN</Copyright>
-    <PackageProjectUrl>https://www.oyml.cn/OYMLCN.WindowsPresentationFoundation</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.WindowsPresentationFoundation</RepositoryUrl>
-    <PackageLicenseUrl>https://github.com/VicBilibily/OYMLCN.Public/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/VicBilibily/OYMLCN.WindowsPresentationFoundation</PackageProjectUrl>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Authors>VicBilibily欧阳敏岚</Authors>
-    <Version>0.1.6</Version>
+    <Version>0.1.7</Version>
     <Description>项目中使用到的方法封装
 ApplicationInitialization、SelectorExtension、TextBoxExtension、VisualHepler</Description>
-    <ApplicationIcon />
-    <OutputTypeEx>library</OutputTypeEx>
-    <StartupObject />
     <RootNamespace>OYMLCN</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
