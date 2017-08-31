@@ -9,7 +9,7 @@ namespace OYMLCN
     /// <summary>
     /// Extension
     /// </summary>
-    public static class Extension
+    public static class WorkSegmentationExtension
     {
         static Segmenter _segmenter;
         static Segmenter Segmenter => _segmenter ?? (_segmenter = new Segmenter());

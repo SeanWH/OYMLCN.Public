@@ -11,7 +11,7 @@
     <Authors>VicBilibily欧阳敏岚</Authors>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Copyright>OYML.CN</Copyright>
-    <PackageProjectUrl>https://github.com/VicBilibily/OYMLCN.WPF.WebBrowser</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.WPF.WebBrowser</PackageProjectUrl>
     <Description>通过WebBrowserHelper对WPF中的WebBrowser进行事件绑定</Description>
     <Version>0.1.6</Version>
   </PropertyGroup>

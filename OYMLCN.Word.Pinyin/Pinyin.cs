@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace OYMLCN.Work
+namespace OYMLCN
 {
     /// <summary>
     /// PinYinExtension
     /// </summary>
-    public static class PinYinExtension
+    public static class WorkPinYinExtension
     {
         /// <summary>
         /// 拼音Model

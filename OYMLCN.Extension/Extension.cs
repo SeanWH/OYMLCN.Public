@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace OYMLCN
 {
@@ -51,6 +52,24 @@ namespace OYMLCN
                 // just kidding
                 SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle, (UIntPtr)0xFFFFFFFF, (UIntPtr)0xFFFFFFFF);
             }
+        }
+        /// <summary>
+        /// 定时释放内存
+        /// </summary>
+        public static void StartReleasingMemoryTiming()
+        {
+            var _ramThread = new Thread(new ThreadStart(() =>
+            {
+                while (true)
+                {
+                    ReleaseMemory(false);
+                    Thread.Sleep(30 * 1000);
+                }
+            }))
+            {
+                IsBackground = true
+            };
+            _ramThread.Start();
         }
         #endregion
 
@@ -164,7 +183,7 @@ namespace OYMLCN
         /// <param name="enumerable"></param>
         /// <returns></returns>
         public static bool IsNotEmpty<T>(this IEnumerable<T> enumerable) =>
-            enumerable.IsNotNull() && enumerable.Any(); 
+            enumerable.IsNotNull() && enumerable.Any();
         #endregion
 
         #region IDictionary
@@ -201,7 +220,7 @@ namespace OYMLCN
         {
             foreach (var key in other.Keys)
                 dict[key] = other[key];
-        } 
+        }
         #endregion
 
         /// <summary>

@@ -10,7 +10,7 @@
     <Version>1.0.1</Version>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Authors>VicBilibily欧阳敏岚</Authors>
-    <PackageProjectUrl>https://github.com/VicBilibily/OYMLCN.Web</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.Web</PackageProjectUrl>
     <Copyright>OYML.CN</Copyright>
     <RootNamespace>OYMLCN</RootNamespace>
     <Description>ASP.Net Web 的相关扩展

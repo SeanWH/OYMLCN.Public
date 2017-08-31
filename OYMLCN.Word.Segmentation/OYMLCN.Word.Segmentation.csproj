@@ -8,15 +8,12 @@
 主要类：Segmenter、PosSegmenter
 可通过创建Segmenter实例调用LoadUserDict、AddWord、DeleteWord来扩充内置词典，若在扩展方法中使用扩充词典，需要在调用扩展方法时需要传入该实例。
 </Description>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Authors>VicBilibily欧阳敏岚</Authors>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Product>OYMLCN.Word.Segmentation</Product>
     <Copyright>OYML.CN</Copyright>
-    <PackageLicenseUrl>https://github.com/VicBilibily/OYMLCN.Public/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://www.oyml.cn/OYMLCN.Word.Segmentation</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.Word.Segmentation</RepositoryUrl>
-    <RepositoryType>Github</RepositoryType>
+    <PackageProjectUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.Word.Segmentation</PackageProjectUrl>
   
   </PropertyGroup>
 

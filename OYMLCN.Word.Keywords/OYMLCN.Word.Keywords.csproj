@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
     <RootNamespace>OYMLCN.Word.KeyWord</RootNamespace>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Description>基于TF-IDF的关键词提取组件
 扩展方法（String）：GetKeyWords、GetKeyWordsOnlyNoun、GetKeyWordsOnlyVerb、GetKeyWordsNounAndVerb
 另外还有各自获取权重值的扩展方法：GetKeyWordsWegiht、GetKeyWordsWegihtOnlyNoun、GetKeyWordsWegihtOnlyVerb、GetKeyWordsWegihtNounAndVerb</Description>
@@ -11,10 +11,7 @@
     <Company>广东佰群网络科技股份有限公司</Company>
     <Product>OYMLCN.Word.Keywords</Product>
     <Copyright>OYML.CN</Copyright>
-    <PackageLicenseUrl>https://github.com/VicBilibily/OYMLCN.Public/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://www.oyml.cn/OYMLCN.Word.Keywords</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.Word.Keywords</RepositoryUrl>
-    <RepositoryType>Github</RepositoryType>
+    <PackageProjectUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.Word.Keywords</PackageProjectUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

@@ -16,7 +16,7 @@ ExtensionBase.GetBody()、ExtensionBase.GetUserIpAddress()</Description>
     <Authors>VicBilibily欧阳敏岚</Authors>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Copyright>OYML.CN</Copyright>
-    <PackageProjectUrl>https://github.com/VicBilibily/OYMLCN.Web.Api</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.Web.Api</PackageProjectUrl>
     <RootNamespace>OYMLCN</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
