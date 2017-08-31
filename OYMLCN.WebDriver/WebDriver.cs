@@ -7,13 +7,16 @@ using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.PhantomJS;
+using System.Net;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace OYMLCN
 {
     /// <summary>
     /// WebDriver
     /// </summary>
-    public class WebDriver
+    public class WebDriver : IDisposable
     {
         /// <summary>
         /// 浏览器类型
@@ -44,7 +47,7 @@ namespace OYMLCN
         /// WebDriver
         /// </summary>
         /// <param name="Browser">浏览器类型</param>
-        public WebDriver(Browsers Browser=Browsers.Chrome)
+        public WebDriver(Browsers Browser = Browsers.Chrome)
         {
             browser = Browser;
             wd = InitWebDriver();
@@ -87,8 +90,8 @@ namespace OYMLCN
         /// 等待页面标题 如果匹配则立即返回
         /// </summary>
         /// <param name="title"></param>
-        public void WaitForPage(string title) =>
-            new WebDriverWait(wd, TimeSpan.FromSeconds(10)).Until((d) =>
+        public void WaitForPage(string title, double timeOut = 10d) =>
+            new WebDriverWait(wd, TimeSpan.FromSeconds(timeOut)).Until((d) =>
             {
                 return d.Title.ToLower().StartsWith(title.ToLower());
             });
@@ -97,8 +100,9 @@ namespace OYMLCN
         /// 等待指定Id的页面元素 如果存在则立即返回
         /// </summary>
         /// <param name="id"></param>
-        public void WaitForIdElement(string id) =>
-            new WebDriverWait(wd, TimeSpan.FromSeconds(10)).Until((d) =>
+        /// <param name="timeOut"></param>
+        public void WaitForIdElement(string id, double timeOut = 10d) =>
+            new WebDriverWait(wd, TimeSpan.FromSeconds(timeOut)).Until((d) =>
             {
                 return ExpectedConditions.ElementExists(By.Id(id));
             });
@@ -106,8 +110,9 @@ namespace OYMLCN
         /// 等待指定样式名称的页面元素 如果存在则立即返回
         /// </summary>
         /// <param name="className"></param>
-        public void WaitForClassElement(string className) =>
-            new WebDriverWait(wd, TimeSpan.FromSeconds(10)).Until((d) =>
+        /// <param name="timeOut"></param>
+        public void WaitForClassElement(string className, double timeOut = 10d) =>
+            new WebDriverWait(wd, TimeSpan.FromSeconds(timeOut)).Until((d) =>
             {
                 return ExpectedConditions.ElementExists(By.ClassName(className));
             });
@@ -115,8 +120,9 @@ namespace OYMLCN
         /// 等待指定路径的页面元素 如果存在则立即返回
         /// </summary>
         /// <param name="xpath"></param>
-        public void WaitForXPathElement(string xpath) =>
-            new WebDriverWait(wd, TimeSpan.FromSeconds(10)).Until((d) =>
+        /// <param name="timeOut"></param>
+        public void WaitForXPathElement(string xpath, double timeOut = 10d) =>
+            new WebDriverWait(wd, TimeSpan.FromSeconds(timeOut)).Until((d) =>
             {
                 return ExpectedConditions.ElementExists(By.XPath(xpath));
             });
@@ -161,34 +167,56 @@ namespace OYMLCN
         public string PageSource => wd.PageSource;
 
         /// <summary>
+        /// 转换
+        /// </summary>
+        /// <param name="cookie"></param>
+        /// <returns></returns>
+        System.Net.Cookie QAToCookie(OpenQA.Selenium.Cookie cookie)
+        {
+            var c = new System.Net.Cookie();
+            c.Name = cookie.Name;
+            c.Value = cookie.Value;
+            c.Domain = cookie.Domain;
+            c.Path = cookie.Path;
+            c.Secure = cookie.Secure;
+            c.HttpOnly = cookie.IsHttpOnly;
+            c.Expires = cookie.Expiry ?? DateTime.Now.AddYears(99);
+            return c;
+        }
+        /// <summary>
+        /// 转换
+        /// </summary>
+        /// <param name="cookies"></param>
+        /// <returns></returns>
+        CookieCollection QAToCookie(ReadOnlyCollection<OpenQA.Selenium.Cookie> cookies)
+        {
+            var collection = new CookieCollection();
+            if (cookies != null)
+                foreach (var cookie in cookies)
+                    collection.Add(QAToCookie(cookie));
+            return collection;
+        }
+
+        /// <summary>
         /// 获取Cookies
         /// </summary>
         /// <returns></returns>
-        public Dictionary<string, string> GetAllCookies()
+        public ReadOnlyCollection<OpenQA.Selenium.Cookie> GetAllCookies() =>
+            wd.Manage().Cookies.AllCookies;
+        /// <summary>
+        /// 设置Cookie
+        /// </summary>
+        /// <param name="cookie"></param>
+        public void SetCookie(OpenQA.Selenium.Cookie cookie) =>
+             wd.Manage().Cookies.AddCookie(cookie);
+        /// <summary>
+        /// 设置Cookies
+        /// </summary>
+        /// <param name="cookies"></param>
+        public void SetCookie(ReadOnlyCollection<OpenQA.Selenium.Cookie> cookies)
         {
-            Dictionary<string, string> cookies = new Dictionary<string, string>();
-            switch (browser)
-            {
-                case Browsers.Chrome:
-                    foreach (Cookie cookie in ((ChromeDriver)wd).Manage().Cookies.AllCookies)
-                        cookies[cookie.Name] = cookie.Value;
-                    break;
-                case Browsers.Firefox:
-                    foreach (Cookie cookie in ((FirefoxDriver)wd).Manage().Cookies.AllCookies)
-                        cookies[cookie.Name] = cookie.Value;
-                    break;
-                case Browsers.PhantomJS:
-                    foreach (Cookie cookie in ((PhantomJSDriver)wd).Manage().Cookies.AllCookies)
-                        cookies[cookie.Name] = cookie.Value;
-                    break;
-                case Browsers.IE:
-                default:
-                    foreach (Cookie cookie in ((InternetExplorerDriver)wd).Manage().Cookies.AllCookies)
-                        cookies[cookie.Name] = cookie.Value;
-                    break;
-            }
-
-            return cookies;
+            foreach (var cookie in cookies)
+                wd.Manage().Cookies.AddCookie(cookie);
         }
 
         /// <summary>
@@ -370,7 +398,7 @@ namespace OYMLCN
         /// 保存页面截图
         /// </summary>
         /// <param name="savePath"></param>
-        public void TakeScreenshot(string savePath)
+        public Screenshot TakeScreenshot(string savePath = null)
         {
             Screenshot theScreenshot = null;
             switch (browser)
@@ -389,8 +417,9 @@ namespace OYMLCN
                     theScreenshot = ((InternetExplorerDriver)wd).GetScreenshot();
                     break;
             }
-            if (theScreenshot != null)
+            if (theScreenshot != null && savePath != null)
                 theScreenshot.SaveAsFile(savePath, ScreenshotImageFormat.Jpeg);
+            return theScreenshot;
         }
 
         /// <summary>
@@ -535,6 +564,11 @@ namespace OYMLCN
         /// 关闭测试代理服务，并尝试退出所有已打开的窗口
         /// </summary>
         public void Cleanup() => wd.Quit();
+
+        /// <summary>
+        /// 关闭测试代理服务，并尝试退出所有已打开的窗口
+        /// </summary>
+        public void Dispose() => Cleanup();
     }
 
 }

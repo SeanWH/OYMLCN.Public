@@ -8,12 +8,12 @@ IE：Selenium.InternetExplorer.WebDriver （兼容性一般）
 Chrome：Selenium.Chrome.WebDriver（推荐）
 Firefox：Selenium.Firefox.WebDriver（一般）
 PhantomJS：Selenium.PhantomJS.WebDriver（未测试）</Description>
-    <Version>0.1.1</Version>
+    <Version>0.1.2</Version>
     <RootNamespace>OYMLCN</RootNamespace>
     <Copyright>OYML.CN</Copyright>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Authors>VicBilibily欧阳敏岚</Authors>
-    <PackageProjectUrl>https://github.com/VicBilibily/OYMLCN.WebDriver</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.WebDriver</PackageProjectUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
