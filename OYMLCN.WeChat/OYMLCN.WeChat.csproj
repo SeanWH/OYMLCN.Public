@@ -12,14 +12,11 @@
     <Authors>VicBilibily欧阳敏岚</Authors>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Description>微信公众平台SDK（类JQuery链式调用）</Description>
-    <PackageLicenseUrl>https://github.com/VicBilibily/OYMLCN.Public/blob/master/LICENSE</PackageLicenseUrl>
     <Copyright>OYML.CN</Copyright>
-    <PackageProjectUrl>https://www.oyml.cn/OYMLCN.WeChat</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.WeChat</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.WeChat</PackageProjectUrl>
     <PackageTags>WeChat,WeiXin,微信,公众平台,OYML,VicBilibily,Vic</PackageTags>
     <PackageReleaseNotes>微信公众平台SDK</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <RepositoryType>Github</RepositoryType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard2.0\OYMLCN.WeChat.xml</DocumentationFile>

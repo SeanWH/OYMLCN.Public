@@ -22,8 +22,6 @@ namespace OYMLCN.WeChat
         /// <summary>
         /// 获取Api调用的公众号全局唯一票据
         /// （单例服务自管理，分布式请传入旧凭据或直接使用旧凭据）
-        /// （自管理过期时间会提前一段时间）
-        /// （判断条件 3600 -> 600 || 1800 -> 300 || 300 -> 30）
         /// </summary>
         /// <param name="cfg"></param>
         /// <param name="oldToken">旧的凭据（为空则会尝试用已经获取到的未过期票据）</param>

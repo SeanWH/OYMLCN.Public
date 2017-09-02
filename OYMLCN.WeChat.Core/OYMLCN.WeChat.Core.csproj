@@ -12,11 +12,8 @@
     <Company>广东佰群网络科技股份有限公司</Company>
     <Description>微信公众平台SDK核心库</Description>
     <Copyright>OYML.CN</Copyright>
-    <PackageProjectUrl>https://www.oyml.cn/OYMLCN.WeChat.Core</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.WeChat.Core</PackageProjectUrl>
     <Version>1.0.0</Version>
-    <PackageLicenseUrl>https://github.com/VicBilibily/OYMLCN.Public/blob/master/LICENSE</PackageLicenseUrl>
-    <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.WeChat.Core</RepositoryUrl>
-    <RepositoryType>Github</RepositoryType>  
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netcoreapp2.0\OYMLCN.WeChat.Core.xml</DocumentationFile>

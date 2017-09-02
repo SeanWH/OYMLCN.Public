@@ -6,10 +6,7 @@
     <Company>广东佰群网络科技股份有限公司</Company>
     <Description>OYMLCN.WeChat MVC扩展</Description>
     <Copyright>OYML.CN</Copyright>
-    <PackageLicenseUrl>https://github.com/VicBilibily/OYMLCN.Public/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://www.oyml.cn/OYMLCN.WeChat.Mvc</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.WeChat.Mvc</RepositoryUrl>
-    <RepositoryType>Github</RepositoryType>
+    <PackageProjectUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.WeChat.Mvc</PackageProjectUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
