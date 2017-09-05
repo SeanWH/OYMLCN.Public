@@ -90,6 +90,7 @@ namespace OYMLCN
         /// 等待页面标题 如果匹配则立即返回
         /// </summary>
         /// <param name="title"></param>
+        /// <param name="timeOut"></param>
         public void WaitForPage(string title, double timeOut = 10d) =>
             new WebDriverWait(wd, TimeSpan.FromSeconds(timeOut)).Until((d) =>
             {

@@ -195,7 +195,6 @@ namespace OYMLCN
             }
         }
 
-
         private const int INTERNET_CONNECTION_MODEM = 1;
         private const int INTERNET_CONNECTION_LAN = 2;
         [DllImport("winInet.dll")]
