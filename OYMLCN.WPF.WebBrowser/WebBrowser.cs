@@ -36,7 +36,7 @@ namespace OYMLCN.WPF
         /// </summary>
         /// <param name="wb"></param>
         /// <returns></returns>
-        public static string GetCookies(this WebBrowser wb) => WebBrowserHelper.GetCookies(wb.Source.GetHost());
+        public static string GetCookies(this WebBrowser wb) => OYMLCN.WebBrowserExtension.GetCookies(wb.Source.GetHost());
         /// <summary>
         /// 执行Js代码（可有返回值）
         /// </summary>
@@ -107,108 +107,6 @@ namespace OYMLCN.WPF
     /// </summary>
     public partial class WebBrowserHelper : IDisposable
     {
-        static string appName = System.Diagnostics.Process.GetCurrentProcess().ProcessName + ".exe";
-        #region SetIEKeyforWebBrowserControl
-        static void SetIEKeyforWebBrowserControl(string verKey)
-        {
-            RegistryKey Regkey = null;
-            // 64位
-            try
-            {
-                Regkey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\\Wow6432Node\\Microsoft\\Internet Explorer\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION", true);
-                if (Regkey != null && Convert.ToString(Regkey.GetValue(appName)) != verKey)
-                    Regkey.SetValue(appName, verKey, RegistryValueKind.DWord);
-            }
-            catch { }
-            finally
-            {
-                if (Regkey != null)
-                    Regkey.Close();
-            }
-            // 32位
-            try
-            {
-                Regkey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION", true);
-                if (Regkey != null && Convert.ToString(Regkey.GetValue(appName)) != verKey)
-                    Regkey.SetValue(appName, verKey, RegistryValueKind.DWord);
-            }
-            catch { }
-            finally
-            {
-                if (Regkey != null)
-                    Regkey.Close();
-            }
-        }
-        /// <summary>
-        /// 设置WebBrowser调用 IE11 默认模式
-        /// <para>需要使用管理员权限</para>
-        /// </summary>
-        public static void UseIE11WebBrowser() => SetIEKeyforWebBrowserControl("11000");
-        /// <summary>
-        /// 设置WebBrowser调用 IE11 Edge模式
-        /// <para>需要使用管理员权限</para>
-        /// </summary>
-        public static void UseIE11EdgeWebBrowser() => SetIEKeyforWebBrowserControl("11001");
-        /// <summary>
-        /// 设置WebBrowser调用 IE10 默认模式
-        /// <para>需要使用管理员权限</para>
-        /// </summary>
-        public static void UseIE10WebBrowser() => SetIEKeyforWebBrowserControl("10000");
-        /// <summary>
-        /// 设置WebBrowser调用 IE10 Standards模式
-        /// <para>需要使用管理员权限</para>
-        /// </summary>
-        public static void UseIE10StandardsWebBrowser() => SetIEKeyforWebBrowserControl("10001");
-        /// <summary>
-        /// 设置WebBrowser调用 IE9 默认模式
-        /// <para>需要使用管理员权限</para>
-        /// </summary>
-        public static void UseIE9WebBrowser() => SetIEKeyforWebBrowserControl("9000");
-        /// <summary>
-        /// 设置WebBrowser调用 IE9 Standards模式
-        /// <para>需要使用管理员权限</para>
-        /// </summary>
-        public static void UseIE9StandardsWebBrowser() => SetIEKeyforWebBrowserControl("9999");
-        /// <summary>
-        /// 设置WebBrowser调用 IE8 默认模式
-        /// <para>需要使用管理员权限</para>
-        /// </summary>
-        public static void UseIE8WebBrowser() => SetIEKeyforWebBrowserControl("8000");
-        /// <summary>
-        /// 设置WebBrowser调用 IE8 Standards模式
-        /// <para>需要使用管理员权限</para>
-        /// </summary>
-        public static void UseIE8StandardsWebBrowser() => SetIEKeyforWebBrowserControl("8888");
-        /// <summary>
-        /// 设置WebBrowser调用 IE7 模式
-        /// <para>需要使用管理员权限</para>
-        /// </summary>
-        public static void UseIE7WebBrowser() => SetIEKeyforWebBrowserControl("7000");
-        #endregion
-
-        [DllImport("wininet.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern bool InternetGetCookieEx(string pchURL, string pchCookieName, StringBuilder pchCookieData, ref System.UInt32 pcchCookieData, int dwFlags, IntPtr lpReserved);
-        /// <summary>
-        /// 获取指定地址的Cookies
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        public static string GetCookies(string url)
-        {
-            uint datasize = 1024;
-            StringBuilder cookieData = new StringBuilder((int)datasize);
-            if (!InternetGetCookieEx(url, null, cookieData, ref datasize, 0x2000, IntPtr.Zero))
-            {
-                if (datasize < 0)
-                    return null;
-
-                cookieData = new StringBuilder((int)datasize);
-                if (!InternetGetCookieEx(url, null, cookieData, ref datasize, 0x00002000, IntPtr.Zero))
-                    return null;
-            }
-            return cookieData.ToString();
-        }
-
         /// <summary>
         /// 设置浏览器不弹错误提示框
         /// </summary>

@@ -13,7 +13,7 @@
     <Copyright>OYML.CN</Copyright>
     <PackageProjectUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.WPF.WebBrowser</PackageProjectUrl>
     <Description>通过WebBrowserHelper对WPF中的WebBrowser进行事件绑定</Description>
-    <Version>0.1.6</Version>
+    <Version>0.1.7-beta3</Version>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>bin\Debug\net461\OYMLCN.WPF.WebBrowser.xml</DocumentationFile>
