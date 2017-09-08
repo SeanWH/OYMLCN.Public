@@ -293,23 +293,45 @@ namespace OYMLCN
         /// <param name="words"></param>
         /// <returns></returns>
         public static IEnumerable<string> SelectContains(this IEnumerable<string> list, params string[] words) =>
-            list.Where(d => d.Contains(words));
+            list?.Where(d => d.Contains(words));
+        /// <summary>
+        /// 搜索字符串数组
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="word"></param>
+        /// <returns></returns>
+        public static IEnumerable<string> SelectStartWith(this IEnumerable<string> list, string word) =>
+            list?.Where(d => d.StartsWith(word));
+        /// <summary>
+        /// 搜索字符串数组
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="word"></param>
+        /// <returns></returns>
+        public static IEnumerable<string> SelectEndWith(this IEnumerable<string> list, string word) =>
+            list?.Where(d => d.EndsWith(word));
         /// <summary>
         /// 搜索字符串数组
         /// </summary>
         /// <param name="list"></param>
         /// <param name="words"></param>
         /// <returns></returns>
-        public static IEnumerable<string> SelectStartWith(this IEnumerable<string> list, string words) =>
-            list.Where(d => d.StartsWith(words));
+        public static string SelectContainsFirstOrDefault(this IEnumerable<string> list, params string[] words) => list?.SelectContains(words).FirstOrDefault();
         /// <summary>
         /// 搜索字符串数组
         /// </summary>
         /// <param name="list"></param>
-        /// <param name="words"></param>
+        /// <param name="word"></param>
         /// <returns></returns>
-        public static IEnumerable<string> SelectEndWith(this IEnumerable<string> list, string words) =>
-            list.Where(d => d.EndsWith(words));
+        public static string SelectStartWithFirstOrDefault(this IEnumerable<string> list, string word) => list?.SelectStartWith(word).FirstOrDefault();
+        /// <summary>
+        /// 搜索字符串数组
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="word"></param>
+        /// <returns></returns>
+        public static string SelectEndWithFirstOrDefault(this IEnumerable<string> list, string word) => list?.SelectEndWith(word).FirstOrDefault();
+
         #endregion
 
         /// <summary>
