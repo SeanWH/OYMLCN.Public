@@ -69,11 +69,11 @@ namespace OYMLCN.Word.Keywords
                 var w = word;
                 if (string.IsNullOrEmpty(w) || w.Trim().Length < 2 || StopWords.Contains(w.ToLower()))
                     continue;
-                freq[w] = freq.GetValueOrDefault(w, 0.0) + 1.0;
+                freq[w] = freq.SelectValueOrDefault(w, 0.0) + 1.0;
             }
             var total = freq.Values.Sum();
             foreach (var k in freq.Keys.ToList())
-                freq[k] *= IdfFreq.GetValueOrDefault(k, MedianIdf) / total;
+                freq[k] *= IdfFreq.SelectValueOrDefault(k, MedianIdf) / total;
 
             return freq;
         }

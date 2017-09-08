@@ -13,7 +13,7 @@
     <Description>微信公众平台SDK核心库</Description>
     <Copyright>OYML.CN</Copyright>
     <PackageProjectUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.WeChat.Core</PackageProjectUrl>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netcoreapp2.0\OYMLCN.WeChat.Core.xml</DocumentationFile>

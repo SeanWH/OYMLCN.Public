@@ -5,7 +5,7 @@
     <RootNamespace>OYMLCN</RootNamespace>
     <Authors>VicBilibily欧阳敏岚</Authors>
     <Company>广东佰群网络科技股份有限公司</Company>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Description>PinYinExtension 独立封装</Description>
     <Copyright>OYML.CN</Copyright>
     <PackageProjectUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.Word.Pinyin</PackageProjectUrl>

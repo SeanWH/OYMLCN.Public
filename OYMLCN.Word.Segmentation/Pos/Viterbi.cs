@@ -70,9 +70,9 @@ namespace OYMLCN.Word.Segmentation.Pos
 
             v.Add(new Dictionary<string, Double>());
             memPath.Add(new Dictionary<string, string>());
-            foreach (var state in _stateTab.GetValueOrDefault(sentence[0], allStates))
+            foreach (var state in _stateTab.SelectValueOrDefault(sentence[0], allStates))
             {
-                var emP = _emitProbs[state].GetValueOrDefault(sentence[0], Constants.MinProb);
+                var emP = _emitProbs[state].SelectValueOrDefault(sentence[0], Constants.MinProb);
                 v[0][state] = _startProbs[state] + emP;
                 memPath[0][state] = string.Empty;
             }
@@ -85,7 +85,7 @@ namespace OYMLCN.Word.Segmentation.Pos
                 var prevStates = memPath[i - 1].Keys.Where(k => _transProbs[k].Count > 0);
                 var curPossibleStates = new HashSet<string>(prevStates.SelectMany(s => _transProbs[s].Keys));
 
-                IEnumerable<string> obsStates = _stateTab.GetValueOrDefault(sentence[i], allStates);
+                IEnumerable<string> obsStates = _stateTab.SelectValueOrDefault(sentence[i], allStates);
                 obsStates = curPossibleStates.Intersect(obsStates);
 
                 if (!obsStates.Any())
@@ -98,14 +98,14 @@ namespace OYMLCN.Word.Segmentation.Pos
 
                 foreach (var y in obsStates)
                 {
-                    var emp = _emitProbs[y].GetValueOrDefault(sentence[i], Constants.MinProb);
+                    var emp = _emitProbs[y].SelectValueOrDefault(sentence[i], Constants.MinProb);
 
                     var prob = double.MinValue;
                     var state = string.Empty;
 
                     foreach (var y0 in prevStates)
                     {
-                        var tranp = _transProbs[y0].GetValueOrDefault(y, double.MinValue);
+                        var tranp = _transProbs[y0].SelectValueOrDefault(y, double.MinValue);
                         tranp = v[i - 1][y0] + tranp + emp;
                         if (prob < tranp || (prob == tranp && string.Compare(state, y0, StringComparison.CurrentCultureIgnoreCase) < 0))
                         {

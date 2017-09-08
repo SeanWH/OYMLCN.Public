@@ -70,7 +70,7 @@ namespace OYMLCN.Word.Segmentation
             v.Add(new Dictionary<char, double>());
             foreach (var state in States)
             {
-                var emP = _emitProbs[state].GetValueOrDefault(sentence[0], Constants.MinProb);
+                var emP = _emitProbs[state].SelectValueOrDefault(sentence[0], Constants.MinProb);
                 v[0][state] = _startProbs[state] + emP;
                 path[state] = new Node(state, null);
             }
@@ -82,12 +82,12 @@ namespace OYMLCN.Word.Segmentation
                 IDictionary<char, Node> newPath = new Dictionary<char, Node>();
                 foreach (var y in States)
                 {
-                    var emp = _emitProbs[y].GetValueOrDefault(sentence[i], Constants.MinProb);
+                    var emp = _emitProbs[y].SelectValueOrDefault(sentence[i], Constants.MinProb);
 
                     Pair<char> candidate = new Pair<char>('\0', double.MinValue);
                     foreach (var y0 in _prevStatus[y])
                     {
-                        var tranp = _transProbs[y0].GetValueOrDefault(y, Constants.MinProb);
+                        var tranp = _transProbs[y0].SelectValueOrDefault(y, Constants.MinProb);
                         tranp = v[i - 1][y0] + tranp + emp;
                         if (candidate.Freq <= tranp)
                         {

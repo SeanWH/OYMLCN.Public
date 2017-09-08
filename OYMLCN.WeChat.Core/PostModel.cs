@@ -17,11 +17,11 @@ namespace OYMLCN.WeChat
         {
             var model = new PostModel()
             {
-                Nonce = queryDic.GetValueOrDefault("nonce"),
-                Signature = queryDic.GetValueOrDefault("signature"),
-                Timestamp = queryDic.GetValueOrDefault("timestamp"),
-                OpenId = queryDic.GetValueOrDefault("openid"),
-                MsgSignature = queryDic.GetValueOrDefault("msg_signature")
+                Nonce = queryDic.SelectValueOrDefault("nonce"),
+                Signature = queryDic.SelectValueOrDefault("signature"),
+                Timestamp = queryDic.SelectValueOrDefault("timestamp"),
+                OpenId = queryDic.SelectValueOrDefault("openid"),
+                MsgSignature = queryDic.SelectValueOrDefault("msg_signature")
             };
             return model;
         }

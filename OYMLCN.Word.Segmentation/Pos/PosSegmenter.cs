@@ -129,7 +129,7 @@ namespace OYMLCN.Word.Segmentation.Pos
                         AddBufferToWordList(tokens, buf);
                         buf = string.Empty;
                     }
-                    tokens.Add(new Pair(w, _wordTagTab.GetValueOrDefault(w, "x")));
+                    tokens.Add(new Pair(w, _wordTagTab.SelectValueOrDefault(w, "x")));
                 x = y;
             }
 
@@ -167,7 +167,7 @@ namespace OYMLCN.Word.Segmentation.Pos
                         tokens.Add(new Pair(buf, "eng"));
                         buf = string.Empty;
                     }
-                    tokens.Add(new Pair(w, _wordTagTab.GetValueOrDefault(w, "x")));
+                    tokens.Add(new Pair(w, _wordTagTab.SelectValueOrDefault(w, "x")));
                     x = y;
                 }
             }
@@ -207,7 +207,7 @@ namespace OYMLCN.Word.Segmentation.Pos
         private void AddBufferToWordList(List<Pair> words, string buf)
         {
             if (buf.Length == 1)
-                words.Add(new Pair(buf, _wordTagTab.GetValueOrDefault(buf, "x")));
+                words.Add(new Pair(buf, _wordTagTab.SelectValueOrDefault(buf, "x")));
             else
             {
                 if (!WordDict.ContainsWord(buf))

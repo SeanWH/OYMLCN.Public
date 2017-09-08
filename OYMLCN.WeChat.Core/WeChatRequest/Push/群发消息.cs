@@ -55,7 +55,7 @@ namespace OYMLCN.WeChat
             /// <summary>
             /// 审核失败的具体原因
             /// </summary>
-            public string ErrorReason => errReson.GetValueOrDefault(Status.ToNumeric());
+            public string ErrorReason => errReson.SelectValueOrDefault(Status.ToNumeric());
 
 
             /// <summary>

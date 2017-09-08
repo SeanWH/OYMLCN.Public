@@ -65,7 +65,7 @@ namespace OYMLCN.Word.Segmentation
                 {
                     foreach (var c in node.Children.Keys)
                         replaces.Add(word.Substring(0, i) + c + word.Substring(i + 1));
-                    node = node.Children.GetValueOrDefault(word[i]);
+                    node = node.Children.SelectValueOrDefault(word[i]);
                 }
             }
 
@@ -76,14 +76,14 @@ namespace OYMLCN.Word.Segmentation
                     foreach (var first in FirstChars[word[0]])
                         inserts.Add(first + word);
 
-                var node = WordTrie.Root.Children.GetValueOrDefault(word[0]);
+                var node = WordTrie.Root.Children.SelectValueOrDefault(word[0]);
                 for (int i = 0; node.IsNotNull() && node.Children.IsNotEmpty() && i < word.Length; i++)
                 {
                     foreach (var c in node.Children.Keys)
                         inserts.Add(word.Substring(0, i + 1) + c + word.Substring(i + 1));
 
                     if (i < word.Length - 1)
-                        node = node.Children.GetValueOrDefault(word[i + 1]);
+                        node = node.Children.SelectValueOrDefault(word[i + 1]);
                 }
             }
 

@@ -437,13 +437,6 @@ namespace OYMLCN
             return result.ToArray();
         }
 
-        /// <summary>
-        /// 将字符串数组拼接成字符串
-        /// </summary>
-        /// <param name="list"></param>
-        /// <param name="separator"></param>
-        /// <returns></returns>
-        public static string Join(this IEnumerable<string> list, string separator = "") => string.Join(separator, list);
 
         /// <summary>
         /// 替换字符串
