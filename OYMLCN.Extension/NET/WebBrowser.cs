@@ -143,16 +143,10 @@ namespace OYMLCN
             Struct_INTERNET_PROXY_INFO struct_IPI;
 
             //Filling in structure 
-            if (string.IsNullOrEmpty(strProxy) || strProxy.Trim().Length == 0)
-            {
-                strProxy = string.Empty;
+            if ((strProxy =  strProxy.Trim()).IsNullOrEmpty())
                 struct_IPI.dwAccessType = INTERNET_OPEN_TYPE_DIRECT;
-
-            }
             else
-            {
                 struct_IPI.dwAccessType = INTERNET_OPEN_TYPE_PROXY;
-            }
             //把代理地址设置到非托管内存地址中
             struct_IPI.proxy = Marshal.StringToHGlobalAnsi(strProxy);
             //代理通过本地连接到代理服务器上

@@ -28,7 +28,7 @@ GetClassNameNode、GetClassNameNodes</Description>
     <DocumentationFile>bin\Release\net461\OYMLCN.HtmlAgilityPack.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack" Version="1.5.4" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.5.5" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />

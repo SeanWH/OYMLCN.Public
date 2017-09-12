@@ -57,17 +57,15 @@ namespace OYMLCN
         {
             if (url.IsNullOrEmpty())
                 throw new ArgumentNullException("url", "请求URL地址不能为空");
-            var client = new System.Net.Http.HttpClient();
+            HttpClient client;
             if (cookieContainer != null)
-            {
-                var handler = new HttpClientHandler
+                client = new HttpClient(new HttpClientHandler
                 {
                     CookieContainer = cookieContainer,
                     UseCookies = true,
-
-                };
-                client = new HttpClient(handler);
-            }
+                });
+            else
+                client = new HttpClient();
             client.Timeout = new TimeSpan(0, 0, timeout);
             var t = client.GetStreamAsync(url);
             t.Wait();            
@@ -123,13 +121,15 @@ namespace OYMLCN
         {
             if (url.IsNullOrEmpty())
                 throw new ArgumentNullException("url", "请求URL地址不能为空");
-            var client = new System.Net.Http.HttpClient();
+            HttpClient client;
             if (cookieContainer != null)
-                client = new System.Net.Http.HttpClient(new HttpClientHandler
+                client = new HttpClient(new HttpClientHandler
                 {
                     CookieContainer = cookieContainer,
-                    UseCookies = true
+                    UseCookies = true,
                 });
+            else
+                client = new HttpClient();
             client.Timeout = new TimeSpan(timeout * 1000 * 10000);
 
             HttpContent content = null;
