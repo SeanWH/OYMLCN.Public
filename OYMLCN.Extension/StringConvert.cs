@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
+using System.Net;
 using System.Numerics;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace OYMLCN
@@ -239,6 +242,29 @@ namespace OYMLCN
             }
         }
 
+        /// <summary>
+        /// 转换网页地址为Uri
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static Uri ToUri(this string str) => new Uri(str);
+        /// <summary>
+        /// 转换网页地址为Uri(失败返回null)
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static Uri ToNullableUri(this string str)
+
+        {
+            try
+            {
+                return new Uri(str);
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
         /// <summary>
         /// 将字符串转换为Boolean类型（当字符串是“true/1/yes/checked/是/对”(不区分大小写)时返回true）
@@ -262,6 +288,48 @@ namespace OYMLCN
                 return null;
             return str.ConvertToBoolean();
         }
+
+        /// <summary>
+        /// 将单个Cookie字符串转换为Cookie类型
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static Cookie ToCookie(this string str)
+        {
+            if (str.IsNullOrEmpty())
+                return null;
+            var index = str.IndexOf('=');
+            return new Cookie(str.SubString(0, index).Trim(), str.SubString(++index, int.MaxValue));
+        }
+        /// <summary>
+        /// 将Cookies字符串转换为CookieCollection集合
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static CookieCollection ToCookieCollection(this string str)
+        {
+            var result = new CookieCollection();
+            foreach (var cookie in str?.SplitBySign(";") ?? new string[0])
+                result.Add(cookie.ToCookie());
+            return result;
+        }
+
+        /// <summary>
+        /// 将字符串填充到Steam中
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="encoder">默认使用UTF-8进行编码</param>
+        /// <returns></returns>
+        public static Stream StringToStream(this string str, Encoding encoder = null) => new MemoryStream(str.StringToBytes(encoder));
+
+        /// <summary>
+        /// 将字符串填充到byte[]字节流中
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="encoder">默认使用UTF-8进行编码</param>
+        /// <returns></returns>
+        public static byte[] StringToBytes(this string str, Encoding encoder = null) => encoder?.GetBytes(str) ?? Encoding.UTF8.GetBytes(str);
+
 
     }
 }
