@@ -67,12 +67,6 @@ namespace OYMLCN
             }
         }
         /// <summary>
-        /// 生成随机字符
-        /// </summary>
-        /// <param name="length">字符串长度</param>
-        /// <returns></returns>
-        public static string RandCode(int length = 6) => RandCode(length);
-        /// <summary>
         /// 生成带特殊符号的随机字符串
         /// </summary>
         /// <param name="length">字符串长度</param>

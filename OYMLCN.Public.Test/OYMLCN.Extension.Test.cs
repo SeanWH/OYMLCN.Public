@@ -316,9 +316,9 @@ namespace OYMLCN.Extension.Test
         public void StringTest()
         {
             Assert.AreEqual(StringExtension.RandCode().Length, 6);
-            Assert.AreEqual("".RandCode(60).Length, 60);
             Assert.AreEqual(StringExtension.RandCode(60).Length, 60);
-            Assert.AreEqual("".RandBlurCode(60).Length, 60);
+            Assert.AreEqual(StringExtension.RandCode(60).Length, 60);
+            Assert.AreEqual(StringExtension.RandBlurCode(60).Length, 60);
             Assert.AreEqual(StringExtension.RandCode(60, true).Length, 60);
             Assert.IsTrue("".IsNullOrEmpty());
             string demo = null;
@@ -442,6 +442,7 @@ namespace OYMLCN.Extension.Test
         public void ZipTest()
         {
             Assert.AreEqual("qq".GZipCompressString().GZipDecompressString(), "qq");
+            Assert.AreEqual("qq".GZipCompressString(removeEmpty: true).GZipDecompressString(autoAppendEmpty: true), "qq");
 
 #if NoBuild
             // 示例方法 不进行单元测试

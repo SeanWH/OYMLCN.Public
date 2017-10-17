@@ -2,6 +2,7 @@
 using System.IO;
 using System.IO.Compression;
 using System.Text;
+using System.Linq;
 
 namespace OYMLCN
 {
@@ -15,14 +16,16 @@ namespace OYMLCN
         /// </summary>
         /// <param name="rawString">需要压缩的字符串</param>
         /// <param name="compressionLevel">压缩效率</param>
+        /// <param name="removeEmpty">移除填充的 = 空符号</param>
         /// <returns>压缩后的Base64编码的字符串</returns>
-        public static string GZipCompressString(this string rawString, CompressionLevel compressionLevel = CompressionLevel.Optimal)
+        public static string GZipCompressString(this string rawString, CompressionLevel compressionLevel = CompressionLevel.Optimal, bool removeEmpty = false)
         {
             if (string.IsNullOrEmpty(rawString) || rawString.Length == 0)
                 return "";
             byte[] rawData = Encoding.UTF8.GetBytes(rawString.ToString());
             byte[] zippedData = GZipCompress(rawData, compressionLevel);
-            return Convert.ToBase64String(zippedData);
+            string result = Convert.ToBase64String(zippedData);
+            return removeEmpty ? result.TrimEnd('=') : result;
         }
 
         /// <summary>
@@ -49,11 +52,18 @@ namespace OYMLCN
         /// 将传入的二进制字符串资料以GZip算法解压缩
         /// </summary>
         /// <param name="zippedString">经GZip压缩后的二进制字符串</param>
+        /// <param name="autoAppendEmpty">不足位数以 = 填充</param>
         /// <returns>原始未压缩字符串</returns>
-        public static string GZipDecompressString(this string zippedString)
+        public static string GZipDecompressString(this string zippedString, bool autoAppendEmpty = false)
         {
             if (string.IsNullOrEmpty(zippedString) || zippedString.Length == 0)
                 return "";
+            if (autoAppendEmpty)
+            {
+                var addEnd = zippedString.Length % 4;
+                for (var i = 0; i < addEnd; i++)
+                    zippedString += "=";
+            }
             byte[] zippedData = Convert.FromBase64String(zippedString.ToString());
             return Encoding.UTF8.GetString(GZipDecompress(zippedData));
         }
