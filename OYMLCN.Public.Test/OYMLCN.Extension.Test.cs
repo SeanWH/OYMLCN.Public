@@ -443,6 +443,7 @@ namespace OYMLCN.Extension.Test
         {
             Assert.AreEqual("qq".GZipCompressString().GZipDecompressString(), "qq");
             Assert.AreEqual("qq".GZipCompressString(removeEmpty: true).GZipDecompressString(autoAppendEmpty: true), "qq");
+            Assert.AreEqual("H4sIAAAAAAAEAHNyjgqwMjO3NDMwNgYA7bMj5AwAAAA".GZipDecompressString(autoAppendEmpty: true), "BCZP:6796033");
 
 #if NoBuild
             // 示例方法 不进行单元测试

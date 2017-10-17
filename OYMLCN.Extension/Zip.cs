@@ -59,11 +59,8 @@ namespace OYMLCN
             if (string.IsNullOrEmpty(zippedString) || zippedString.Length == 0)
                 return "";
             if (autoAppendEmpty)
-            {
-                var addEnd = zippedString.Length % 4;
-                for (var i = 0; i < addEnd; i++)
+                for (var i = zippedString.Length % 4; i < 4; i++)
                     zippedString += "=";
-            }
             byte[] zippedData = Convert.FromBase64String(zippedString.ToString());
             return Encoding.UTF8.GetString(GZipDecompress(zippedData));
         }
