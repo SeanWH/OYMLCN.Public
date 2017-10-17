@@ -18,7 +18,7 @@ namespace OYMLCN
         /// <param name="compressionLevel">压缩效率</param>
         /// <param name="removeEmpty">移除填充的 = 空符号</param>
         /// <returns>压缩后的Base64编码的字符串</returns>
-        public static string GZipCompressString(this string rawString, CompressionLevel compressionLevel = CompressionLevel.Optimal, bool removeEmpty = false)
+        public static string GZipCompressString(this string rawString, CompressionLevel compressionLevel = CompressionLevel.Optimal, bool removeEmpty = true)
         {
             if (string.IsNullOrEmpty(rawString) || rawString.Length == 0)
                 return "";
@@ -52,15 +52,18 @@ namespace OYMLCN
         /// 将传入的二进制字符串资料以GZip算法解压缩
         /// </summary>
         /// <param name="zippedString">经GZip压缩后的二进制字符串</param>
-        /// <param name="autoAppendEmpty">不足位数以 = 填充</param>
         /// <returns>原始未压缩字符串</returns>
-        public static string GZipDecompressString(this string zippedString, bool autoAppendEmpty = false)
+        public static string GZipDecompressString(this string zippedString)
         {
             if (string.IsNullOrEmpty(zippedString) || zippedString.Length == 0)
                 return "";
-            if (autoAppendEmpty)
-                for (var i = zippedString.Length % 4; i < 4; i++)
+
+            // 补充已移除的 = 空白符
+            var length = zippedString.Length % 4;
+            if (length != 0)
+                for (var i = length; i < 4; i++)
                     zippedString += "=";
+
             byte[] zippedData = Convert.FromBase64String(zippedString.ToString());
             return Encoding.UTF8.GetString(GZipDecompress(zippedData));
         }
