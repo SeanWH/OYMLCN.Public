@@ -21,50 +21,35 @@ namespace OYMLCN
         /// </summary>
         /// <param name="length">字符串长度</param>
         /// <param name="blur">是否包含特殊符号</param>
+        /// <param name="onlyNumber">只生成数字字符</param>
         /// <returns></returns>
-        public static string RandCode(int length = 6, bool blur = false)
+        public static string RandCode(int length = 6, bool blur = false, bool onlyNumber = false)
         {
             if (length <= 0)
                 return "";
-            if (blur)
-            {
-                const string letters = "ABCDEFGHIJKLMNOPQRSTWXYZ";
-                const string numbers = "0123456789";
-                const string symbols = "~!@#$%^&*()_-+=[{]}|><,.?/";
-                var hash = string.Empty;
-                var rand = new Random();
+            const string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const string numbers = "0123456789";
+            const string symbols = "~!@#$%^&*()_-+=[{]}|><,.?/";
+            var hash = string.Empty;
+            var rand = new Random();
 
-                for (var cont = 0; cont < length; cont++)
-                    switch (rand.Next(0, 3))
-                    {
-                        case 1:
-                            hash = hash + numbers[rand.Next(0, 10)];
-                            break;
-                        case 2:
-                            hash = hash + symbols[rand.Next(0, 26)];
-                            break;
-                        default:
-                            hash = hash + ((cont % 3 == 0)
-                                ? letters[rand.Next(0, 24)].ToString()
-                                : (letters[rand.Next(0, 24)]).ToString().ToLower());
-                            break;
-                    }
-                return hash;
-            }
-            else
-            {
-                string sCode = "";
-                string codeSerial = "0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
-                string[] arr = codeSerial.Split(',');
-                int randValue = -1;
-                Random rand = new Random(unchecked((int)DateTime.Now.Ticks));
-                for (int i = 0; i < length; i++)
+            for (var cont = 0; cont < length; cont++)
+                switch (onlyNumber ? 1 : rand.Next(0, 3))
                 {
-                    randValue = rand.Next(0, arr.Length - 1);
-                    sCode += arr[randValue];
+                    case 1:
+                        hash = hash + numbers[rand.Next(0, 10)];
+                        break;
+                    case 2:
+
+                        hash = hash + (blur ? symbols[rand.Next(0, 26)] : letters[rand.Next(0, 26)]).ToString();
+                        break;
+                    default:
+                        hash = hash + ((cont % 3 == 0)
+                            ? letters[rand.Next(0, 26)].ToString()
+                            : (letters[rand.Next(0, 26)]).ToString().ToLower());
+                        break;
                 }
-                return sCode;
-            }
+            return hash;
         }
         /// <summary>
         /// 生成带特殊符号的随机字符串
