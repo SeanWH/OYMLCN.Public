@@ -20,24 +20,24 @@ namespace OYMLCN
         static void SetIEProxy(bool enable = false, bool global = false, string host = "127.0.0.1", int port = 1080, string autoConfigPath = "")
         {
             using (var setting = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Internet Settings", true))
+            {
+                setting.SetValue("MigrateProxy", 1);
+                setting.DeleteValue("ProxyOverride", false);
+                setting.DeleteValue("ProxyServer", false);
+                setting.DeleteValue("AutoConfigURL", false);
+                setting.SetValue("ProxyEnable", 0);
                 if (enable)
                 {
-                    setting.SetValue("ProxyEnable", 1);
                     if (!global)
-                    {
-                        setting.DeleteValue("ProxyOverride", false);
-                        setting.DeleteValue("ProxyServer", false);
                         setting.SetValue("AutoConfigURL", $"http://{host}:{port.ToString()}/{autoConfigPath}?t={DateTime.Now.ToString("yyyyMMddHHmmssfff")}");
-                    }
                     else
                     {
-                        setting.DeleteValue("AutoConfigURL", false);
                         setting.SetValue("ProxyOverride", "<local>;localhost;127.*;10.*;172.16.*;172.17.*;172.18.*;172.19.*;172.20.*;172.21.*;172.22.*;172.23.*;172.24.*;172.25.*;172.26.*;172.27.*;172.28.*;172.29.*;172.30.*;172.31.*;172.32.*;192.168.*");
                         setting.SetValue("ProxyServer", $"{host}:{port.ToString()}");
+                        setting.SetValue("ProxyEnable", 1);
                     }
                 }
-                else
-                    setting.SetValue("ProxyEnable", 0);
+            }
 
             //激活代理设置
             InternetSetOption(0, 39, IntPtr.Zero, 0);
