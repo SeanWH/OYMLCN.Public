@@ -101,8 +101,16 @@ namespace OYMLCN
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static bool IsEmail(this string str) =>
+        public static bool IsEmailAddress(this string str) =>
             str.IsNullOrEmpty() ? false : new Regex(@"[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?").IsMatch(str.Trim());
+        /// <summary>
+        /// 判断字符串是否是手机号码
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static bool IsMobilePhoneNumber(this string str) =>
+            str.IsNullOrEmpty() ? false : new Regex(@"^1[0-9]{10}$").IsMatch(str.Trim());
+
 
         /// <summary>
         /// 判断字符是不是汉字

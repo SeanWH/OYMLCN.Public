@@ -325,8 +325,12 @@ namespace OYMLCN.Extension.Test
             Assert.IsTrue(demo.IsNullOrEmpty());
             Assert.IsTrue(" \t \r\n \t".IsNullOrWhiteSpace());
             Assert.IsFalse("0".IsNullOrEmpty());
-            Assert.IsTrue("hi@qq.com".IsEmail());
-            Assert.IsFalse("hi@qq".IsEmail());
+            Assert.IsTrue("hi@qq.com".IsEmailAddress());
+            Assert.IsFalse("hi@qq".IsEmailAddress());
+            Assert.IsTrue("18923224418".IsMobilePhoneNumber());
+            Assert.IsFalse("01892322441".IsMobilePhoneNumber());
+            Assert.IsFalse("075722271511".IsMobilePhoneNumber());
+            Assert.IsFalse("a1892322441".IsMobilePhoneNumber());
             demo = "0123456789";
             Assert.AreEqual(demo.SubString(5).Length, 5);
             Assert.AreEqual(demo.SubString(2, 3).Length, 3);
@@ -340,7 +344,7 @@ namespace OYMLCN.Extension.Test
             Assert.AreEqual(demo.SplitThenGetLast(","), "ya");
             CollectionAssert.AreEqual("hi,ni,hao,,,ya".SplitBySign(",", System.StringSplitOptions.RemoveEmptyEntries), new string[] { "hi", "ni", "hao", "ya" });
             demo = null;
-            Assert.IsNull(demo.SplitBySign(","));
+            Assert.AreEqual(demo.SplitBySign(",").Length, 0);
             demo = "hi,ni/hao*ya";
             CollectionAssert.AreEqual(demo.SplitByMultiSign(",", "/", "*"), new string[] { "hi", "ni", "hao", "ya" });
             CollectionAssert.AreEqual(demo.SplitAuto(), new string[] { "hi", "ni", "hao*ya" });
