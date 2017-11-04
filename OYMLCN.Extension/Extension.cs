@@ -276,6 +276,22 @@ namespace OYMLCN
         /// <returns></returns>
         public static TValue SelectKeyEndWithWordValue<TValue>(this IDictionary<string, TValue> dict, string key) =>
             dict.SelectKeyEndWithWordValues(key).FirstOrDefault();
+
+        /// <summary>
+        /// 追加合并字典
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="dict"></param>
+        /// <param name="dictionary"></param>
+        /// <returns></returns>
+        public static IDictionary<TKey, TValue> AddRange<TKey, TValue>(this IDictionary<TKey, TValue> dict, IDictionary<TKey, TValue> dictionary)
+        {
+            foreach (var item in dictionary)
+                dict[item.Key] = item.Value;
+            return dict;
+        }
+
         #endregion
 
         #region IEnumerable
