@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -19,8 +19,8 @@ namespace OYMLCN
         /// <summary>
         /// 释放内存
         /// </summary>
-        /// <param name="removePages"></param>
-        public static void ReleaseMemory(bool removePages)
+        /// <param name="removePages">强迫症选项，将内存页大小设置为0</param>
+        public static void ReleaseMemory(bool removePages = false)
         {
             // release any unused pages
             // making the numbers look good in task manager
@@ -31,45 +31,32 @@ namespace OYMLCN
             GC.Collect(GC.MaxGeneration);
             GC.WaitForPendingFinalizers();
             if (removePages)
-            {
-                // as some users have pointed out
-                // removing pages from working set will cause some IO
-                // which lowered user experience for another group of users
-                //
-                // so we do 2 more things here to satisfy them:
-                // 1. only remove pages once when configuration is changed
-                // 2. add more comments here to tell users that calling
-                //    this function will not be more frequent than
-                //    IM apps writing chat logs, or web browsers writing cache files
-                //    if they're so concerned about their disk, they should
-                //    uninstall all IM apps and web browsers
-                //
-                // please open an issue if you're worried about anything else in your computer
-                // no matter it's GPU performance, monitor contrast, audio fidelity
-                // or anything else in the task manager
-                // we'll do as much as we can to help you
-                //
-                // just kidding
                 SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle, (UIntPtr)0xFFFFFFFF, (UIntPtr)0xFFFFFFFF);
-            }
         }
+        static bool ReleasingMemoryTimingStarted = false;
+        static int ReleasingMemoryTimingSeconds = 60;
         /// <summary>
         /// 定时释放内存
         /// </summary>
-        public static void StartReleasingMemoryTiming()
+        public static void StartReleasingMemoryTiming(int seconds = 60)
         {
+            ReleasingMemoryTimingSeconds = seconds;
+            if (ReleasingMemoryTimingStarted)
+                return;
+
             var _ramThread = new Thread(new ThreadStart(() =>
             {
                 while (true)
                 {
                     ReleaseMemory(false);
-                    Thread.Sleep(30 * 1000);
+                    Thread.Sleep(ReleasingMemoryTimingSeconds * 1000);
                 }
             }))
             {
                 IsBackground = true
             };
             _ramThread.Start();
+            ReleasingMemoryTimingStarted = true;
         }
         #endregion
 
