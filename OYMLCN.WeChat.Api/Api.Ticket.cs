@@ -1,4 +1,4 @@
-﻿using OYMLCN.WeChat.Model;
+using OYMLCN.WeChat.Model;
 using System;
 using System.Collections;
 using System.Text;
@@ -17,7 +17,7 @@ namespace OYMLCN.WeChat
             public static string CreateJsPackage(string appid, string ticket, string url)
             {
                 var timestamp = DateTime.Now.ToTimestamp();
-                string nonce = "".RandCode(16);
+                string nonce = StringExtension.RandCode(16, onlyNumber: true);
 
                 var parameters = new Hashtable
                 {
