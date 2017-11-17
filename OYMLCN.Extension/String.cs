@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -95,6 +95,13 @@ namespace OYMLCN
         /// <param name="comparison"></param>
         /// <returns></returns>
         public static bool IsEqual(this string str, string value, StringComparison comparison = StringComparison.Ordinal) => (str.IsNull() || value.IsNull()) ? false : str.Equals(value, comparison);
+        /// <summary>
+        /// 对比两个字符串是否相等（忽略大小写）
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsEqualIgnoreCase(this string str, string value) => str.IsEqual(value, StringComparison.OrdinalIgnoreCase);
 
         /// <summary>
         /// 判断字符串是否是邮箱地址
