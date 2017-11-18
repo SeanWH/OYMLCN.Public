@@ -12,7 +12,7 @@ namespace OYMLCN.Web.Mvc
     /// <summary>
     /// TagHelper
     /// </summary>
-    [HtmlTargetElement("taghelper")]
+    [HtmlTargetElement("__taghelper__")]
     public class TagHelper : Microsoft.AspNetCore.Razor.TagHelpers.TagHelper
     {
         /// <summary>
