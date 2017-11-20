@@ -4,6 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
 
 namespace OYMLCN.Web.Mvc
 {
@@ -37,6 +40,38 @@ namespace OYMLCN.Web.Mvc
         /// </summary>
         public long UserId => User.Claims.Where(d => d.Type == ClaimTypes.NameIdentifier).Select(d => d.Value.ConvertToLong()).FirstOrDefault();
 
+        /// <summary>
+        /// 用户登陆
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <param name="userId">用户ID</param>
+        /// <param name="role">用户角色</param>
+        /// <param name="claims">其他标识</param>
+        public void UserSignIn(string userName, long userId, string[] role = null, params Claim[] claims)
+        {
+            var newClaims = claims.ToList();
+            newClaims.Add(new Claim(ClaimTypes.Name, userName));
+            if (role.IsNotEmpty())
+                newClaims.Add(new Claim(ClaimTypes.Role, role?.Join(",")));
+            newClaims.Add(new Claim(ClaimTypes.NameIdentifier, userId.ToString()));
+
+            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(
+                    new ClaimsPrincipal(
+                        new ClaimsIdentity(newClaims, CookieAuthenticationDefaults.AuthenticationScheme)
+                        )
+                    )
+                ).Wait();
+        }
+        /// <summary>
+        /// 注销登陆
+        /// </summary>
+        public void UserSignOut() => HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme).Wait();
+
+        /// <summary>
+        /// 上一路径
+        /// </summary>
+        public string RefererPath => (Request.Headers as FrameRequestHeaders).HeaderReferer.FirstOrDefault()?.ToUri()?.AbsolutePath;
         /// <summary>
         /// 请求域名
         /// </summary>

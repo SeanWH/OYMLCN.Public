@@ -21,10 +21,17 @@ namespace Microsoft.Extensions.Configuration
         /// <param name="sessionTimeOutHours">Session过期回收时间（默认2小时）</param>
         /// <param name="loginPath">用户登陆路径</param>
         /// <param name="accessDeniedPath">禁止访问路径，不设置则回到登陆页</param>
+        /// <param name="returnUrlParameter">上一页面地址回传参数</param>
         /// <param name="cookieDomain">Cookie作用域</param>
         /// <param name="securePolicy">Cookie安全策略</param>
         /// <returns></returns>
-        public static IServiceCollection AddSessionAndCookie(this IServiceCollection services, double sessionTimeOutHours = 2, string loginPath = "/Account/Login", string accessDeniedPath = null, string cookieDomain = null, CookieSecurePolicy securePolicy = CookieSecurePolicy.SameAsRequest)
+        public static IServiceCollection AddSessionAndCookie(this IServiceCollection services, 
+            double sessionTimeOutHours = 2, 
+            string loginPath = "/Account/Login",
+            string accessDeniedPath = null, 
+            string returnUrlParameter = "ReturnUrl", 
+            string cookieDomain = null, 
+            CookieSecurePolicy securePolicy = CookieSecurePolicy.SameAsRequest)
         {
             services.AddMemoryCache();
             services
@@ -39,6 +46,7 @@ namespace Microsoft.Extensions.Configuration
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
                 {
                     options.LoginPath = new PathString(loginPath);
+                    options.ReturnUrlParameter = returnUrlParameter;
                     options.AccessDeniedPath = new PathString(accessDeniedPath ?? loginPath);
 
                     options.Cookie.HttpOnly = true;
