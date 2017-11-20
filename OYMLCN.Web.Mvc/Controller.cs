@@ -42,6 +42,9 @@ namespace OYMLCN.Web.Mvc
 
         /// <summary>
         /// 用户登陆
+        /// 需要在 Startup 中配置Session及Cookie基本信息
+        /// services.AddSessionAndCookie();
+        /// app.UseAuthentication();
         /// </summary>
         /// <param name="userName">用户名</param>
         /// <param name="userId">用户ID</param>
