@@ -16,8 +16,7 @@
 .Net独有：BitmapExtension、BitmapHandler、HardwareExtension、MouseExtension、RegistryExtension、SystemInfo
 跨平台封装：CryptographyExtension、DateTimeExtension、EnumExtension、FileExtension、FormatExtension、HTMLExtension、HttpClientExtension、ProcessExtension、StreamExtension、StringExtension、WebClientExtension、XmlExtension、ZipExtension</Description>
     <Copyright>OYML.CN</Copyright>
-    <PackageProjectUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.Extension</PackageProjectUrl>
-    <Version>2.0.0</Version>
+    <Version>1.1.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

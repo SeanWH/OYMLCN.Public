@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.DependencyInjection;
+using OYMLCN.Web.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -71,6 +72,19 @@ namespace Microsoft.Extensions.Configuration
                   OriginalProtoHeaderName = "X-Original-Proto",
                   ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
               });
+
+        /// <summary>
+        /// 注入所有扩展模块
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddExtensions(this IServiceCollection services)
+        {
+            services
+                .AddSingleton<EmailSender>()
+                .AddScoped<ViewRender>();
+            return services;
+        }
 
     }
 }

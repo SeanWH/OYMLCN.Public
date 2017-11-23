@@ -7,17 +7,23 @@
   </PropertyGroup>
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
-    <Version>2.0.0</Version>
+    <Version>1.0.0</Version>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Authors>VicBilibily欧阳敏岚</Authors>
     <PackageProjectUrl>https://github.com/VicBilibily/OYMLCN.Public/tree/master/OYMLCN.Web</PackageProjectUrl>
     <Copyright>OYML.CN</Copyright>
-    <Description>ASP.Net Web 的相关扩展
-ExtensionBase扩展类HttpRequestBase、HttpRequest。
-其中WebApi兼容扩展HttpRequestMessage于OYMLCN.Web.Api中。
-ExtensionBase.GetUrlPath()、ExtensionBase.GetUserAgent()
-ExtensionBase.GetQuery()、ExtensionBase.GetQuery(key)
-ExtensionBase.GetBody()、ExtensionBase.GetUserIpAddress()</Description>
+    <Description>ASP.Net Core MVC 扩展
+1.类Controller继承自源类型
+加入参数 IsQcloudCDNRequest、RequestSourceIP、IsAuthenticated、UserName、UserId
+加入方法 UserSignIn、UserSignOut
+加入辅助 RefererPath、RequestHost、RequestPath、RequestUserAgent、RequestQueryParams
+2.配置扩展
+services.AddSessionAndCookie(*)、app.UseQcloudForwardedHeaders()、AddExtensions()
+3.独立模块
+ViewRender、EmailSender
+4.TagHelper
+辅助类 CDNImageHelper
+TagHelperOutput扩展方法 GetAttribute、RemoveAttribute、AddClass</Description>
     <Product>OYMLCN.Web</Product>
     <PackageId>OYMLCN.Web.Mvc</PackageId>
   </PropertyGroup>

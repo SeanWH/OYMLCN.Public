@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Description>阿里云SDK
+services.AddAliyunSingletons() 可注入全部SDK
+包含SDK：Alidayu（仅包含发送验证码接口的方法，其他方法暂未加入）
+其他SDK用到再加入</Description>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netcoreapp2.0\OYMLCN.Aliyun.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp2.0\OYMLCN.Aliyun.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
+    <ProjectReference Include="..\OYMLCN.Json\OYMLCN.Json.csproj" />
+  </ItemGroup>
+
+</Project>

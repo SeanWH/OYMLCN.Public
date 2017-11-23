@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Description>腾讯云SDK
+services.AddTencentCloudSingletons() 可注入全部SDK
+包含SDK：CosCloud（扩展上传文件流，即POST文件不保存直接转发到腾讯云COS存储）
+其他SDK用到再加入</Description>
+    <Authors>VicBilibily欧阳敏岚</Authors>
+    <Company>广东佰群网络科技股份有限公司</Company>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netcoreapp2.0\OYMLCN.Tencent.Cloud.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp2.0\OYMLCN.Tencent.Cloud.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
+    <ProjectReference Include="..\OYMLCN.Json\OYMLCN.Json.csproj" />
+  </ItemGroup>
+
+</Project>

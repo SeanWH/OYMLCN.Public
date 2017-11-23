@@ -6,25 +6,28 @@
     <SccLocalPath>SAK</SccLocalPath>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="OYMLCN.Json.Test.cs" />
     <Compile Remove="OYMLCN.WeChat.Api.Test.cs" />
     <Compile Remove="OYMLCN.WeChat.Core.Test.cs" />
+    <!--<Compile Remove="OYMLCN.Tencent.Cloud.cs" />-->
   </ItemGroup>
   <ItemGroup>
     <None Include="OYMLCN.Json.Test.cs" />
     <None Include="OYMLCN.WeChat.Api.Test.cs" />
     <None Include="OYMLCN.WeChat.Core.Test.cs" />
+    <!--<None Include="OYMLCN.Tencent.Cloud.cs" />-->
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170427-09" />
-    <PackageReference Include="MSTest.TestAdapter" Version="1.1.18" />
-    <PackageReference Include="MSTest.TestFramework" Version="1.1.18" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.2.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.2.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
+    <ProjectReference Include="..\OYMLCN.Tencent.Cloud\OYMLCN.Tencent.Cloud.csproj" />
     <!--<ProjectReference Include="..\OYMLCN.Json\OYMLCN.Json.csproj" />
     <ProjectReference Include="..\OYMLCN.WeChat.Api\OYMLCN.WeChat.Api.Core.csproj" />
     <ProjectReference Include="..\OYMLCN.WeChat.Core\OYMLCN.WeChat.Core.csproj" />-->

@@ -26,13 +26,25 @@ namespace OYMLCN.Web.Mvc
         /// </summary>
         /// <param name="controller"></param>
         /// <returns></returns>
-        public bool IsEqualController(string controller) => controller.IsEqual(ViewContext.RouteData.Values["controller"]?.ToString(), StringComparison.OrdinalIgnoreCase);
+        public bool IsEqualController(string controller) => controller.IsEqual(ViewContext.RouteData.Values["controller"]?.ToString());
+        /// <summary>
+        /// 传入属性值对比是否等于当前请求的Controller
+        /// </summary>
+        /// <param name="controllers"></param>
+        /// <returns></returns>
+        public bool IsEqualControllers(string controllers) => IsEqualControllers(controllers.SplitAuto());
+        /// <summary>
+        /// 传入属性值对比是否等于当前请求的Controller
+        /// </summary>
+        /// <param name="controllers"></param>
+        /// <returns></returns>
+        public bool IsEqualControllers(params string[] controllers) => controllers.Contains(ViewContext.RouteData.Values["controller"]?.ToString());
         /// <summary>
         /// 传入属性值对比是否等于当前请求的Action
         /// </summary>
         /// <param name="action"></param>
         /// <returns></returns>
-        public bool IsEqualAction(string action) => action.IsEqual(ViewContext.RouteData.Values["action"]?.ToString(), StringComparison.OrdinalIgnoreCase);
+        public bool IsEqualAction(string action) => action.IsEqual(ViewContext.RouteData.Values["action"]?.ToString());
         /// <summary>
         /// 传入属性值对比是否等于当前请求的Action与Controller
         /// </summary>
@@ -56,16 +68,8 @@ namespace OYMLCN.Web.Mvc
         IConfiguration Configuration { get; set; }
 
         /// <summary>
-        /// 若要使用，请在 appsettings 配置文件中配置 QCloud:CDNHost 参数 
+        /// 若要使用，请在 appsettings 配置文件中配置 string TencentCloud:CDN 参数 
         /// </summary>
-        /// <example>
-        /// eg:
-        /// {
-        ///   "QCloud": {
-        ///     "CDNHost": "//host"
-        ///   }
-        /// }
-        /// </example>
         [HtmlAttributeName("cdn-src")]
         public string Attribute { get; set; }
 
@@ -78,7 +82,7 @@ namespace OYMLCN.Web.Mvc
         {
             output.RemoveAttribute("src");
 
-            output.Attributes.Add("src", $"{Configuration.GetValue<string>("QCloud:CDNHost").TrimEnd('/')}/{Attribute.TrimStart('~', '/')}");
+            output.Attributes.Add("src", $"{Configuration.GetValue<string>("TencentCloud:CDN").TrimEnd('/')}/{Attribute.TrimStart('~', '/')}");
             base.Process(context, output);
         }
     }

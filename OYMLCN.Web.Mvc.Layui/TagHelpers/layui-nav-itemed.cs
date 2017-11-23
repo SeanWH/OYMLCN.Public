@@ -10,6 +10,7 @@ namespace OYMLCN.Web.Mvc.Layui
     {
         /// <summary>
         /// layui-nav-itemed-controller
+        /// 多个用任意分隔符分割
         /// </summary>
         [HtmlAttributeName("layui-nav-itemed-controller")]
         public string Controller { get; set; }
@@ -26,7 +27,7 @@ namespace OYMLCN.Web.Mvc.Layui
         /// <param name="output"></param>
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            if (IsEqualController(Controller) && (Action.IsNullOrEmpty() || IsEqualAction(Action)))
+            if (IsEqualControllers(Controller) && (Action.IsNullOrEmpty() || IsEqualAction(Action)))
                 output.AddClass("layui-nav-itemed");
             base.Process(context, output);
         }
