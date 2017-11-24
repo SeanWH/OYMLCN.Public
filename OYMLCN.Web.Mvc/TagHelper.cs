@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace OYMLCN.Web.Mvc
+namespace OYMLCN.Web.Mvc.TagHelpers
 {
     /// <summary>
     /// TagHelper
@@ -60,12 +60,13 @@ namespace OYMLCN.Web.Mvc
     [HtmlTargetElement("img", Attributes = "cdn-src")]
     public class CDNImageHelper : TagHelper
     {
+        string CDN_Url { get; set; }
         /// <summary>
         /// CDNImageHelper
         /// </summary>
         /// <param name="configuration"></param>
-        public CDNImageHelper(IConfiguration configuration) => Configuration = configuration;
-        IConfiguration Configuration { get; set; }
+        public CDNImageHelper(IConfiguration configuration) =>
+            CDN_Url = configuration.GetValue<string>("TencentCloud:CDN")?.TrimEnd('/');
 
         /// <summary>
         /// 若要使用，请在 appsettings 配置文件中配置 string TencentCloud:CDN 参数 
@@ -82,7 +83,7 @@ namespace OYMLCN.Web.Mvc
         {
             output.RemoveAttribute("src");
 
-            output.Attributes.Add("src", $"{Configuration.GetValue<string>("TencentCloud:CDN").TrimEnd('/')}/{Attribute.TrimStart('~', '/')}");
+            output.Attributes.Add("src", $"{CDN_Url}/{Attribute.TrimStart('~', '/')}");
             base.Process(context, output);
         }
     }
@@ -105,7 +106,7 @@ namespace OYMLCN
         public static TagHelperAttribute GetAttribute(this TagHelperOutput output, string name) =>
             output.Attributes.Where(d => d.Name.IsEqualIgnoreCase(name)).FirstOrDefault();
         /// <summary>
-        /// 移除属性
+        /// 移除并返回属性
         /// </summary>
         /// <param name="output"></param>
         /// <param name="name"></param>

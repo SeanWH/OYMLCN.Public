@@ -18,11 +18,9 @@ services.AddTencentCloudSingletons() 可注入全部SDK
     <DocumentationFile>bin\Debug\netcoreapp2.0\OYMLCN.Tencent.Cloud.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
     <ProjectReference Include="..\OYMLCN.Json\OYMLCN.Json.csproj" />
+    <ProjectReference Include="..\OYMLCN.Web.Mvc\OYMLCN.Web.Mvc.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace OYMLCN.Web.Mvc.Layui
+namespace OYMLCN.Web.Mvc.Layui.TagHelpers
 {
     /// <summary>
     /// layui-nav-itemed
     /// </summary>
     [HtmlTargetElement("li", Attributes = "layui-nav-itemed-controller")]
-    public class LayuiNavItemedTagHelper : TagHelper
+    public class LayuiNavItemedTagHelper : Mvc.TagHelpers.TagHelper
     {
         /// <summary>
         /// layui-nav-itemed-controller

@@ -2,14 +2,14 @@ using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace OYMLCN.Web.Mvc.Layui
+namespace OYMLCN.Web.Mvc.Layui.TagHelpers
 {
     /// <summary>
     /// layui-this
     /// </summary>
     [HtmlTargetElement("li", Attributes = "layui-this-controller")]
     [HtmlTargetElement("dd", Attributes = "layui-this-controller,layui-this-action")]
-    public class LayuiThisTagHelper : TagHelper
+    public class LayuiThisTagHelper : Mvc.TagHelpers.TagHelper
     {
         /// <summary>
         /// layui-this-controller
@@ -56,10 +56,12 @@ namespace OYMLCN.Web.Mvc.Layui
         /// <param name="output"></param>
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            var aHelper = new AnchorTagHelper(Generator);
-            aHelper.Action = Action;
-            aHelper.Controller = Controller;
-            aHelper.ViewContext = ViewContext;
+            var aHelper = new AnchorTagHelper(Generator)
+            {
+                Action = Action,
+                Controller = Controller,
+                ViewContext = ViewContext
+            };
             aHelper.Process(context, output);
             base.Process(context, output);
         }
