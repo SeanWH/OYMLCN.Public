@@ -38,7 +38,7 @@ namespace OYMLCN.Web.Mvc
         /// <summary>
         /// 登陆用户唯一标识
         /// </summary>
-        public long UserId => User.Claims.Where(d => d.Type == ClaimTypes.NameIdentifier).Select(d => d.Value.ConvertToLong()).FirstOrDefault();
+        public string UserId => User.Claims.Where(d => d.Type == ClaimTypes.NameIdentifier).FirstOrDefault()?.Value;
 
         /// <summary>
         /// 用户登陆

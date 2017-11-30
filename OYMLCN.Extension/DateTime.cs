@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace OYMLCN
 {
@@ -19,7 +19,13 @@ namespace OYMLCN
         /// <param name="timestamp"></param>
         /// <returns></returns>
         public static DateTime TimestampToDateTime(this long timestamp) => new DateTime(1970, 1, 1).AddTicks((timestamp + 8 * 60 * 60) * 10000000);
-        
+        /// <summary>
+        /// 将时间戳（1970-1-1 00:00:00至target的总秒数）转换成Datetime
+        /// </summary>
+        /// <param name="timestamp"></param>
+        /// <returns></returns>
+        public static DateTime TimestampToDateTime(this int timestamp) => TimestampToDateTime((long)timestamp);
+
         /// <summary>
         /// 获取年 开始时间
         /// </summary>

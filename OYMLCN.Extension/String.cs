@@ -149,6 +149,33 @@ namespace OYMLCN
             new string(str.Skip(skipLength).Take(subLength).ToArray());
         #endregion
 
+        /// <summary>
+        /// 拼接字符串（有分隔符）
+        /// 常用于 class 样式属性的拼接
+        /// </summary>
+        /// <param name="source">原属性</param>
+        /// <param name="value">新增属性</param>
+        /// <param name="splitKey">分隔符（默认为空格）</param>
+        /// <param name="onEnd">新增属性位置</param>
+        /// <returns></returns>
+        public static string AppendWith(this string source, string value, string splitKey = " ", bool onEnd = true)
+        {
+            var val = value.SplitBySign(splitKey);
+            var vals = source.ToString().SplitBySign(splitKey);
+            var attrs = new List<string>();
+            if (onEnd)
+            {
+                attrs.AddRange(val);
+                attrs.AddRange(vals);
+            }
+            else
+            {
+                attrs.AddRange(vals);
+                attrs.AddRange(val);
+            }
+            return attrs.Distinct().Join(splitKey);
+        }
+
 
         /// <summary>
         /// 根据占位符紧接多个字符串 即string.Format

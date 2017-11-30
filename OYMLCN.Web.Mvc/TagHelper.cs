@@ -87,7 +87,25 @@ namespace OYMLCN.Web.Mvc.TagHelpers
             base.Process(context, output);
         }
     }
+    [HtmlTargetElement("input", Attributes = "asp-checked")]
+    public class InputCheckedHelper : TagHelper
+    {
+        [HtmlAttributeName("asp-checked")]
+        public bool? Attribute { get; set; }
 
+        /// <summary>
+        /// Process
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="output"></param>
+        public override void Process(TagHelperContext context, TagHelperOutput output)
+        {
+            output.RemoveAttribute("checked");
+            if (Attribute == true)
+                output.Attributes.Add("checked", null);
+            base.Process(context, output);
+        }
+    }
 }
 
 namespace OYMLCN

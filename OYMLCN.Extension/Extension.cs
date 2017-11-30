@@ -279,6 +279,18 @@ namespace OYMLCN
             return dict;
         }
 
+        /// <summary>
+        /// 拼接HTML标签属性项目
+        /// </summary>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="dict"></param>
+        /// <returns></returns>
+        public static string ToHtmlAttributesString<TValue>(this IDictionary<string, TValue> dict) =>
+            dict.Select(d => d.Value.IsNull() ? d.Key : d.Value.ToString().IsEmpty() ? null : $"{d.Key}=\"{d.Value}\"")
+                .Where(d => d.IsNotNull())
+                .Join(" ");
+
+
         #endregion
 
         #region IEnumerable
