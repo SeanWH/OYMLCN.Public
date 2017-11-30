@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <RootNamespace>OYMLCN.Word.KeyWord</RootNamespace>
     <Version>1.0.3</Version>
     <Description>基于TF-IDF的关键词提取组件
@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
-    <ProjectReference Include="..\OYMLCN.Json\OYMLCN.Json.csproj" />
     <ProjectReference Include="..\OYMLCN.Word.Segmentation\OYMLCN.Word.Segmentation.csproj" />
   </ItemGroup>
 

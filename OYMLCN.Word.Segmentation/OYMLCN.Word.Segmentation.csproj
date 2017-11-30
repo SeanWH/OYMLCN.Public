@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <Description>基于jieba结巴分词的分词组件
 扩展方法（String）：CutApart、CutAllApart、CutApartForSearch、CutApartAndGetFlag、GetWordTokenize、GetWordTokenizeForSearch、CheckSpell
 除CheckSpell外均有WithoutHMM不使用HMM算法分词模式的方法扩展
@@ -27,7 +27,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
-    <ProjectReference Include="..\OYMLCN.Json\OYMLCN.Json.csproj" />
   </ItemGroup>
 
   <ItemGroup>

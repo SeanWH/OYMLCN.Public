@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
@@ -58,8 +58,8 @@ namespace OYMLCN.Open.SpecialTest
             //        算法中的指令描述的是一个计算，当其运行时能从一个初始状态和初始输入（可能为空）开始，经过一系列有限而清晰定义的状态最终产生输出并停止于一个终态。一个状态到另一个状态的转移不一定是确定的。随机化算法在内的一些算法，包含了一些随机输入。
             //        形式化算法的概念部分源自尝试解决希尔伯特提出的判定问题，并在其后尝试定义有效计算性或者有效方法中成形。这些尝试包括库尔特·哥德尔、雅克·埃尔布朗和斯蒂芬·科尔·克莱尼分别于1930年、1934年和1935年提出的递归函数，阿隆佐·邱奇于1936年提出的λ演算，1936年Emil Leon Post的Formulation 1和艾伦·图灵1937年提出的图灵机。即使在当前，依然常有直觉想法难以定义为形式化算法的情况。";
             //Console.WriteLine(string.Join("\r\n", str.GetKeyWordsWegiht(int.MaxValue).Select(d => "{0}/{1}".StringFormat(d.Word, d.Weight.ToString()))));
-            
-            Console.WriteLine("哈哈");
+                    
+            Console.WriteLine("哈哈".Pinyin().TotalPinYin);
 
             Console.ReadLine();
         }

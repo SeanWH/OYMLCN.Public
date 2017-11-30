@@ -273,18 +273,18 @@ namespace OYMLCN.Extension.Test
         }
 
 
-        //[TestMethod]
-        //public void PinYinTest()
-        //{
-        //    string demo = "你是好人";
-        //    var pinyin = demo.Pinyin(false);
-        //    Assert.AreEqual(string.Join(",", pinyin.FirstPinYin), "nshr");
-        //    Assert.AreEqual(string.Join(",", pinyin.TotalPinYin), "nishihaoren");
-        //    demo = "长";
-        //    pinyin = demo.Pinyin(true);
-        //    Assert.AreEqual(string.Join(",", pinyin.FirstPinYin), "c,z");
-        //    Assert.AreEqual(string.Join(",", pinyin.TotalPinYin), "chang,zhang");
-        //}
+        [TestMethod]
+        public void PinYinTest()
+        {
+            string demo = "你是好人";
+            var pinyin = demo.Pinyin(false);
+            Assert.AreEqual(string.Join(",", pinyin.FirstPinYin), "nshr");
+            Assert.AreEqual(string.Join(",", pinyin.TotalPinYin), "nishihaoren");
+            demo = "长";
+            pinyin = demo.Pinyin(true);
+            Assert.AreEqual(string.Join(",", pinyin.FirstPinYin), "c,z");
+            Assert.AreEqual(string.Join(",", pinyin.TotalPinYin), "chang,zhang");
+        }
 
         [TestMethod]
         public void StreamTest()

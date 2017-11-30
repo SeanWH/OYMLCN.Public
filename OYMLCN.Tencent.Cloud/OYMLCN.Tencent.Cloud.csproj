@@ -19,7 +19,6 @@ services.AddTencentCloudSingletons() 可注入全部SDK
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
-    <ProjectReference Include="..\OYMLCN.Json\OYMLCN.Json.csproj" />
     <ProjectReference Include="..\OYMLCN.Web.Mvc\OYMLCN.Web.Mvc.csproj" />
   </ItemGroup>
 

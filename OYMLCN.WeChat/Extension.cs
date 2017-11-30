@@ -1,4 +1,4 @@
-﻿using OYMLCN.WeChat.Enums;
+using OYMLCN.WeChat.Enums;
 using System.Collections.Generic;
 #if NET461
 using System.Web;
