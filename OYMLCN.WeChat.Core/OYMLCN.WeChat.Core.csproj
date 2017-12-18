@@ -23,6 +23,5 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
-    <ProjectReference Include="..\OYMLCN.Web\OYMLCN.Web.csproj" />
   </ItemGroup>
 </Project>

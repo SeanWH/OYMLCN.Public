@@ -26,8 +26,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\OYMLCN.Extension\OYMLCN.Extension.csproj" />
-    <ProjectReference Include="..\OYMLCN.Json\OYMLCN.Json.csproj" />
-    <ProjectReference Include="..\OYMLCN.Web\OYMLCN.Web.csproj" />
     <ProjectReference Include="..\OYMLCN.WeChat.Api\OYMLCN.WeChat.Api.Core.csproj" />
     <ProjectReference Include="..\OYMLCN.WeChat.Core\OYMLCN.WeChat.Core.csproj" />
   </ItemGroup>

@@ -81,9 +81,7 @@ namespace OYMLCN.Web.Mvc.TagHelpers
         /// <param name="output"></param>
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.RemoveAttribute("src");
-
-            output.Attributes.Add("src", $"{CDN_Url}/{Attribute.TrimStart('~', '/')}");
+            output.Attributes.SetAttribute("src", $"{CDN_Url}/{Attribute.TrimStart('~', '/')}");
             base.Process(context, output);
         }
     }
@@ -100,12 +98,35 @@ namespace OYMLCN.Web.Mvc.TagHelpers
         /// <param name="output"></param>
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.RemoveAttribute("checked");
             if (Attribute == true)
-                output.Attributes.Add("checked", null);
+                output.Attributes.SetAttribute("checked", null);
+            else
+                output.RemoveAttribute("checked");
+
             base.Process(context, output);
         }
     }
+    [HtmlTargetElement("option", Attributes = "asp-selected")]
+    public class SelectOptionSelectedHelper : TagHelper
+    {
+        [HtmlAttributeName("asp-selected")]
+        public bool? Attribute { get; set; }
+
+        /// <summary>
+        /// Process
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="output"></param>
+        public override void Process(TagHelperContext context, TagHelperOutput output)
+        {
+            if (Attribute == true)
+                output.Attributes.SetAttribute("selected", null);
+            else
+                output.RemoveAttribute("selected");
+            base.Process(context, output);
+        }
+    }
+
 }
 
 namespace OYMLCN

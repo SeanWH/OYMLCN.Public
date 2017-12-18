@@ -261,3 +261,7 @@ __pycache__/
 *.pyc
 /OYMLCN.Public.SpecialTest/Resources
 *.gzip
+
+VSdoc/
+*/*.vsdoc
+*/OYMLCN.*.xml
