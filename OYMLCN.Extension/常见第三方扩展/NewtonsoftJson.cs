@@ -55,7 +55,7 @@ namespace OYMLCN
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static JToken ParseToJToken(this string str) => JToken.Parse(str);
+        public static JToken ParseToJToken(this string str) => JToken.Parse(str.IsNullOrWhiteSpace() ? "{}" : str);
 
 
 
@@ -73,6 +73,13 @@ namespace OYMLCN
         /// <param name="key"></param>
         /// <returns></returns>
         public static int? GetInt32(this JToken jt, string key) => jt[key]?.Value<int>();
+        /// <summary>
+        /// 获取指定值
+        /// </summary>
+        /// <param name="jt"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static long? GetInt64(this JToken jt, string key) => jt[key]?.Value<long>();
         /// <summary>
         /// 获取指定值
         /// </summary>

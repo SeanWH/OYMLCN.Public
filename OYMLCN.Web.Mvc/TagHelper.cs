@@ -2,18 +2,17 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using OYMLCN;
 
-namespace OYMLCN.Web.Mvc.TagHelpers
+namespace Microsoft.AspNetCore.Razor.TagHelpers
 {
     /// <summary>
     /// TagHelper
     /// </summary>
     [HtmlTargetElement("__taghelper__")]
-    public class TagHelper : Microsoft.AspNetCore.Razor.TagHelpers.TagHelper
+    public class TagHelperBase : TagHelper
     {
         /// <summary>
         /// ViewContext
@@ -58,7 +57,7 @@ namespace OYMLCN.Web.Mvc.TagHelpers
     /// CDNImageHelper
     /// </summary>
     [HtmlTargetElement("img", Attributes = "cdn-src")]
-    public class CDNImageHelper : TagHelper
+    public class CDNImageHelper : TagHelperBase
     {
         string CDN_Url { get; set; }
         /// <summary>
@@ -86,7 +85,7 @@ namespace OYMLCN.Web.Mvc.TagHelpers
         }
     }
     [HtmlTargetElement("input", Attributes = "asp-checked")]
-    public class InputCheckedHelper : TagHelper
+    public class InputCheckedHelper : TagHelperBase
     {
         [HtmlAttributeName("asp-checked")]
         public bool? Attribute { get; set; }
@@ -107,7 +106,7 @@ namespace OYMLCN.Web.Mvc.TagHelpers
         }
     }
     [HtmlTargetElement("option", Attributes = "asp-selected")]
-    public class SelectOptionSelectedHelper : TagHelper
+    public class SelectOptionSelectedHelper : TagHelperBase
     {
         [HtmlAttributeName("asp-selected")]
         public bool? Attribute { get; set; }

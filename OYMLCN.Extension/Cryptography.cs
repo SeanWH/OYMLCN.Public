@@ -1,3 +1,4 @@
+using OYMLCN.Cryptography;
 using System;
 using System.IO;
 using System.Linq;
@@ -113,7 +114,7 @@ namespace OYMLCN
         /// <param name="key"></param>
         /// <returns></returns>
         public static string EncodeToHMACSHA512Base64(this string str, string key) => new HMACSHA512().Base64Encoder(key, str);
-        
+
         /// <summary>
         /// 转换字符串为MD5加密值
         /// </summary>
@@ -265,19 +266,22 @@ namespace OYMLCN
             }
         }
 
-
         /// <summary>
         /// 生成 RSA 公钥和私钥
         /// </summary>
         /// <param name="publicKey">公钥</param>
         /// <param name="privateKey">私钥</param>
-        public static void GenerateRSAKeys(out string publicKey, out string privateKey)
+        /// <param name="rsaSize">加密长度</param>
+        public static void GenerateRSAKeys(out string publicKey, out string privateKey, RsaSize rsaSize = RsaSize.R2048)
         {
-            using (var rsa = new RSACryptoServiceProvider())
-            {
-                publicKey = rsa.ToXmlString(false);
-                privateKey = rsa.ToXmlString(true);
-            }
+            //using (var rsa = new RSACryptoServiceProvider())
+            //{
+            //    publicKey = rsa.ToXmlString(false);
+            //    privateKey = rsa.ToXmlString(true);
+            //}
+            var key = EncryptProvider.CreateRsaKey(rsaSize);
+            publicKey = key.PublicKey;
+            privateKey = key.PrivateKey;
         }
 
         /// <summary>
@@ -288,11 +292,12 @@ namespace OYMLCN
         /// <returns>经过加密的字符串</returns>
         public static string RSAEncrypt(this string content, string publickey)
         {
-            var rsa = new RSACryptoServiceProvider();
-            rsa.FromXmlString(publickey);
-            var cipherbytes = rsa.Encrypt(Encoding.UTF8.GetBytes(content), false);
+            //var rsa = new RSACryptoServiceProvider();
+            //rsa.FromXmlString(publickey);
+            //var cipherbytes = rsa.Encrypt(Encoding.UTF8.GetBytes(content), false);
 
-            return Convert.ToBase64String(cipherbytes);
+            //return Convert.ToBase64String(cipherbytes);
+            return EncryptProvider.RSAEncrypt(publickey, content);
         }
 
         /// <summary>
@@ -303,11 +308,12 @@ namespace OYMLCN
         /// <returns>解密后的字符串</returns>
         public static string RSADecrypt(this string content, string privatekey)
         {
-            var rsa = new RSACryptoServiceProvider();
-            rsa.FromXmlString(privatekey);
-            var cipherbytes = rsa.Decrypt(Convert.FromBase64String(content), false);
+            //var rsa = new RSACryptoServiceProvider();
+            //rsa.FromXmlString(privatekey);
+            //var cipherbytes = rsa.Decrypt(Convert.FromBase64String(content), false);
 
-            return Encoding.UTF8.GetString(cipherbytes);
+            //return Encoding.UTF8.GetString(cipherbytes);
+            return EncryptProvider.RSADecrypt(privatekey, content);
         }
 
     }

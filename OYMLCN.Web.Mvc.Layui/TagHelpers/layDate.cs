@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace OYMLCN.Web.Mvc.Layui.TagHelpers
+namespace Microsoft.AspNetCore.Razor.TagHelpers
 {
     [HtmlTargetElement("input", Attributes = "layui-laydate-value")]
-    public class LayDateTagHelper : Mvc.TagHelpers.TagHelper
+    public class LayDateTagHelper : TagHelperBase
     {
         /// <summary>
         /// layui-nav-itemed-controller

@@ -1,15 +1,15 @@
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.AspNetCore.Razor.TagHelpers;
+using OYMLCN;
 
-namespace OYMLCN.Web.Mvc.Layui.TagHelpers
+namespace Microsoft.AspNetCore.Razor.TagHelpers
 {
     /// <summary>
     /// layui-this
     /// </summary>
     [HtmlTargetElement("li", Attributes = "layui-this-controller")]
     [HtmlTargetElement("dd", Attributes = "layui-this-controller,layui-this-action")]
-    public class LayuiThisTagHelper : Mvc.TagHelpers.TagHelper
+    public class LayuiThisTagHelper : TagHelperBase
     {
         /// <summary>
         /// layui-this-controller
