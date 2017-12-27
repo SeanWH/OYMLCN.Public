@@ -11,12 +11,12 @@ namespace OYMLCN
     /// <summary>
     /// 邮件发送
     /// </summary>
-    public class EmailSenderBase
+    public class EmailSender
     {
         /// <summary>
         /// 保护方法，仅用于继承
         /// </summary>
-        protected EmailSenderBase() { }
+        protected EmailSender() { }
         /// <summary>
         /// 邮件发送
         /// </summary>
@@ -25,7 +25,7 @@ namespace OYMLCN
         /// <param name="userName">邮箱地址/用户名</param>
         /// <param name="password">密码</param>
         /// <param name="port">端口（默认25）</param>
-        public EmailSenderBase(string displayName, string smtp, string userName, string password,int port = 25)
+        public EmailSender(string displayName, string smtp, string userName, string password,int port = 25)
         {
             this.DisplayName = displayName;
             this.SMTP = smtp;

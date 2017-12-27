@@ -3,20 +3,18 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.DependencyInjection;
-using OYMLCN.Web.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Microsoft.Extensions.Configuration
 {
     /// <summary>
     /// StartupConfigureExtension
     /// </summary>
-    public static class StartupConfigureExtension
+    public  static partial class StartupConfigureExtension
     {
         /// <summary>
-        /// 一句配置Session和登陆Cookie 需在Configure中加入 app.UseAuthentication() 以使得登陆配置生效 
+        /// 一句配置Session和登陆Cookie
+        /// 需在Configure中加入 app.UseAuthentication() 以使得登陆配置生效 
         /// </summary>
         /// <param name="services"></param>
         /// <param name="sessionTimeOutHours">Session过期回收时间（默认2小时）</param>
@@ -26,12 +24,12 @@ namespace Microsoft.Extensions.Configuration
         /// <param name="cookieDomain">Cookie作用域</param>
         /// <param name="securePolicy">Cookie安全策略</param>
         /// <returns></returns>
-        public static IServiceCollection AddSessionAndCookie(this IServiceCollection services, 
-            double sessionTimeOutHours = 2, 
+        public static IServiceCollection AddSessionAndCookie(this IServiceCollection services,
+            double sessionTimeOutHours = 2,
             string loginPath = "/Account/Login",
-            string accessDeniedPath = null, 
-            string returnUrlParameter = "ReturnUrl", 
-            string cookieDomain = null, 
+            string accessDeniedPath = null,
+            string returnUrlParameter = "ReturnUrl",
+            string cookieDomain = null,
             CookieSecurePolicy securePolicy = CookieSecurePolicy.SameAsRequest)
         {
             services.AddMemoryCache();
@@ -58,6 +56,7 @@ namespace Microsoft.Extensions.Configuration
             return services;
         }
 
+
         /// <summary>
         /// 开启腾讯CDN加速请求头识别
         /// </summary>
@@ -72,19 +71,6 @@ namespace Microsoft.Extensions.Configuration
                   OriginalProtoHeaderName = "X-Original-Proto",
                   ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
               });
-
-        /// <summary>
-        /// 注入所有扩展模块
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddExtensions(this IServiceCollection services)
-        {
-            services
-                .AddSingleton<EmailSender>()
-                .AddScoped<ViewRender>();
-            return services;
-        }
 
     }
 }

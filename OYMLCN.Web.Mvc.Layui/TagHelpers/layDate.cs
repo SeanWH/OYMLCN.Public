@@ -1,12 +1,11 @@
+#pragma warning disable CS1591 // 缺少对公共可见类型或成员的 XML 注释
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Microsoft.AspNetCore.Razor.TagHelpers
+namespace Microsoft.AspNetCore.Mvc.TagHelpers
 {
     [HtmlTargetElement("input", Attributes = "layui-laydate-value")]
-    public class LayDateTagHelper : TagHelperBase
+    public class LayDateTagHelper : TagHelper
     {
         /// <summary>
         /// layui-nav-itemed-controller
@@ -14,12 +13,6 @@ namespace Microsoft.AspNetCore.Razor.TagHelpers
         /// </summary>
         [HtmlAttributeName("layui-laydate-value")]
         public DateTime? Value { get; set; }
-
-        /// <summary>
-        /// Process
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="output"></param>
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             output.Attributes.SetAttribute("value", Value?.ToString("yyyy-MM-dd hh:mm:ss"));

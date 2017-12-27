@@ -10,11 +10,13 @@ namespace OYMLCN.Web.Mvc
     /// <summary>
     /// 邮件发送
     /// </summary>
-    public class EmailSender : EmailSenderBase
+    public class EmailSender : OYMLCN.EmailSender
     {
         readonly IMemoryCache MemoryCache;
         /// <summary>
         /// 邮件发送 普通模式（未加密）
+        /// （注意：使用前需要AddMemoryCache启用缓存以控制邮件发送频率）
+        /// （请使用AddSingleton注入方式调用，MVC框架会自动注入初始化参数）
         /// 使用该自动注入方法需要配置如下参数
         /// string EmailSender:DisplayName
         /// string EmailSender:UserName

@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.IO;
-using System.Net.Security;
 using System.Web;
 using Newtonsoft.Json;
-using OYMLCN.Tencent.Cloud.Common;
 
 namespace OYMLCN.Tencent.Cloud.Common
 {

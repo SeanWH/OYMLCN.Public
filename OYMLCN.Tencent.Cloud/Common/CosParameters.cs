@@ -15,55 +15,32 @@ namespace OYMLCN.Tencent.Cloud.Common
 	static class CosParameters
 	{
 		public const string Authorization = "Authorization";
-		
 		public const string PARA_OP = "op";
-		
 		public const string PARA_BIZ_ATTR = "biz_attr";
-
         public const string PARA_FORBID = "forbid";
-
         public const string PARA_LIST_FLAG = "list_flag";
-
 		public const string PARA_INSERT_ONLY = "insertOnly";
-		
 		public const string PARA_AUTHORITY = "authority";
-
 		public const string PARA_SESSION = "session";
-		
 		public const string PARA_NUM = "num";
-		
 		public const string PARA_ORDER = "order";
-		
 		public const string PARA_CONTEXT = "context";
-
 		public const string PARA_PREFIX = "prefix";
-
 		public const string PARA_PATTERN = "pattern";		
-		
 		public const string PARA_SLICE_SIZE = "slice_size";
-		
 		public const string PARA_CUSTOM_HEADERS = "custom_headers";
-		
 		public const string PARA_CACHE_CONTROL = "Cache-Control";
-		
 		public const string PARA_CONTENT_TYPE = "Content-Type";
-		
 		public const string PARA_CONTENT_DISPOSITION = "Content-Disposition";
-
 		public const string PARA_CONTENT_LANGUAGE = "Content-Language";
-
 		public const string PARA_X_COS_META_PREFIX = "x-cos-meta-";
-		
 		public const string PARA_FLAG = "flag";
-
         public const string PARA_CONTENT_ENCODING = "Content-Encoding";
-
     }
 
     public static class CosDefaultValue
     {
         public const string USER_AGENT_VERSION = "cos-dotnet-sdk-v4.2";
-
         public const string ACCEPT = "*/*";
     }
 

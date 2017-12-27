@@ -7,9 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace OYMLCN.Web.Mvc
 {
@@ -23,7 +21,7 @@ namespace OYMLCN.Web.Mvc
         readonly IServiceProvider _serviceProvider;
 
         /// <summary>
-        /// 视图渲染（请使用注入方式调用，MVC框架会自动注入初始化参数）
+        /// 视图渲染（请使用AddScoped注入方式调用，MVC框架会自动注入初始化参数）
         /// </summary>
         /// <param name="razorViewEngine"></param>
         /// <param name="tempDataProvider"></param>

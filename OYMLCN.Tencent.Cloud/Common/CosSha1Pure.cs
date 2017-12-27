@@ -1,6 +1,4 @@
-﻿using System;
 using System.Text;
-//using System.Runtime.InteropServices;
 
 namespace OYMLCN.Tencent.Cloud.Common
 {
@@ -35,8 +33,6 @@ namespace OYMLCN.Tencent.Cloud.Common
                 {
                     digest.Append(digestByte[j].ToString("x2"));
                 }
-                
-
             }
                      
             return digest.ToString();

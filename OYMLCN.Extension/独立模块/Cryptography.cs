@@ -119,6 +119,23 @@ namespace OYMLCN.Cryptography
     /// </summary>
     internal static class RSAKeyExtensions
     {
+        internal static void ImportKey(this RSA rsa, string key, RsaKeyType rsaKeyType)
+        {
+            switch (rsaKeyType)
+            {
+                case RsaKeyType.JSON:
+                    rsa.FromJsonString(key);
+                    break;
+                case RsaKeyType.XML:
+#if NET461
+                    rsa.FromXmlString(key);
+#else
+                    rsa.FromLvccXmlString(key);
+#endif
+                    break;
+            }
+        }
+
         #region JSON
         /// <summary>
         /// RSA导入key
@@ -503,18 +520,21 @@ namespace OYMLCN.Cryptography
         #endregion
 
         #region RSA
+
+
         /// <summary>
         /// RSA encrypt 
         /// </summary>
         /// <param name="publicKey">public key</param>
         /// <param name="srcString">src string</param>
+        /// <param name="rsaKeyType">key serialization format</param>
         /// <param name="padding">default value is Pkcs1</param>
         /// <returns>encrypted string</returns>
-        public static string RSAEncrypt(string publicKey, string srcString, RSAEncryptionPadding padding = null)
+        public static string RSAEncrypt(string publicKey, string srcString, RsaKeyType rsaKeyType = RsaKeyType.JSON, RSAEncryptionPadding padding = null)
         {
             using (RSA rsa = RSA.Create())
             {
-                rsa.FromJsonString(publicKey);
+                rsa.ImportKey(publicKey, rsaKeyType);
                 byte[] encryptBytes = rsa.Encrypt(Encoding.UTF8.GetBytes(srcString), padding ?? RSAEncryptionPadding.Pkcs1);
                 return encryptBytes.ToHexString();
             }
@@ -524,13 +544,14 @@ namespace OYMLCN.Cryptography
         /// </summary>
         /// <param name="privateKey">private key</param>
         /// <param name="srcString">encrypted string</param>
+        /// <param name="rsaKeyType">key serialization format</param>
         /// <param name="padding">default value is Pkcs1</param>
         /// <returns>Decrypted string</returns>
-        public static string RSADecrypt(string privateKey, string srcString, RSAEncryptionPadding padding = null)
+        public static string RSADecrypt(string privateKey, string srcString, RsaKeyType rsaKeyType = RsaKeyType.JSON, RSAEncryptionPadding padding = null)
         {
             using (RSA rsa = RSA.Create())
             {
-                rsa.FromJsonString(privateKey);
+                rsa.ImportKey(privateKey, rsaKeyType);
                 byte[] srcBytes = srcString.ToBytes();
                 byte[] decryptBytes = rsa.Decrypt(srcBytes, padding ?? RSAEncryptionPadding.Pkcs1);
                 return Encoding.UTF8.GetString(decryptBytes);
@@ -541,11 +562,12 @@ namespace OYMLCN.Cryptography
         /// RSA from json string
         /// </summary>
         /// <param name="rsaKey">rsa json string</param>
+        /// <param name="rsaKeyType">key serialization format</param>
         /// <returns></returns>
-        public static RSA RSAFromString(string rsaKey)
+        public static RSA RSAFromString(string rsaKey, RsaKeyType rsaKeyType = RsaKeyType.JSON)
         {
             RSA rsa = RSA.Create();
-            rsa.FromJsonString(rsaKey);
+            rsa.ImportKey(rsaKey, rsaKeyType);
             return rsa;
         }
 
@@ -553,17 +575,35 @@ namespace OYMLCN.Cryptography
         /// Create an RSA key 
         /// </summary>
         /// <param name="rsaSize">the default size is 2048</param>
+        /// <param name="rsaKeyType">key serialization format</param>
         /// <returns></returns>
-        public static RSAKey CreateRsaKey(RsaSize rsaSize = RsaSize.R2048)
+        public static RSAKey CreateRsaKey(RsaSize rsaSize = RsaSize.R2048, RsaKeyType rsaKeyType = RsaKeyType.JSON)
         {
-#if NET461
+            //#if NET461
             using (var rsa = new RSACryptoServiceProvider((int)rsaSize))
-#else
-            using (RSA rsa = RSA.Create((int)rsaSize))
-#endif
+            //#else // only netcoreapp2.0
+            //using (RSA rsa = RSA.Create((int)rsaSize))
+            //#endif
             {
-                string publicKey = rsa.ToJsonString(false);
-                string privateKey = rsa.ToJsonString(true);
+                //string publicKey = rsa.ToJsonString(false);
+                //string privateKey = rsa.ToJsonString(true);
+                string publicKey = string.Empty, privateKey = string.Empty;
+                switch (rsaKeyType)
+                {
+                    case RsaKeyType.JSON:
+                        publicKey = rsa.ToJsonString(false);
+                        privateKey = rsa.ToJsonString(true);
+                        break;
+                    case RsaKeyType.XML:
+#if NET461
+                        publicKey = rsa.ToXmlString(false);
+                        privateKey = rsa.ToXmlString(true);
+#else
+                        publicKey = rsa.ToLvccXmlString(false);
+                        privateKey = rsa.ToLvccXmlString(true);
+#endif
+                        break;
+                }
 
                 return new RSAKey()
                 {

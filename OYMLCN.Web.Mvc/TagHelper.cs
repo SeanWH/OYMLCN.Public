@@ -1,22 +1,17 @@
+#pragma warning disable CS1591 // 缺少对公共可见类型或成员的 XML 注释
+
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using OYMLCN;
 
-namespace Microsoft.AspNetCore.Razor.TagHelpers
+namespace Microsoft.AspNetCore.Mvc.TagHelpers
 {
-    /// <summary>
-    /// TagHelper
-    /// </summary>
     [HtmlTargetElement("__taghelper__")]
-    public class TagHelperBase : TagHelper
+    public class ViewContextTagHelper : TagHelper
     {
-        /// <summary>
-        /// ViewContext
-        /// </summary>
         [ViewContext]
         public ViewContext ViewContext { get; set; }
 
@@ -53,48 +48,11 @@ namespace Microsoft.AspNetCore.Razor.TagHelpers
         public bool IsEqualAction(string action, string controller) => IsEqualController(controller) && IsEqualAction(action);
     }
 
-    /// <summary>
-    /// CDNImageHelper
-    /// </summary>
-    [HtmlTargetElement("img", Attributes = "cdn-src")]
-    public class CDNImageHelper : TagHelperBase
-    {
-        string CDN_Url { get; set; }
-        /// <summary>
-        /// CDNImageHelper
-        /// </summary>
-        /// <param name="configuration"></param>
-        public CDNImageHelper(IConfiguration configuration) =>
-            CDN_Url = configuration.GetValue<string>("TencentCloud:CDN")?.TrimEnd('/');
-
-        /// <summary>
-        /// 若要使用，请在 appsettings 配置文件中配置 string TencentCloud:CDN 参数 
-        /// </summary>
-        [HtmlAttributeName("cdn-src")]
-        public string Attribute { get; set; }
-
-        /// <summary>
-        /// Process
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="output"></param>
-        public override void Process(TagHelperContext context, TagHelperOutput output)
-        {
-            output.Attributes.SetAttribute("src", $"{CDN_Url}/{Attribute.TrimStart('~', '/')}");
-            base.Process(context, output);
-        }
-    }
     [HtmlTargetElement("input", Attributes = "asp-checked")]
-    public class InputCheckedHelper : TagHelperBase
+    public class InputCheckedHelper : TagHelper
     {
         [HtmlAttributeName("asp-checked")]
         public bool? Attribute { get; set; }
-
-        /// <summary>
-        /// Process
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="output"></param>
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             if (Attribute == true)
@@ -106,16 +64,10 @@ namespace Microsoft.AspNetCore.Razor.TagHelpers
         }
     }
     [HtmlTargetElement("option", Attributes = "asp-selected")]
-    public class SelectOptionSelectedHelper : TagHelperBase
+    public class SelectOptionSelectedHelper : TagHelper
     {
         [HtmlAttributeName("asp-selected")]
         public bool? Attribute { get; set; }
-
-        /// <summary>
-        /// Process
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="output"></param>
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             if (Attribute == true)
@@ -130,9 +82,6 @@ namespace Microsoft.AspNetCore.Razor.TagHelpers
 
 namespace OYMLCN
 {
-    /// <summary>
-    /// TagHelperExtension
-    /// </summary>
     public static class TagHelperExtension
     {
         /// <summary>
@@ -156,7 +105,6 @@ namespace OYMLCN
                 output.Attributes.Remove(old);
             return old;
         }
-
 
         /// <summary>
         /// 添加 Class 属性

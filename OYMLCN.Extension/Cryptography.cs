@@ -272,14 +272,15 @@ namespace OYMLCN
         /// <param name="publicKey">公钥</param>
         /// <param name="privateKey">私钥</param>
         /// <param name="rsaSize">加密长度</param>
-        public static void GenerateRSAKeys(out string publicKey, out string privateKey, RsaSize rsaSize = RsaSize.R2048)
+        /// <param name="rsaKeyType">密钥序列化格式(默认Json)</param>
+        public static void GenerateRSAKeys(out string publicKey, out string privateKey, RsaSize rsaSize = RsaSize.R2048, RsaKeyType rsaKeyType = RsaKeyType.JSON)
         {
             //using (var rsa = new RSACryptoServiceProvider())
             //{
             //    publicKey = rsa.ToXmlString(false);
             //    privateKey = rsa.ToXmlString(true);
             //}
-            var key = EncryptProvider.CreateRsaKey(rsaSize);
+            var key = EncryptProvider.CreateRsaKey(rsaSize, rsaKeyType);
             publicKey = key.PublicKey;
             privateKey = key.PrivateKey;
         }
@@ -289,15 +290,16 @@ namespace OYMLCN
         /// </summary>
         /// <param name="content">待加密的内容</param>
         /// <param name="publickey">公钥</param>
+        /// <param name="rsaKeyType">密钥序列化格式(默认Json)</param>
         /// <returns>经过加密的字符串</returns>
-        public static string RSAEncrypt(this string content, string publickey)
+        public static string RSAEncrypt(this string content, string publickey, RsaKeyType rsaKeyType = RsaKeyType.JSON)
         {
             //var rsa = new RSACryptoServiceProvider();
             //rsa.FromXmlString(publickey);
             //var cipherbytes = rsa.Encrypt(Encoding.UTF8.GetBytes(content), false);
 
             //return Convert.ToBase64String(cipherbytes);
-            return EncryptProvider.RSAEncrypt(publickey, content);
+            return EncryptProvider.RSAEncrypt(publickey, content, rsaKeyType);
         }
 
         /// <summary>
@@ -305,15 +307,16 @@ namespace OYMLCN
         /// </summary>
         /// <param name="content">待解密的内容</param>
         /// <param name="privatekey">私钥</param>
+        /// <param name="rsaKeyType">密钥序列化格式(默认Json)</param>
         /// <returns>解密后的字符串</returns>
-        public static string RSADecrypt(this string content, string privatekey)
+        public static string RSADecrypt(this string content, string privatekey, RsaKeyType rsaKeyType = RsaKeyType.JSON)
         {
             //var rsa = new RSACryptoServiceProvider();
             //rsa.FromXmlString(privatekey);
             //var cipherbytes = rsa.Decrypt(Convert.FromBase64String(content), false);
 
             //return Encoding.UTF8.GetString(cipherbytes);
-            return EncryptProvider.RSADecrypt(privatekey, content);
+            return EncryptProvider.RSADecrypt(privatekey, content, rsaKeyType);
         }
 
     }
