@@ -1,4 +1,4 @@
-﻿#if NET461
+#if NET461
 using System;
 using System.Runtime.InteropServices;
 using System.Net.NetworkInformation;
@@ -9,7 +9,7 @@ namespace OYMLCN
     /// <summary>
     /// 硬件信息
     /// </summary>
-    public static class HardwareExtension
+    public static class HardwareHelper
     {
         /// <summary>
         /// CPU 唯一标识

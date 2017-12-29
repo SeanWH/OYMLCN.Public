@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -10,7 +10,7 @@ namespace OYMLCN
     /// <summary>
     /// HTMLExtension
     /// </summary>
-    public static class HTMLExtension
+    public static class HTMLExtensions
     {
         /// <summary>
         /// 使用正则表达式删除Html标签
@@ -117,7 +117,7 @@ namespace OYMLCN
             foreach (var kv in formData)
             {
                 i++;
-                sb.AppendFormat("{0}={1}", kv.Key.EncodeAsUrlData(), kv.Value.EncodeAsUrlData());
+                sb.AppendFormat("{0}={1}", kv.Key, kv.Value.EncodeAsUrlData());
                 if (i < formData.Count)
                     sb.Append("&");
             }

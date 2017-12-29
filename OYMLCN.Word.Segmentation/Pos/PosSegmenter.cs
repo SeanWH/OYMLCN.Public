@@ -1,4 +1,4 @@
-﻿#pragma warning disable
+#pragma warning disable
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -62,7 +62,7 @@ namespace OYMLCN.Word.Segmentation.Pos
         {
             if (_segmenter.UserWordTagTab.IsNotEmpty())
             {
-                _wordTagTab.Update(_segmenter.UserWordTagTab);
+                _wordTagTab.Union(_segmenter.UserWordTagTab);
                 _segmenter.UserWordTagTab = new Dictionary<string, string>();
             }
         }

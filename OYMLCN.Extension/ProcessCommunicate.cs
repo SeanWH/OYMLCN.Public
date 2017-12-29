@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 #if NET461
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting;
@@ -14,7 +14,7 @@ namespace OYMLCN
     /// <summary>
     /// 进程或线程相关操作
     /// </summary>
-    public static partial class ProcessExtension
+    public static partial class ProcessExtensions
     {
         /// <summary>
         /// 进程通讯相关方法封装

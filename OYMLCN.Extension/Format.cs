@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +9,7 @@ namespace OYMLCN
     /// <summary>
     /// FormatExtension
     /// </summary>
-    public static class FormatExtension
+    public static class FormatExtensions
     {
         #region 字节转更大单位
         struct CapacityInfo

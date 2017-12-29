@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -7,7 +7,7 @@ namespace OYMLCN
     /// <summary>
     /// StreamExtension
     /// </summary>
-    public static class StreamExtension
+    public static class StreamExtensions
     {
         /// <summary>
         /// 指定编码读取Stream数据
@@ -25,8 +25,7 @@ namespace OYMLCN
         /// <param name="formData">表单信息字典</param>
         public static Stream FillFormDataStream(this Stream stream, Dictionary<string, string> formData)
         {
-            string dataString = formData.ToQueryString();
-            var formDataBytes = formData.IsNull() ? new byte[0] : Encoding.UTF8.GetBytes(dataString);
+            var formDataBytes = formData.IsEmpty() ? new byte[0] : Encoding.UTF8.GetBytes(formData.ToQueryString());
             stream.Write(formDataBytes, 0, formDataBytes.Length);
             stream.Seek(0, SeekOrigin.Begin);
             return stream;

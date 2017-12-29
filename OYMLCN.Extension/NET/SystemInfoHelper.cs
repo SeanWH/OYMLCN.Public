@@ -1,4 +1,4 @@
-﻿#if NET461
+#if NET461
 using System;
 using System.Management;
 using System.Runtime.InteropServices;
@@ -9,13 +9,12 @@ namespace OYMLCN
     /// <summary>
     /// 系统信息辅助方法
     /// </summary>
-    public static class SystemInfo
+    public static class SystemInfoHelper
     {
-
         /// <summary>
         /// 内存信息
         /// </summary>
-        public class Memory
+        public sealed class Memory
         {
             //定义内存的信息结构
             [StructLayout(LayoutKind.Sequential)]
@@ -104,8 +103,7 @@ namespace OYMLCN
             /// </summary>
             public uint AvailableVirtual => FreeVirtualMemory > 0 ? FreeVirtualMemory : MemInfo.dwAvailVirtual / 1024;
         }
-
-
+        
         /// <summary>
         /// 获取系统版本号
         /// 要正确获取Win10及Win8.1的版本号

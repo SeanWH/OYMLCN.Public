@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.IO;
 using System.Security.Principal;
 using System.Threading;
@@ -8,7 +8,7 @@ namespace OYMLCN
     /// <summary>
     /// 进程或线程相关操作
     /// </summary>
-    public static partial class ProcessExtension
+    public static partial class ProcessExtensions
     {
         /// <summary>
         /// 挂起线程（Thread.Sleep一年）

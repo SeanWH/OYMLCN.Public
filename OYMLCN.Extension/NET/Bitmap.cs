@@ -1,4 +1,4 @@
-﻿#if NET461
+#if NET461
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -7,9 +7,9 @@ using System.IO;
 namespace OYMLCN
 {
     /// <summary>
-    /// BitmapExtension
+    /// BitmapExtensions
     /// </summary>
-    public static class BitmapExtension
+    public static class BitmapExtensions
     {
         /// <summary>
         /// 将图片Image转换成Byte[]

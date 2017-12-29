@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using System.Text;
 
 namespace OYMLCN
@@ -6,7 +6,7 @@ namespace OYMLCN
     /// <summary>
     /// WebClientExtension
     /// </summary>
-    public static partial class WebClientExtension
+    public static partial class WebClientExtensions
     {
         /// <summary>
         /// 向指定的URL POST数据，并返回数据

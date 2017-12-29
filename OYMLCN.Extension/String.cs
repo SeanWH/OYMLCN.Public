@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -13,7 +11,7 @@ namespace OYMLCN
     /// <summary>
     /// StringExtension
     /// </summary>
-    public static partial class StringExtension
+    public static partial class StringExtensions
     {
         #region 生成随机字符
         /// <summary>
@@ -40,8 +38,7 @@ namespace OYMLCN
                         hash = hash + numbers[rand.Next(0, 10)];
                         break;
                     case 2:
-
-                        hash = hash + (blur ? symbols[rand.Next(0, 26)] : letters[rand.Next(0, 26)]).ToString();
+                        hash = hash + (blur ? symbols[rand.Next(0, 26)] : letters[rand.Next(0, 26)]);
                         break;
                     default:
                         hash = hash + ((cont % 3 == 0)
@@ -72,20 +69,6 @@ namespace OYMLCN
         /// <param name="str"></param>
         /// <returns></returns>
         public static bool IsNullOrWhiteSpace(this string str) => string.IsNullOrWhiteSpace(str);
-        /// <summary>
-        /// 判断字符串是否为空格类型
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public static bool IsWhiteSpace(this string value)
-        {
-            foreach (var c in value)
-            {
-                if (char.IsWhiteSpace(c)) continue;
-                return false;
-            }
-            return true;
-        }
 
         /// <summary>
         /// 对比两个字符串是否相等
@@ -96,12 +79,33 @@ namespace OYMLCN
         /// <returns></returns>
         public static bool IsEqual(this string str, string value, StringComparison comparison = StringComparison.Ordinal) => (str.IsNull() || value.IsNull()) ? false : str.Equals(value, comparison);
         /// <summary>
+        /// 对比字符串是否与列出的相等
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="values"></param>
+        /// <param name="comparison"></param>
+        /// <returns></returns>
+        public static bool IsEqual(this string str,string[] values, StringComparison comparison = StringComparison.Ordinal)
+        {
+            foreach (var value in values)
+                if (str.Equals(value, comparison))
+                    return true;
+            return false;
+        }
+        /// <summary>
         /// 对比两个字符串是否相等（忽略大小写）
         /// </summary>
         /// <param name="str"></param>
         /// <param name="value"></param>
         /// <returns></returns>
         public static bool IsEqualIgnoreCase(this string str, string value) => str.IsEqual(value, StringComparison.OrdinalIgnoreCase);
+        /// <summary>
+        /// 对比字符串是否与列出的相等（忽略大小写）
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public static bool IsEqualIgnoreCase(this string str, string[] values) => str.IsEqual(values, StringComparison.OrdinalIgnoreCase);
 
         /// <summary>
         /// 判断字符串是否是邮箱地址

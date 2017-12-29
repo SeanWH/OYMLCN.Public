@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Net;
 using System.Numerics;
@@ -10,7 +10,7 @@ namespace OYMLCN
     /// <summary>
     /// StringExtension
     /// </summary>
-    public static partial class StringExtension
+    public static partial class StringExtensions
     {
         #region 数字的转换操作
         /// <summary>
@@ -273,9 +273,8 @@ namespace OYMLCN
         /// <returns></returns>
         public static bool ConvertToBoolean(this string str)
         {
-            if (str == "1" || str.ToLower() == "true" || str.ToLower() == "yes" || str.ToLower() == "checked" || str == "是" || str == "对")
-                return true;
-            return false;
+            string[] yesValues = new string[] { "1", "true", "yes", "checked", "是", "对" };
+            return str.IsEqualIgnoreCase(yesValues);
         }
         /// <summary>
         /// 将字符串转换为可空Boolean类型（当字符串中包含“是/对”时返回true）

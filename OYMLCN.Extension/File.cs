@@ -8,7 +8,7 @@ namespace OYMLCN
     /// <summary>
     /// FileExtension
     /// </summary>
-    public static class FileExtension
+    public static class FileExtensions
     {
         /// <summary>
         /// 获取文件信息
@@ -238,7 +238,7 @@ namespace OYMLCN
             string line;
             while ((line = reader.ReadLine()) != null)
             {
-                if (line.IsWhiteSpace()) continue;
+                if (line.IsNullOrWhiteSpace()) continue;
                 yield return line;
             }
         }

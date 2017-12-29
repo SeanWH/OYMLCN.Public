@@ -5,14 +5,20 @@ namespace OYMLCN
     /// <summary>
     /// DateTimeExtension
     /// </summary>
-    public static partial class DateTimeExtension
+    public static partial class DateTimeExtensions
     {
         /// <summary>
         /// 将Datetime转换成时间戳（1970-1-1 00:00:00至target的总秒数）
         /// </summary>
-        /// <param name="target">DateTime</param>
+        /// <param name="dateTime">DateTime</param>
         /// <returns>时间戳（1970-1-1 00:00:00至target的总秒数）</returns>
-        public static long ToTimestamp(this DateTime target) => (target.ToUniversalTime().Ticks - 621355968000000000) / 10000000;
+        public static long ToTimestamp(this DateTime dateTime) => (dateTime.ToUniversalTime().Ticks - 621355968000000000) / 10000000;
+        /// <summary>
+        /// 将Datetime转换成时间戳（1970-1-1 00:00:00至target的总秒数）
+        /// </summary>
+        /// <param name="dateTime">DateTime</param>
+        /// <returns>时间戳（1970-1-1 00:00:00至target的总秒数）</returns>
+        public static int ToTimestampInt32(this DateTime dateTime) => (int)dateTime.ToTimestamp();
         /// <summary>
         /// 将时间戳（1970-1-1 00:00:00至target的总秒数）转换成Datetime
         /// </summary>
@@ -37,7 +43,7 @@ namespace OYMLCN
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>
-        public static DateTime GetYearEnd(this DateTime dt) => dt.GetYearStart().AddYears(1).AddMilliseconds(-1);
+        public static DateTime GetYearEnd(this DateTime dt) => dt.GetYearStart().AddYears(1);
 
         /// <summary>
         /// 获取月 开始时间
@@ -50,7 +56,7 @@ namespace OYMLCN
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>
-        public static DateTime GetMonthEnd(this DateTime dt) => dt.GetMonthStart().AddMonths(1).AddMilliseconds(-1);
+        public static DateTime GetMonthEnd(this DateTime dt) => dt.GetMonthStart().AddMonths(1);
 
         /// <summary>
         /// 获取天 开始时间
@@ -63,7 +69,33 @@ namespace OYMLCN
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>
-        public static DateTime GetDayEnd(this DateTime dt) => dt.GetDayStart().AddDays(1).AddMilliseconds(-1);
+        public static DateTime GetDayEnd(this DateTime dt) => dt.GetDayStart().AddDays(1);
+
+        /// <summary>
+        /// 获取时 开始时间
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DateTime GetHourStart(this DateTime dt) => new DateTime(dt.Year, dt.Month, dt.Day, dt.Hour, 0, 0);
+        /// <summary>
+        /// 获取时 结束时间
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DateTime GetHourEnd(this DateTime dt) => dt.GetHourStart().AddHours(1);
+
+        /// <summary>
+        /// 获取分 开始时间
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DateTime GetMinuteStart(this DateTime dt) => new DateTime(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, 0);
+        /// <summary>
+        /// 获取分 结束时间
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DateTime GetMinuteEnd(this DateTime dt) => dt.GetMinuteStart().AddMinutes(1);
 
         /// <summary>
         /// 判断是否是当天

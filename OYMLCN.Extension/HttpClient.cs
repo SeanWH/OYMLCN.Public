@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using System.Net.Http;
 using System.Net;
@@ -11,7 +11,7 @@ namespace OYMLCN
     /// <summary>
     /// HttpClient方法封装
     /// </summary>
-    public static partial class HttpClientExtension
+    public static partial class HttpClientExtensions
     {
         /// <summary>
         /// 通过HttpGet获取数据

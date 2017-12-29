@@ -1,18 +1,14 @@
-﻿#if NET461
+#if NET461
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OYMLCN
 {
     /// <summary>
-    /// SystemExtension
+    /// SystemHelper
     /// </summary>
-    public static class SystemExtension
+    public static class SystemHelper
     {
         [DllImport(@"wininet", SetLastError = true, CharSet = CharSet.Auto, EntryPoint = "InternetSetOption", CallingConvention = CallingConvention.StdCall)]
         static extern bool InternetSetOption(int hInternet, int dmOption, IntPtr lpBuffer, int dwBufferLength);

@@ -15,6 +15,8 @@ namespace OYMLCN.Web.Mvc
 {
     public static class JsonWebToken
     {
+        public static SecurityKey CrateSecurityKey(string secret) =>
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret.EncodeToMD5()));
         public sealed class JwtToken
         {
             internal JwtToken(JwtSecurityToken token, int expires)
@@ -49,7 +51,7 @@ namespace OYMLCN.Web.Mvc
             /// <param name="issuer">信任签发者</param>
             /// <param name="audience">信任服务者</param>
             public JwtTokenBuilder(string secret, string subject, string issuer, string audience) :
-                this(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret)), subject, issuer, audience)
+                this(CrateSecurityKey(secret), subject, issuer, audience)
             { }
             /// <summary>
             /// JsonWebToken 构造
@@ -125,9 +127,10 @@ namespace Microsoft.Extensions.Configuration
         /// <param name="secret">密钥</param>
         /// <param name="issuer">信任签发者</param>
         /// <param name="audience">信任服务者</param>
+        /// <param name="clockSkew">宽限时间/时间验证偏差（默认偏差5分钟）</param>
         /// <returns></returns>
-        public static IServiceCollection AddJsonWebTokenAuthentication(this IServiceCollection services, string secret, string issuer, string audience) =>
-            AddJsonWebTokenAuthentication(services, new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret)), issuer, audience);
+        public static IServiceCollection AddJsonWebTokenAuthentication(this IServiceCollection services, string secret, string issuer, string audience, TimeSpan clockSkew = default(TimeSpan)) =>
+            AddJsonWebTokenAuthentication(services, OYMLCN.Web.Mvc.JsonWebToken.CrateSecurityKey(secret), issuer, audience, clockSkew);
         /// <summary>
         /// 一句话配置JsonWebToken(JWT)身份验证
         /// 需在Configure中加入 app.UseAuthentication() 以使得登陆配置生效 

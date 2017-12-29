@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
@@ -10,7 +10,7 @@ namespace OYMLCN
     /// <summary>
     /// XmlExtension
     /// </summary>
-    public static class XmlExtension
+    public static class XmlExtensions
     {
         /// <summary>
         /// 反序列化

@@ -113,7 +113,7 @@ namespace OYMLCN.Extension.Test
             Assert.AreEqual(demo.AESEncrypt(demoKey).AESDecrypt(demoKey), demo);
             Assert.AreEqual(demo.DESEncrypt(demoKey).DESDecrypt(demoKey), demo);
 
-            CryptographyExtension.GenerateRSAKeys(out string publicKey, out string privateKey);
+            CryptographyExtensions.GenerateRSAKeys(out string publicKey, out string privateKey);
             Assert.AreEqual(demo.RSAEncrypt(publicKey).RSADecrypt(privateKey), demo);
 
         }
@@ -190,6 +190,9 @@ namespace OYMLCN.Extension.Test
                 { "dog", DemoEnum.dog },
                 { "cat", DemoEnum.cat }
             };
+            Assert.ThrowsException<ArgumentException>(()=> {
+                "".EnumToKeyValues();
+            });
             CollectionAssert.AreEqual(DemoEnum.pig.EnumToKeyValues(), data);
         }
 
@@ -315,11 +318,11 @@ namespace OYMLCN.Extension.Test
         [TestMethod]
         public void StringTest()
         {
-            Assert.AreEqual(StringExtension.RandCode().Length, 6);
-            Assert.AreEqual(StringExtension.RandCode(60).Length, 60);
-            Assert.AreEqual(StringExtension.RandCode(60).Length, 60);
-            Assert.AreEqual(StringExtension.RandBlurCode(60).Length, 60);
-            Assert.AreEqual(StringExtension.RandCode(60, true).Length, 60);
+            Assert.AreEqual(StringExtensions.RandCode().Length, 6);
+            Assert.AreEqual(StringExtensions.RandCode(60).Length, 60);
+            Assert.AreEqual(StringExtensions.RandCode(60).Length, 60);
+            Assert.AreEqual(StringExtensions.RandBlurCode(60).Length, 60);
+            Assert.AreEqual(StringExtensions.RandCode(60, true).Length, 60);
             Assert.IsTrue("".IsNullOrEmpty());
             string demo = null;
             Assert.IsTrue(demo.IsNullOrEmpty());

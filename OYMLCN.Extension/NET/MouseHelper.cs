@@ -1,15 +1,12 @@
-﻿#if NET461
-using System;
+#if NET461
 using System.Runtime.InteropServices;
-using System.Net.NetworkInformation;
-using System.Management;
 
 namespace OYMLCN
 {
     /// <summary>
     /// 鼠标操作
     /// </summary>
-    public static class MouseExtension
+    public static class MouseHelper
     {
         /// <summary>
         /// mouse_event
@@ -20,7 +17,7 @@ namespace OYMLCN
         /// <param name="cButtons"></param>
         /// <param name="dwExtraInfo"></param>
         /// <returns></returns>
-        [System.Runtime.InteropServices.DllImport("user32")]
+        [DllImport("user32")]
         public static extern int mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
         /// <summary>
         /// 移动鼠标

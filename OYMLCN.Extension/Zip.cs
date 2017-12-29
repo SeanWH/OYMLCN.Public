@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
@@ -9,7 +9,7 @@ namespace OYMLCN
     /// <summary>
     /// ZipExtension
     /// </summary>
-    public static class ZipExtension
+    public static class ZipExtensions
     {
         /// <summary>
         /// 将传入字符串以GZip算法压缩后，返回Base64编码字符

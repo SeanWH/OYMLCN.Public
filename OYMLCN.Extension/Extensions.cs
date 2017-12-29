@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 
@@ -10,12 +11,12 @@ namespace OYMLCN
     /// <summary>
     /// Extension
     /// </summary>
-    public static class Extension
+    public static class Extensions
     {
         #region ReleaseMemory释放内存
         [DllImport("kernel32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool SetProcessWorkingSetSize(IntPtr process, UIntPtr minimumWorkingSetSize, UIntPtr maximumWorkingSetSize);
+        static extern bool SetProcessWorkingSetSize(IntPtr process, UIntPtr minimumWorkingSetSize, UIntPtr maximumWorkingSetSize);
         /// <summary>
         /// 释放内存
         /// </summary>
@@ -35,8 +36,9 @@ namespace OYMLCN
         }
         static bool ReleasingMemoryTimingStarted = false;
         static int ReleasingMemoryTimingSeconds = 60;
+        static Thread _ramThread;
         /// <summary>
-        /// 定时释放内存
+        /// 开启定时释放内存
         /// </summary>
         public static void StartReleasingMemoryTiming(int seconds = 60)
         {
@@ -44,7 +46,7 @@ namespace OYMLCN
             if (ReleasingMemoryTimingStarted)
                 return;
 
-            var _ramThread = new Thread(new ThreadStart(() =>
+            _ramThread = new Thread(new ThreadStart(() =>
             {
                 while (true)
                 {
@@ -58,6 +60,10 @@ namespace OYMLCN
             _ramThread.Start();
             ReleasingMemoryTimingStarted = true;
         }
+        /// <summary>
+        /// 停止定时释放内存
+        /// </summary>
+        public static void StopReleasingMemoryTiming() => _ramThread?.Abort();
         #endregion
 
         #region Enum
@@ -76,17 +82,12 @@ namespace OYMLCN
         /// <returns></returns>
         public static Dictionary<string, T> EnumToKeyValues<T>(this T enumClass)
         {
-            try
-            {
-                var reuslt = new Dictionary<string, T>();
-                foreach (T value in Enum.GetValues(enumClass.GetType()))
-                    reuslt.Add(value.ToString(), value);
-                return reuslt;
-            }
-            catch
-            {
-                return null;
-            }
+            var reuslt = new Dictionary<string, T>();
+            if (enumClass.GetType().BaseType != typeof(Enum))
+                throw new ArgumentException("参数基类型并非类型System.Enum");
+            foreach (T value in Enum.GetValues(enumClass.GetType()))
+                reuslt[value.ToString()] = value;
+            return reuslt;
         }
         #endregion
 
@@ -181,88 +182,10 @@ namespace OYMLCN
         /// <typeparam name="TValue"></typeparam>
         /// <param name="dict"></param>
         /// <param name="key"></param>
-        /// <returns></returns>
-        public static TValue SelectValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key) =>
-            SelectValueOrDefault(dict, key, default(TValue));
-
-        /// <summary>
-        /// 获取字典值
-        /// </summary>
-        /// <typeparam name="TKey"></typeparam>
-        /// <typeparam name="TValue"></typeparam>
-        /// <param name="dict"></param>
-        /// <param name="key"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static TValue SelectValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, TValue defaultValue) =>
+        public static TValue SelectValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, TValue defaultValue = default(TValue)) =>
              dict.ContainsKey(key) ? dict[key] : defaultValue;
-        /// <summary>
-        /// 从另一个字典增添或更新值
-        /// </summary>
-        /// <typeparam name="TKey"></typeparam>
-        /// <typeparam name="TValue"></typeparam>
-        /// <param name="dict"></param>
-        /// <param name="other"></param>
-        public static void Update<TKey, TValue>(this IDictionary<TKey, TValue> dict, IDictionary<TKey, TValue> other)
-        {
-            foreach (var key in other.Keys)
-                dict[key] = other[key];
-        }
-
-        /// <summary>
-        /// 获取字典值
-        /// </summary>
-        /// <typeparam name="TValue"></typeparam>
-        /// <param name="dict"></param>
-        /// <param name="keys"></param>
-        /// <returns></returns>
-        public static IEnumerable<TValue> SelectKeyContainsWordsValues<TValue>(this IDictionary<string, TValue> dict, params string[] keys) =>
-            dict.Where(d => d.Key.Contains(keys)).Select(d => d.Value);
-        /// <summary>
-        /// 获取字典值
-        /// </summary>
-        /// <typeparam name="TValue"></typeparam>
-        /// <param name="dict"></param>
-        /// <param name="keys"></param>
-        /// <returns></returns>
-        public static TValue SelectKeyContainsWordsValue<TValue>(this IDictionary<string, TValue> dict, params string[] keys) =>
-            dict.SelectKeyContainsWordsValues(keys).FirstOrDefault();
-        /// <summary>
-        /// 获取字典值
-        /// </summary>
-        /// <typeparam name="TValue"></typeparam>
-        /// <param name="dict"></param>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public static IEnumerable<TValue> SelectKeyStartWithWordValues<TValue>(this IDictionary<string, TValue> dict, string key) =>
-            dict.Where(d => d.Key.StartsWith(key)).Select(d => d.Value);
-        /// <summary>
-        /// 获取字典值
-        /// </summary>
-        /// <typeparam name="TValue"></typeparam>
-        /// <param name="dict"></param>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public static TValue SelectKeyStartWithWordValue<TValue>(this IDictionary<string, TValue> dict, string key) =>
-            dict.SelectKeyStartWithWordValues(key).FirstOrDefault();
-        /// <summary>
-        /// 获取字典值
-        /// </summary>
-        /// <typeparam name="TValue"></typeparam>
-        /// <param name="dict"></param>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public static IEnumerable<TValue> SelectKeyEndWithWordValues<TValue>(this IDictionary<string, TValue> dict, string key) =>
-            dict.Where(d => d.Key.EndsWith(key)).Select(d => d.Value);
-        /// <summary>
-        /// 获取字典值
-        /// </summary>
-        /// <typeparam name="TValue"></typeparam>
-        /// <param name="dict"></param>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public static TValue SelectKeyEndWithWordValue<TValue>(this IDictionary<string, TValue> dict, string key) =>
-            dict.SelectKeyEndWithWordValues(key).FirstOrDefault();
 
         /// <summary>
         /// 追加合并字典
@@ -272,12 +195,42 @@ namespace OYMLCN
         /// <param name="dict"></param>
         /// <param name="dictionary"></param>
         /// <returns></returns>
-        public static IDictionary<TKey, TValue> AddRange<TKey, TValue>(this IDictionary<TKey, TValue> dict, IDictionary<TKey, TValue> dictionary)
+        public static IDictionary<TKey, TValue> Union<TKey, TValue>(this IDictionary<TKey, TValue> dict, IDictionary<TKey, TValue> dictionary)
         {
             foreach (var item in dictionary)
                 dict[item.Key] = item.Value;
             return dict;
         }
+
+        /// <summary>
+        /// 获取字典值
+        /// </summary>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="dict"></param>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        public static IEnumerable<TValue> SelectKeyContainsValues<TValue>(this IDictionary<string, TValue> dict, params string[] keys) =>
+            dict.Where(d => d.Key.Contains(keys)).Select(d => d.Value);
+
+        /// <summary>
+        /// 获取字典值
+        /// </summary>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="dict"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static IEnumerable<TValue> SelectKeyStartWithValues<TValue>(this IDictionary<string, TValue> dict, string key) =>
+            dict.Where(d => d.Key.StartsWith(key)).Select(d => d.Value);
+
+        /// <summary>
+        /// 获取字典值
+        /// </summary>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="dict"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static IEnumerable<TValue> SelectKeyEndWithValues<TValue>(this IDictionary<string, TValue> dict, string key) =>
+            dict.Where(d => d.Key.EndsWith(key)).Select(d => d.Value);
 
         /// <summary>
         /// 拼接HTML标签属性项目
@@ -289,8 +242,6 @@ namespace OYMLCN
             dict.Select(d => d.Value.IsNull() ? d.Key : d.Value.ToString().IsEmpty() ? null : $"{d.Key}=\"{d.Value}\"")
                 .Where(d => d.IsNotNull())
                 .Join(" ");
-
-
         #endregion
 
         #region IEnumerable
@@ -308,7 +259,7 @@ namespace OYMLCN
         /// <param name="words"></param>
         /// <returns></returns>
         public static IEnumerable<string> SelectContains(this IEnumerable<string> list, params string[] words) =>
-            list?.Where(d => d.Contains(words));
+            list?.Where(d => d.Contains(words)) ?? new string[0];
         /// <summary>
         /// 搜索字符串数组
         /// </summary>
@@ -316,7 +267,7 @@ namespace OYMLCN
         /// <param name="word"></param>
         /// <returns></returns>
         public static IEnumerable<string> SelectStartWith(this IEnumerable<string> list, string word) =>
-            list?.Where(d => d.StartsWith(word));
+            list?.Where(d => d.StartsWith(word)) ?? new string[0];
         /// <summary>
         /// 搜索字符串数组
         /// </summary>
@@ -324,29 +275,7 @@ namespace OYMLCN
         /// <param name="word"></param>
         /// <returns></returns>
         public static IEnumerable<string> SelectEndWith(this IEnumerable<string> list, string word) =>
-            list?.Where(d => d.EndsWith(word));
-        /// <summary>
-        /// 搜索字符串数组
-        /// </summary>
-        /// <param name="list"></param>
-        /// <param name="words"></param>
-        /// <returns></returns>
-        public static string SelectContainsFirstOrDefault(this IEnumerable<string> list, params string[] words) => list?.SelectContains(words).FirstOrDefault();
-        /// <summary>
-        /// 搜索字符串数组
-        /// </summary>
-        /// <param name="list"></param>
-        /// <param name="word"></param>
-        /// <returns></returns>
-        public static string SelectStartWithFirstOrDefault(this IEnumerable<string> list, string word) => list?.SelectStartWith(word).FirstOrDefault();
-        /// <summary>
-        /// 搜索字符串数组
-        /// </summary>
-        /// <param name="list"></param>
-        /// <param name="word"></param>
-        /// <returns></returns>
-        public static string SelectEndWithFirstOrDefault(this IEnumerable<string> list, string word) => list?.SelectEndWith(word).FirstOrDefault();
-
+            list?.Where(d => d.EndsWith(word)) ?? new string[0];
         #endregion
 
         /// <summary>

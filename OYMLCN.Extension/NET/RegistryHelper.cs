@@ -1,14 +1,13 @@
-﻿#if NET461
+#if NET461
 using Microsoft.Win32;
 using System;
-using System.Linq;
 
 namespace OYMLCN
 {
     /// <summary>
     /// 注册表操作
     /// </summary>
-    public static class RegistryExtension
+    public static class RegistryHelper
     {
         /// <summary>
         /// Url协议操作

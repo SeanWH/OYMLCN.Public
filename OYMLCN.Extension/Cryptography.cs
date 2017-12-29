@@ -11,7 +11,7 @@ namespace OYMLCN
     /// <summary>
     /// CryptographyExtension
     /// </summary>
-    public static class CryptographyExtension
+    public static class CryptographyExtensions
     {
         private static string Encoder<T>(this T encryptor, string str) where T : HashAlgorithm
         {

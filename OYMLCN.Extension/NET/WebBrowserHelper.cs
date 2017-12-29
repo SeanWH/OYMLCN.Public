@@ -1,19 +1,16 @@
-﻿#if NET461
+#if NET461
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace OYMLCN
 {
     /// <summary>
-    /// WebBrowserExtension
+    /// WebBrowserHelper
     /// </summary>
-    public static class WebBrowserExtension
+    public static class WebBrowserHelper
     {
         static string appName = Process.GetCurrentProcess().ProcessName + ".exe";
         #region SetIEKeyforWebBrowserControl
@@ -25,7 +22,7 @@ namespace OYMLCN
             {
                 if (Regkey != null && Convert.ToString(Regkey.GetValue(appName)) != verKey)
                 {
-                    if (!ProcessExtension.IsAdministrator())
+                    if (!ProcessExtensions.IsAdministrator())
                         throw new Exception("需要管理员权限");
                     using (var SetRegkey = Registry.LocalMachine.OpenSubKey(keyPath, true))
                         SetRegkey.SetValue(appName, verKey, RegistryValueKind.DWord);
@@ -37,7 +34,7 @@ namespace OYMLCN
             {
                 if (Regkey != null && Convert.ToString(Regkey.GetValue(appName)) != verKey)
                 {
-                    if (!ProcessExtension.IsAdministrator())
+                    if (!ProcessExtensions.IsAdministrator())
                         throw new Exception("需要管理员权限");
                     using (var SetRegkey = Registry.LocalMachine.OpenSubKey(keyPath, true))
                         SetRegkey.SetValue(appName, verKey, RegistryValueKind.DWord);
@@ -116,19 +113,19 @@ namespace OYMLCN
 
         #region IE代理
         //设置代理选项                
-        private const int INTERNET_OPTION_PROXY = 38;
+        const int INTERNET_OPTION_PROXY = 38;
         //设置代理类型                
-        private const int INTERNET_OPEN_TYPE_PROXY = 3;
+        const int INTERNET_OPEN_TYPE_PROXY = 3;
         //设置代理类型，直接访问，不需要通过代理服务器
-        private const int INTERNET_OPEN_TYPE_DIRECT = 1;
+        const int INTERNET_OPEN_TYPE_DIRECT = 1;
 
         //You can change the proxy with InternetSetOption method from the wininet.dll                
         //这个就是设置一个Internet 选项。设置代理是Internet 选项其中的一个功能
         [DllImport("wininet.dll", SetLastError = true)]
-        private static extern bool InternetSetOption(IntPtr hInternet, int dwOption, IntPtr lpBuffer, int lpdwBufferLength);
+        static extern bool InternetSetOption(IntPtr hInternet, int dwOption, IntPtr lpBuffer, int lpdwBufferLength);
 
         //定义代理信息的结构体                  
-        private struct Struct_INTERNET_PROXY_INFO
+        struct Struct_INTERNET_PROXY_INFO
         {
             public int dwAccessType;
             public IntPtr proxy;
@@ -136,7 +133,7 @@ namespace OYMLCN
         }
         //设置代理的方法
         //strProxy为代理IP:端口        
-        private static bool InternetSetOption(string strProxy)
+        static bool InternetSetOption(string strProxy)
         {
             int bufferLength;
             IntPtr intptrStruct;
@@ -181,8 +178,8 @@ namespace OYMLCN
         public static bool DisableIEProxy() => InternetSetOption(string.Empty);
         #endregion
 
-        private const int INTERNET_OPTION_SUPPRESS_BEHAVIOR = 81;
-        private const int INTERNET_SUPPRESS_COOKIE_PERSIST = 3;
+        const int INTERNET_OPTION_SUPPRESS_BEHAVIOR = 81;
+        const int INTERNET_SUPPRESS_COOKIE_PERSIST = 3;
 
         /// <summary>
         /// 禁用Cookie保持

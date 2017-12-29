@@ -17,7 +17,7 @@ namespace OYMLCN.WeChat
             public static string CreateJsPackage(string appid, string ticket, string url)
             {
                 var timestamp = DateTime.Now.ToTimestamp();
-                string nonce = StringExtension.RandCode(16, onlyNumber: true);
+                string nonce = StringExtensions.RandCode(16, onlyNumber: true);
 
                 var parameters = new Hashtable
                 {
