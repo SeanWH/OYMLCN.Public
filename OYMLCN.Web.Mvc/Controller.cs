@@ -7,6 +7,7 @@ using System;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace OYMLCN.Web.Mvc
 {
@@ -121,6 +122,10 @@ namespace OYMLCN.Web.Mvc
             }
         }
 
-
+        UrlHelper urlHelper;
+        /// <summary>
+        /// UrlHelper
+        /// </summary>
+        public UrlHelper UrlHelper => urlHelper ?? (urlHelper = new UrlHelper(ControllerContext));
     }
 }
