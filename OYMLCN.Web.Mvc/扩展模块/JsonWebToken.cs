@@ -41,7 +41,7 @@ namespace OYMLCN.Web.Mvc
             private string issuer = "";
             private string audience = "";
             private Dictionary<string, string> claims = new Dictionary<string, string>();
-            private int expiryInMinutes = 5;
+            private int expiryInMinutes = 0;
 
             /// <summary>
             /// JsonWebToken 构造
@@ -98,17 +98,20 @@ namespace OYMLCN.Web.Mvc
                     //new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 }
                 .Union(this.claims.Select(item => new Claim(item.Key, item.Value)));
+                DateTime? expires = null;
+                if (expiryInMinutes > 0)
+                    expires = DateTime.UtcNow.AddMinutes(expiryInMinutes);
 
                 var token = new JwtSecurityToken(
                                   issuer: this.issuer,
                                   audience: this.audience,
                                   claims: claims,
-                                  expires: DateTime.UtcNow.AddMinutes(expiryInMinutes),
+                                  expires: expires,
                                   signingCredentials: new SigningCredentials(
                                                             this.securityKey,
                                                             SecurityAlgorithms.HmacSha256));
 
-                return new JwtToken(token, expiryInMinutes * 60);
+                return new JwtToken(token, expiryInMinutes == 0 ? -1 : expiryInMinutes * 60);
             }
         }
 
