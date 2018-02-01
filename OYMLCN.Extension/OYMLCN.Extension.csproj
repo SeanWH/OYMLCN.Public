@@ -14,8 +14,8 @@
     <Authors>VicBilibily欧阳敏岚</Authors>
     <Company>广东佰群网络科技股份有限公司</Company>
     <Description>常用类型方法扩展封装
-.Net独有：BitmapExtension、BitmapHandler、HardwareExtension、MouseExtension、RegistryExtension、SystemInfo
-跨平台封装：CryptographyExtension、DateTimeExtension、EnumExtension、FileExtension、FormatExtension、HTMLExtension、HttpClientExtension、ProcessExtension、StreamExtension、StringExtension、WebClientExtension、XmlExtension、ZipExtension</Description>
+.Net独有：BitmapExtensions、BitmapHandler、HardwareExtensions、MouseExtensions、RegistryExtensions、SystemInfo
+跨平台封装：CryptographyExtensions、DateTimeExtensions、EnumExtensions、FileExtensions、FormatExtensions、HTMLExtensions、HttpClientExtensions、LinqExtensions、ProcessExtensions、StreamExtensions、StringExtensions、WebClientExtensions、XmlExtensions、ZipExtensions</Description>
     <Copyright>OYML.CN</Copyright>
     <Version>1.1.0</Version>
   </PropertyGroup>

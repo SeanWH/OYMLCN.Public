@@ -21,9 +21,13 @@
 services.AddSessionAndCookie(*)、app.UseQcloudForwardedHeaders()、AddExtensions()
 3.独立模块
 ViewRender、EmailSender
-4.TagHelper
+4.TagHelper（附带部分适用于LayUI的辅助类）
 辅助类 CDNImageHelper
-TagHelperOutput扩展方法 GetAttribute、RemoveAttribute、AddClass</Description>
+TagHelperOutput扩展方法 GetAttribute、RemoveAttribute、AddClass
+5、扩展模块
+JsonWebToken 构造器JwtTokenBuilder 配置app.AddJsonWebTokenAuthentication
+EntityFramework扩展：RemoveOne、RemoveOneAndSave
+    </Description>
     <Product>OYMLCN.Web</Product>
     <PackageId>OYMLCN.Web.Mvc</PackageId>
   </PropertyGroup>
