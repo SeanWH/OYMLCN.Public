@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OYMLCN.Extension", "OYMLCN.Extension\OYMLCN.Extension.csproj", "{930E23A5-3FE2-434C-BDFD-1F9C0E0A2E92}"
 EndProject

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -40,7 +40,7 @@ namespace OYMLCN
         /// <param name="first"></param>
         /// <param name="second"></param>
         /// <returns></returns>
-        public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second)=>
+        public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second) =>
              first.Compose(second, Expression.AndAlso);
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace OYMLCN
         /// <param name="first"></param>
         /// <param name="second"></param>
         /// <returns></returns>
-        public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second)=>
+        public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second) =>
             first.Compose(second, Expression.OrElse);
 
         /// <summary>
