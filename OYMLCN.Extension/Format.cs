@@ -149,7 +149,29 @@ namespace OYMLCN
         /// <param name="second">是否包含秒</param>
         /// <returns></returns>
         public static string ToCnDatetimeString(this DateTime dt, bool second = false) =>
-            dt.ToString(second ? "yyyy年MM月dd日 HH:mm:ss" : "yyyy年MM月dd日 HH:mm");
+            dt.ToString($"yyyy年MM月dd日 HH:mm{(second ? ":ss" : "")}");
+
+
+        /// <summary>
+        /// 时间转字符 年-月
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static string ToMonthString(this DateTime dt) => dt.ToString("yyyy-MM");
+        /// <summary>
+        /// 时间转字符 年-月-日
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static string ToDateString(this DateTime dt) => dt.ToString("yyyy-MM-dd");
+        /// <summary>
+        /// 时间转字符 年-月-日 时:分|秒
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <param name="second">是否包含秒</param>
+        /// <returns></returns> 
+        public static string ToDatetimeString(this DateTime dt, bool second = false) =>
+            dt.ToString($"yyyy-MM-dd HH:mm{(second ? ":ss" : "")}");
 
         /// <summary>
         /// 时间转换 时分|秒
@@ -158,7 +180,7 @@ namespace OYMLCN
         /// <param name="second">是否包含秒</param>
         /// <returns></returns>
         public static string ToTimeString(this DateTime dt, bool second = false) =>
-            dt.ToString(second ? "HH:mm:ss" : "HH:mm");
+            dt.ToString($"HH:mm{(second ? ":ss" : "")}");
         /// <summary>
         /// 时间转换 日时分|秒
         /// </summary>
@@ -166,7 +188,7 @@ namespace OYMLCN
         /// <param name="second">是否包含秒</param>
         /// <returns></returns>
         public static string ToDayTimeString(this DateTime dt, bool second = false) =>
-            dt.ToString(second ? "dd HH:mm:ss" : "dd HH:mm");
+            dt.ToString($"dd HH:mm{(second ? ":ss" : "")}");
 
         /// <summary>
         /// 与现在时间的间隔（中文） --前/后
@@ -207,7 +229,7 @@ namespace OYMLCN
             var minute = interval.Minutes;
             if (minute != 0)
             {
-                if (minute < 0 && minute > -3)
+                if (minute < 0 && minute > -1)
                     return "刚刚";
                 minute = minute < 0 ? minute * -1 : minute;
                 return $"{minute}分钟{endStr}";

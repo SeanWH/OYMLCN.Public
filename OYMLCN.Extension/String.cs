@@ -85,7 +85,7 @@ namespace OYMLCN
         /// <param name="values"></param>
         /// <param name="comparison"></param>
         /// <returns></returns>
-        public static bool IsEqual(this string str,string[] values, StringComparison comparison = StringComparison.Ordinal)
+        public static bool IsEqual(this string str, string[] values, StringComparison comparison = StringComparison.Ordinal)
         {
             foreach (var value in values)
                 if (str.Equals(value, comparison))
@@ -212,7 +212,15 @@ namespace OYMLCN
         /// <param name="sign">分割标识</param>
         /// <param name="option">分割结果去重方式</param>
         /// <returns></returns>
+
         public static string[] SplitBySign(this string str, string sign, StringSplitOptions option = StringSplitOptions.None) => str?.Split(new string[] { sign }, option) ?? new string[0];
+        /// <summary>
+        /// 根据标志分割字符串(不包含空字符串)
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="sign"></param>
+        /// <returns></returns>
+        public static string[] SplitBySignWithoutEmpty(this string str, string sign) => str.SplitBySign(sign, StringSplitOptions.RemoveEmptyEntries);
         /// <summary>
         /// 根据标志分割字符串后获得第一个字符串
         /// </summary>
