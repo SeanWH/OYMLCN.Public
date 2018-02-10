@@ -13,7 +13,7 @@ namespace OYMLCN
     /// <summary>
     /// JsonExtension
     /// </summary>
-    public static partial class NewtonsoftJsonExtension
+    public static partial class NewtonsoftJsonExtensions
     {
         static string DecodeUnicode(Match match)
         {

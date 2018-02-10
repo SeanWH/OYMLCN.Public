@@ -9,7 +9,7 @@ namespace OYMLCN
     /// <summary>
     /// 系统信息辅助方法
     /// </summary>
-    public static class SystemInfoHelper
+    public static class SystemInfoHelpers
     {
         /// <summary>
         /// 内存信息

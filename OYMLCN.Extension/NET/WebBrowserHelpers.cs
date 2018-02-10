@@ -10,7 +10,7 @@ namespace OYMLCN
     /// <summary>
     /// WebBrowserHelper
     /// </summary>
-    public static class WebBrowserHelper
+    public static class WebBrowserHelpers
     {
         static string appName = Process.GetCurrentProcess().ProcessName + ".exe";
         #region SetIEKeyforWebBrowserControl

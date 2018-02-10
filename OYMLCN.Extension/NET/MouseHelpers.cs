@@ -6,7 +6,7 @@ namespace OYMLCN
     /// <summary>
     /// 鼠标操作
     /// </summary>
-    public static class MouseHelper
+    public static class MouseHelpers
     {
         /// <summary>
         /// mouse_event
