@@ -62,9 +62,19 @@ namespace OYMLCN
         /// </summary>
         public static void SetIEProxyInDisable() => SetIEProxy();
 
-
+        static int GetWindowFromPoint(int xPoint, int yPoint) =>
+            Environment.Is64BitProcess ?
+                WindowFromPoint(new POINT() { x = xPoint, y = yPoint })
+                : WindowFromPoint(xPoint, yPoint);
         [DllImport("user32", EntryPoint = "WindowFromPoint")]//指定坐标处窗体句柄
         static extern int WindowFromPoint(int xPoint, int yPoint);
+        struct POINT
+        {
+            public int x { get; set; }
+            public int y { get; set; }
+        }
+        [DllImport("user32", EntryPoint = "WindowFromPoint")]//指定坐标处窗体句柄
+        static extern int WindowFromPoint(POINT point);
         const int WM_CLOSE = 0x10;
         [DllImport("user32", EntryPoint = "SendMessageA")]
         static extern int SendMessage(int hwnd, int wMsg, int wParam, int lParam);
@@ -90,7 +100,7 @@ namespace OYMLCN
         /// <returns></returns>
         public static bool CloseWindowFormPoint(int xPoint, int yPoint)
         {
-            var point = WindowFromPoint(xPoint, yPoint);
+            var point = GetWindowFromPoint(xPoint, yPoint);
             if (point > 0)
                 return SendMessage(point, WM_CLOSE, 0, 0) > 0;
             return false;
@@ -105,7 +115,7 @@ namespace OYMLCN
         /// <returns></returns>
         public static bool CloseWindowFormPointWidthSize(int xPoint, int yPoint, int width, int height)
         {
-            var point = WindowFromPoint(xPoint, yPoint);
+            var point = GetWindowFromPoint(xPoint, yPoint);
             if (point > 0)
             {
                 RECT rc = new RECT();
@@ -126,7 +136,7 @@ namespace OYMLCN
         {
             var area = SystemInformation.WorkingArea;
             int iAreaWidth = area.Width, iAreaHeight = area.Height;
-            var point = WindowFromPoint(iAreaWidth - 10, iAreaHeight - 10);
+            var point = GetWindowFromPoint(iAreaWidth - 10, iAreaHeight - 10);
             if (point > 0)
             {
                 RECT rc = new RECT();

@@ -19,7 +19,7 @@
 独立模块：Cryptography、EmailSender、PredicateBuilder
 跨平台封装：CryptographyExtensions、DateTimeExtensions、FileExtensions、FormatExtensions、HTMLExtensions、HttpClientExtensions、LinqExtensions、ProcessExtensions、StreamExtensions、StringExtensions、WebClientExtensions、XmlExtensions、ZipExtensions</Description>
     <Copyright>OYML.CN</Copyright>
-    <Version>1.1.3</Version>
+    <Version>1.1.4</Version>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
