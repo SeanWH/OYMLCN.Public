@@ -14,7 +14,7 @@ namespace OYMLCN
     public static class Extensions
     {
         #region ReleaseMemory释放内存
-        [DllImport("kernel32.dll")]
+        [DllImport("kernel32")]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool SetProcessWorkingSetSize(IntPtr process, UIntPtr minimumWorkingSetSize, UIntPtr maximumWorkingSetSize);
         /// <summary>

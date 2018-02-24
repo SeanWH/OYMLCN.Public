@@ -154,14 +154,17 @@ namespace OYMLCN
 
 
         /// <summary>
-        /// 获取路径文件的MD5码
+        /// 获取路径文件的MD5码(文件不存在时返回空值)
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
         public static string GetMD5Hash(this FileInfo file)
         {
-            using (FileStream temp = new FileStream(file.FullName, FileMode.Open))
-                return temp.GetMD5Hash();
+            if (file.Exists)
+                using (FileStream temp = new FileStream(file.FullName, FileMode.Open))
+                    return temp.GetMD5Hash();
+            else
+                return string.Empty;
         }
         /// <summary>
         /// 计算文件流的MD5
@@ -178,14 +181,17 @@ namespace OYMLCN
             return sb.ToString();
         }
         /// <summary>
-        /// 获取路径文件的SHA1码
+        /// 获取路径文件的SHA1码(文件不存在时返回空值)
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
         public static string GetSHA1Hash(this FileInfo file)
         {
-            using (FileStream temp = new FileStream(file.FullName, FileMode.Open))
-                return temp.GetSHA1Hash();
+            if (file.Exists)
+                using (FileStream temp = new FileStream(file.FullName, FileMode.Open))
+                    return temp.GetSHA1Hash();
+            else
+                return string.Empty;
         }
         /// <summary>
         /// 计算文件流的SHA1

@@ -17,14 +17,10 @@ namespace OYMLCN.AspNetCore
     public class Controller : Microsoft.AspNetCore.Mvc.Controller
     {
         /// <summary>
-        /// 是否来自腾讯云CDN加速服务
-        /// </summary>
-        public bool IsQcloudCDNRequest => HttpContext.Request.Headers["X-Tencent-Ua"].Contains("Qcloud");
-        /// <summary>
         /// 用户真实IP地址
         /// </summary>
         public IPAddress RequestSourceIP =>
-            IsQcloudCDNRequest ?
+            HttpContext.Request.Headers["X-Tencent-Ua"].Contains("Qcloud") && HttpContext.Request.Headers.ContainsKey("X-Forwarded-For") ?
                 IPAddress.Parse(HttpContext.Request.Headers["X-Forwarded-For"]) :
                 (Request.HttpContext.Features?.Get<IHttpConnectionFeature>()?.RemoteIpAddress ?? HttpContext.Connection.RemoteIpAddress);
 

@@ -7,7 +7,7 @@ namespace OYMLCN
     /// <summary>
     /// 注册表操作
     /// </summary>
-    public static class RegistryHelper
+    public static class RegistryHelpers
     {
         /// <summary>
         /// Url协议操作
