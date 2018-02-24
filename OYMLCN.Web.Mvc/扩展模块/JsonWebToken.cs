@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
-namespace OYMLCN.Web.Mvc
+namespace OYMLCN.AspNetCore
 {
     public static class JsonWebToken
     {

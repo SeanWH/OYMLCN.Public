@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 
-namespace OYMLCN.Web.Mvc
+namespace OYMLCN.AspNetCore
 {
     /// <summary>
     /// 邮件发送

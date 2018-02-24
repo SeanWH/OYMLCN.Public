@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Text;
+using OYMLCN;
+using System.Net;
 
 namespace Microsoft.Extensions.Configuration
 {
@@ -70,6 +73,36 @@ namespace Microsoft.Extensions.Configuration
                   OriginalForHeaderName = "X-Original-For",
                   OriginalProtoHeaderName = "X-Original-Proto",
                   ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+              });
+
+        /// <summary>
+        /// 返回异常Json数据信息
+        /// </summary>
+        /// <param name="app"></param>
+        /// <returns></returns>
+        public static IApplicationBuilder UseApiStatusCodeAndExceptionHander(this IApplicationBuilder app) =>
+              app.UseStatusCodePages(context =>
+              {
+                  var response = context.HttpContext.Response;
+                  response.ContentType = "application/json";
+                  return response.WriteAsync(new
+                  {
+                      code = response.StatusCode,
+                      msg = $"{response.StatusCode.ToString()} {((HttpStatusCode)response.StatusCode).ToString()}"
+                  }.ToJsonString(), Encoding.UTF8);
+              }).UseExceptionHandler(config =>
+              {
+                  config.Run(handler =>
+                  {
+                      var err = handler.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature>();
+                      handler.Response.StatusCode = 200;
+                      handler.Response.ContentType = "application/json";
+                      return handler.Response.WriteAsync(new
+                      {
+                          code = 500,
+                          msg = err.Error.Message
+                      }.ToJsonString(), Encoding.UTF8);
+                  });
               });
 
     }

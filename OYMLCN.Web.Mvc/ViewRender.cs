@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Routing;
 using System;
 using System.IO;
 
-namespace OYMLCN.Web.Mvc
+namespace OYMLCN.AspNetCore
 {
     /// <summary>
     /// 视图渲染

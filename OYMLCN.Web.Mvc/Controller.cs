@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
 using Microsoft.AspNetCore.Mvc.Routing;
 
-namespace OYMLCN.Web.Mvc
+namespace OYMLCN.AspNetCore
 {
     /// <summary>
     /// Controller
